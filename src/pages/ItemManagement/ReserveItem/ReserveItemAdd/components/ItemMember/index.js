@@ -69,7 +69,7 @@ const ItemMember = () => {
                                         icon={<PlusOutlined />}
                                     >
                                         添加设计组成员
-                  </Button>
+                                    </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
                             </>
@@ -129,7 +129,7 @@ const ItemMember = () => {
                                         icon={<PlusOutlined />}
                                     >
                                         添加开发生产组成员
-                  </Button>
+                                    </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
                             </>
@@ -189,7 +189,7 @@ const ItemMember = () => {
                                         icon={<PlusOutlined />}
                                     >
                                         添加安装调试组成员
-                  </Button>
+                                    </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
                             </>
@@ -249,7 +249,7 @@ const ItemMember = () => {
                                         icon={<PlusOutlined />}
                                     >
                                         添加设计组成员
-                  </Button>
+                                    </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
                             </>

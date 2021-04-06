@@ -17,7 +17,7 @@ const ItemMoney = () => {
     return (
         <>
             <Title level={3}>奖金比例</Title>
-            <Row key="1">
+            <Row key="2">
                 <Col span={12}>
                     <Form.Item
                         label="方案设计组"

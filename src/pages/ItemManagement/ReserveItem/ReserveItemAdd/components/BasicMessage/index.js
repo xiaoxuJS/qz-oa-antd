@@ -81,7 +81,7 @@ const BasicMessage = () => {
                             <Radio value={2}>2</Radio>
                             <Radio value={3}>3</Radio>
                             <Radio value={4}>4</Radio>
-                            <Radio value={4}>5</Radio>
+                            <Radio value={5}>5</Radio>
                         </Radio.Group>
                     </Form.Item>
                 </Col>

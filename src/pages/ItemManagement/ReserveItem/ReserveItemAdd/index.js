@@ -8,6 +8,10 @@ import ItemTime from './components/ItemTime';
 import ItemMember from './components/ItemMember';
 //项目奖金
 import ItemMoney from './components/ItemMoney';
+//项目材料
+import ItemMaterials from './components/ItemMaterials';
+//项目预算
+import ItemBudget from './components/ItemBudget'
 
 import { ReserveItemAddAll } from "./style";
 import {
@@ -20,6 +24,7 @@ import {
     Typography
 } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
+
 
 const { Title } = Typography;
 
@@ -75,40 +80,13 @@ const ReserveItemAdd = () => {
                 <ItemMember />
                 {/* 项目奖金 */}
                 <ItemMoney />
-                <Title level={3}>项目材料</Title>
-                <Row key="5">
-                    <Col span={24}>
-                        <Form.Item label="附件" {...span24}>
-                            <Upload
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                listType="picture"
-                                defaultFileList={[...fileList]}
-                            >
-                                <Button icon={<UploadOutlined />}>Upload</Button>
-                                注：文件中需要包含厂家、功能、材料名称、型号规格、单价(含税)、数量、运费、总价、厂家联系方式、配料清单（配料清单）
-                            </Upload>
-                            {/* <UploadFile onChange={onChange} upTitle="附件上传" /> */}
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Title level={3}>项目预算</Title>
-                <Row key="5">
-                    <Col span={24}>
-                        <Form.Item label="附件" {...span24}>
-                            <Upload
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                listType="picture"
-                                defaultFileList={[...fileList]}
-                            >
-                                <Button icon={<UploadOutlined />}>Upload</Button>
-                                注：  材料费、工时费、相关差旅费、售后服务费、安装调试费、准确率、总计
-                            </Upload>
-                            {/* <UploadFile onChange={onChange} upTitle="附件上传" /> */}
-                        </Form.Item>
-                    </Col>
-                </Row>
+                {/* 项目材料 */}
+                <ItemMaterials />
+                {/* 项目预算 */}
+                <ItemBudget />
+
                 <Title level={3}>其他附件</Title>
-                <Row key="5">
+                <Row key="7">
                     <Col span={24}>
                         <Form.Item label="附件" {...span24}>
                             <Upload
