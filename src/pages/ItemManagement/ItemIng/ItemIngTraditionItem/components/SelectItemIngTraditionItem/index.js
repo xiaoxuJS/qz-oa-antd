@@ -6,7 +6,7 @@ const { Option } = Select;
  * @author 徐博亚
  * @param {}
  */
-const SelectReserveIOTIem = ({handleChangeList}) => {
+const SelectItemIngTraditionItem = ({handleChangeList}) => {
   //搜索
   const onFinish = (values) => {
     handleChangeList(values)
@@ -98,4 +98,4 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export default SelectReserveIOTIem;
+export default SelectItemIngTraditionItem;

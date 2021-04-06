@@ -36,7 +36,9 @@ const Home = () => {
     <HomeAllBOx>
       <Layout>
         <Header className="header">
-          <div className="logo" />
+          <div className="logo">
+            琪智科技
+          </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             {menuTopRouter
               ? menuTopRouter.map((item) => {

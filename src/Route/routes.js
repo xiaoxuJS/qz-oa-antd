@@ -25,6 +25,8 @@ import ReserveTraditionItem from "../pages/ItemManagement/ReserveItem/ReserveTra
 import ReserveSoftwareItem from "../pages/ItemManagement/ReserveItem/ReserveSoftwareItem";
 //项目管理-储备项目-添加项目
 import ReserveItemAdd from "../pages/ItemManagement/ReserveItem/ReserveItemAdd";
+//项目管理-储备项目-项目详情
+import ReserveItemDetails from "../pages/ItemManagement/ReserveItem/ReserveItemDetails";
 //客户管理-进行中项目-物联网项目
 import ItemIngIOTItem from "../pages/ItemManagement/ItemIng/ItemIngIOTItem";
 //传统项目
@@ -232,6 +234,10 @@ const userRouter = [
   {
     path: "/ReserveItem/add",
     component: ReserveItemAdd,
+  },
+  {
+    path: "/ReserveItem/details",
+    component: ReserveItemDetails,
   },
 ];
 export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, userRouter };

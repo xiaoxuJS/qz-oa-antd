@@ -25,9 +25,14 @@ const ReserveIOTItem = () => {
   
   const columns = [
     {
+      title: '#',
+      render: (text, record, index) => <span>{ index + 1}</span>
+    },
+    {
       title: '项目名称',
       dataIndex: 'name',
       key: 'name',
+      render: text => <Button type="link" onClick = {() => handleEnterReserveItemDetails()}>{text}</Button>
     },
     {
       title: '项目简介',
@@ -52,6 +57,10 @@ const ReserveIOTItem = () => {
   ];
   const handleAddREserveItem = () => {
     history.push('/ReserveItem/add')
+  }
+  //进入项目详情
+  const handleEnterReserveItemDetails = () => {
+    history.push('/ReserveItem/details')
   }
   return (
     <ReserveIOTItemAll>
