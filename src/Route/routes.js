@@ -27,11 +27,20 @@ import ReserveSoftwareItem from "../pages/ItemManagement/ReserveItem/ReserveSoft
 import ReserveItemAdd from "../pages/ItemManagement/ReserveItem/ReserveItemAdd";
 //项目管理-储备项目-项目详情
 import ReserveItemDetails from "../pages/ItemManagement/ReserveItem/ReserveItemDetails";
-//客户管理-进行中项目-物联网项目
+//项目管理-进行中项目-物联网项目
 import ItemIngIOTItem from "../pages/ItemManagement/ItemIng/ItemIngIOTItem";
 //传统项目
 import ItemIngTraditionItem from "../pages/ItemManagement/ItemIng/ItemIngTraditionItem";
+//软件项目
 import ItemIngSoftwareItem from "../pages/ItemManagement/ItemIng/ItemIngSoftwareItem";
+//项目管理-已成交项目-物联网项目
+import OverIOTItem from "../pages/ItemManagement/OverItem/OverIOTItem";
+
+//传统项目
+import OverTraditionItem from "../pages/ItemManagement/OverItem/OverTraditionItem";
+//软件项目
+import OverSoftwareItem from "../pages/ItemManagement/OverItem/OverSoftwareItem";
+
 //头部导航
 const menuTopRouter = [
   {
@@ -198,6 +207,44 @@ const menuLeftItemRouter = [
         },
         path: "/itemIngSoftwareItem",
         component: ItemIngSoftwareItem,
+      },
+    ],
+  },
+  {
+    key: 32,
+    meta: {
+      title: "已成交项目",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/overIOTItem",
+    component: OverIOTItem,
+    page: [
+      {
+        key: 310,
+        meta: {
+          title: "物联网项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/overIOTItem",
+        component: OverIOTItem,
+      },
+      {
+        key: 311,
+        meta: {
+          title: "传统项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/overTraditionItem",
+        component: OverTraditionItem,
+      },
+      {
+        key: 312,
+        meta: {
+          title: "软件项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/overSoftwareItem",
+        component: OverSoftwareItem,
       },
     ],
   },
