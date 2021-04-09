@@ -35,11 +35,16 @@ import ItemIngTraditionItem from "../pages/ItemManagement/ItemIng/ItemIngTraditi
 import ItemIngSoftwareItem from "../pages/ItemManagement/ItemIng/ItemIngSoftwareItem";
 //项目管理-已成交项目-物联网项目
 import OverIOTItem from "../pages/ItemManagement/OverItem/OverIOTItem";
-
 //传统项目
 import OverTraditionItem from "../pages/ItemManagement/OverItem/OverTraditionItem";
 //软件项目
 import OverSoftwareItem from "../pages/ItemManagement/OverItem/OverSoftwareItem";
+//项目管理-质保段项目-互联网项目
+import QualityIOTItem from "../pages/ItemManagement/qualityItem/QualityIOTItem";
+//传统项目
+import QualityTraditionItem from "../pages/ItemManagement/qualityItem/QualityTraditionItem";
+//软件项目
+import QualitySoftwareItem from "../pages/ItemManagement/qualityItem/QualitySoftwareItem";
 
 //头部导航
 const menuTopRouter = [
@@ -213,6 +218,44 @@ const menuLeftItemRouter = [
   {
     key: 32,
     meta: {
+      title: "质保段项目",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/qualityIOTItem",
+    component: QualityIOTItem,
+    page: [
+      {
+        key: 320,
+        meta: {
+          title: "物联网项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/qualityIOTItem",
+        component: QualityIOTItem,
+      },
+      {
+        key: 321,
+        meta: {
+          title: "传统项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/qualityTraditionItem",
+        component: QualityTraditionItem,
+      },
+      {
+        key: 322,
+        meta: {
+          title: "软件项目",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/qualitySoftwareItem",
+        component: QualitySoftwareItem,
+      },
+    ],
+  },
+  {
+    key: 33,
+    meta: {
       title: "已成交项目",
       icon: <DatabaseOutlined />,
     },
@@ -220,7 +263,7 @@ const menuLeftItemRouter = [
     component: OverIOTItem,
     page: [
       {
-        key: 310,
+        key: 330,
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -229,7 +272,7 @@ const menuLeftItemRouter = [
         component: OverIOTItem,
       },
       {
-        key: 311,
+        key: 331,
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -238,7 +281,7 @@ const menuLeftItemRouter = [
         component: OverTraditionItem,
       },
       {
-        key: 312,
+        key: 332,
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
