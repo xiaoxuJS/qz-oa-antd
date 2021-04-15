@@ -17,3 +17,11 @@ export const HomeAllBOx = styled.div`
     color: white;
   }
 `
+export const HomeMessage = styled.div`
+  float: right;
+  color: #fff;
+`
+export const HomeHeaderConter = styled.div`
+  float: left;
+  color: #fff;
+`

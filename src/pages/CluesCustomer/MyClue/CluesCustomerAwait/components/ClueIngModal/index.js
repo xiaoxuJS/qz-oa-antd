@@ -31,6 +31,7 @@ const ClueIngModal = ({ clueIngModalShow, handleClueIngModalShow }) => {
       visible={clueIngModalShow}
       onOk={handleClueIngModalOk}
       onCancel={handleCancel}
+      forceRender = {true}
     >
     <Form
       {...layout}

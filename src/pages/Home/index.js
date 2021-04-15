@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 //引入路由
 import UserRoutes from "../../Route";
-import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter } from "../../Route/routes";
+import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter } from "../../Route/routes";
 import { useHistory } from "react-router-dom";
-import { HomeAllBOx } from "./style";
+import { HomeAllBOx, HomeMessage, HomeHeaderConter } from "./style";
 //component
 import HomeNav from "./components/HomeNav";
 //antd
@@ -27,6 +27,9 @@ const Home = () => {
       case '/reserveIOTItem':
         setMenuLeftData(menuLeftItemRouter);
         break;
+      case '/parkMessage':
+        setMenuLeftData(meunParkMessageRouter);
+        break;
       default: 
         setMenuLeftData(menuLeftUserRouter);
     }
@@ -39,6 +42,7 @@ const Home = () => {
           <div className="logo">
             琪智科技
           </div>
+          <HomeHeaderConter>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             {menuTopRouter
               ? menuTopRouter.map((item) => {
@@ -53,6 +57,11 @@ const Home = () => {
                 })
               : null}
           </Menu>
+          </HomeHeaderConter>
+          <HomeMessage>
+            xiaxoujs
+          </HomeMessage>
+
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">

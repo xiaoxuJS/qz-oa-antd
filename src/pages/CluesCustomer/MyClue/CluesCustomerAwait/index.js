@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+//api
+import {
+  sofClueFindClue
+} from '../../../../Api/userUrl'
 //component
 //搜索框组件
 import SelectSupervise from "./components/SelectSupervise";
@@ -17,6 +21,19 @@ import { PageHeader, Button, Table, Space, Popconfirm, message } from "antd";
 
 const CluesCustomerAwait = () => {
   const history = new useHistory();
+  useEffect(() => {
+    const params = {
+      currentPage: 1,
+      size: 10,
+      status: 0
+    }
+    ;(async () => {
+      const {code, data} = await sofClueFindClue(params);
+      if(code) {
+        console.log(data)
+      }
+    })();
+  }, [])
 
   const [clueIngModalShow, setClueIngModalShow] = useState(false);
   const data = [

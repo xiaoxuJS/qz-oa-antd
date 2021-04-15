@@ -45,6 +45,12 @@ import QualityIOTItem from "../pages/ItemManagement/qualityItem/QualityIOTItem";
 import QualityTraditionItem from "../pages/ItemManagement/qualityItem/QualityTraditionItem";
 //软件项目
 import QualitySoftwareItem from "../pages/ItemManagement/qualityItem/QualitySoftwareItem";
+//停车场管理-车辆信息-车辆列表
+import ParkMessage from "../pages/ParkingLot/ParkMessage/ParkMessage";
+//车辆详情
+import ParkMessageDetails from "../pages/ParkingLot/ParkMessage/ParkMessageDetails";
+//停车场管理-系统管理-车厂设置
+import ParkingManagement from "../pages/ParkingLot/SystemManagement/ParkingManagement";
 
 //头部导航
 const menuTopRouter = [
@@ -66,6 +72,15 @@ const menuTopRouter = [
     path: "/reserveIOTItem",
     component: ReserveIOTItem,
   },
+  {
+    key: 3,
+    meta: {
+      title: "停车场管理",
+      icon: <LaptopOutlined />,
+    },
+    path: "/parkMessage",
+    component: ParkMessage,
+  },
 ];
 //侧边栏导航-客户线索
 const menuLeftUserRouter = [
@@ -79,7 +94,7 @@ const menuLeftUserRouter = [
     component: CluesCustomerAwait,
     page: [
       {
-        key: 50,
+        key: 200,
         meta: {
           title: "待处理",
           icon: <DatabaseOutlined />,
@@ -88,7 +103,7 @@ const menuLeftUserRouter = [
         component: CluesCustomerAwait,
       },
       {
-        key: 51,
+        key: 201,
         meta: {
           title: "跟进中",
           icon: <DatabaseOutlined />,
@@ -97,7 +112,7 @@ const menuLeftUserRouter = [
         component: CluerCutomerIng,
       },
       {
-        key: 52,
+        key: 202,
         meta: {
           title: "已搁置",
           icon: <DatabaseOutlined />,
@@ -117,7 +132,7 @@ const menuLeftUserRouter = [
     component: ClueAllAtait,
     page: [
       {
-        key: 54,
+        key: 210,
         meta: {
           title: "待分配",
           icon: <DatabaseOutlined />,
@@ -126,7 +141,7 @@ const menuLeftUserRouter = [
         component: ClueAllAtait,
       },
       {
-        key: 53,
+        key: 211,
         meta: {
           title: "已分配",
           icon: <DatabaseOutlined />,
@@ -149,7 +164,7 @@ const menuLeftItemRouter = [
     component: ReserveIOTItem,
     page: [
       {
-        key: 301,
+        key: 300,
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -158,7 +173,7 @@ const menuLeftItemRouter = [
         component: ReserveIOTItem,
       },
       {
-        key: 302,
+        key: 301,
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -167,7 +182,7 @@ const menuLeftItemRouter = [
         component: ReserveTraditionItem,
       },
       {
-        key: 303,
+        key: 302,
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
@@ -292,26 +307,77 @@ const menuLeftItemRouter = [
     ],
   },
 ];
+
+//侧边栏导航-停车场管理
+const meunParkMessageRouter = [
+  {
+    key: 60,
+    meta: {
+      title: "停车信息",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/parkMessage",
+    component: ParkMessage,
+    page: [
+      {
+        key: 600,
+        meta: {
+          title: "车辆列表",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/parkMessage",
+        component: ParkMessage,
+      }
+    ],
+  },
+  {
+    key: 61,
+    meta: {
+      title: "系统管理",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/parkingManagement",
+    component: ParkingManagement,
+    page: [
+      {
+        key: 610,
+        meta: {
+          title: "车厂管理",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/parkingManagement",
+        component: ParkingManagement,
+      }
+    ],
+  },
+];
 //对导航栏进行数据处理
 const dataDispose = (data) => {
   let newArray = [];
   data.forEach((element) => {
     let data = [];
-    element.page.forEach((item) => {
-      data.push(item);
-    });
-    newArray = [...newArray, ...data];
+    if(element.hasOwnProperty('page')) {
+      element.page.forEach((item) => {
+        data.push(item);
+      });
+      newArray = [...newArray, ...data];
+    }else{
+      newArray = [...newArray];
+    }
+    
   });
   return newArray;
 };
 
 let menuLeftUserRouterPage = dataDispose(menuLeftUserRouter);
 let menuLeftItemRouterPage = dataDispose(menuLeftItemRouter);
+let meunParkMessageRouterPage = dataDispose(meunParkMessageRouter);
 
 const userRouter = [
   ...menuTopRouter,
   ...menuLeftUserRouterPage,
   ...menuLeftItemRouterPage,
+  ...meunParkMessageRouterPage,
   {
     path: "/cluesCustomerAwait/add",
     component: CluesCustomerAwaitAdd,
@@ -329,5 +395,10 @@ const userRouter = [
     path: "/ReserveItem/details",
     component: ReserveItemDetails,
   },
+  //停车场信息
+  {
+    path: "/parkMessage/details",
+    component:ParkMessageDetails
+  }
 ];
-export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, userRouter };
+export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter,  userRouter };
