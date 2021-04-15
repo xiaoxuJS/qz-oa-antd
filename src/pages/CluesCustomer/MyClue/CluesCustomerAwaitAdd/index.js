@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import { ip } from '../../../../Api/http'
+//获取公用方法
+import {
+  preProcessData
+} from '../../../../assets/comFun'
 import moment from 'moment';
+//api
 import {
   getSysMarkFindMark
 } from '../../../../Api/communalUrl'
+import {
+  putSofClueInsertClue
+} from '../../../../Api/userUrl'
 import { CluesCustomerAwaitAddAll } from "./style";
 import {
   PageHeader,
@@ -13,10 +22,12 @@ import {
   Select,
   Row,
   Col,
-  Upload,
-  DatePicker
+  DatePicker,
+  message
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -24,7 +35,8 @@ const CluesCustomerAwaitAdd = () => {
   const history = new useHistory();
   const [deployType, setDeployType] = useState([]); //部署类型
   const [source, setSource] = useState([]); //来源
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState([]);//上传文件列表
+  const [fileUrl, setFileUrl] = useState(null); //上传文件的文件名
   const getSysMarkFindMarkFun = useCallback((type) => {
     const val = {
       typeCode: type
@@ -52,25 +64,55 @@ const CluesCustomerAwaitAdd = () => {
     getSysMarkFindMarkFun("DEPLOY");
     getSysMarkFindMarkFun("RESOURCE");
   }, [getSysMarkFindMarkFun]);
-  // 、、form
+  // form
   const onFinish = (values) => {
-    if(values.startEndTime) {
+    if (values.startEndTime) {
       values.startTime = moment(values.startEndTime[0]).format('YYYY-MM-DD');
       values.endTime = moment(values.startEndTime[1]).format('YYYY-MM-DD');
       delete values.startEndTime;
     }
-    if(values.nextTime){
+    if (values.nextTime) {
       values.nextTime = moment(values.nextTime).format('YYYY-MM-DD');
     }
-    console.log("Success:", values);
+    if (fileUrl) {
+      values.paths = fileUrl;
+    }
+    values = preProcessData(values);
+    ; (async () => {
+      const {code, msg} = await putSofClueInsertClue(values);
+      if(code === '20000'){
+        history.go('-1');
+        message.success('创建成功');
+      }else{
+        message.error(msg);
+      }
+    })();
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  const handle = (e) => {
-    const target =[ ...e.target.files];
-    setFileList(target);
+  const handleChangeFile = info => {
+    let fileList = [...info.fileList];
+    fileList = fileList.slice(-3);
+    let fileUrls = [];
+    fileList = fileList.map(file => {
+      if (file.response) {
+        file.url = file.response.data;
+        if(file.response.code === "20000"){
+          fileUrls.push(file.response.data);
+        }
+      }
+      return file;
+    });
+    setFileList(fileList);
+    setFileUrl(fileUrls);
   }
+  //上传附件
+  const props = {
+    action: `${ip}/file/upload`,
+    multiple: true,
+    data:{
+      folder:'/clue'
+    },
+    onChange: handleChangeFile
+  };
   return (
     <CluesCustomerAwaitAddAll>
       <PageHeader
@@ -83,7 +125,6 @@ const CluesCustomerAwaitAdd = () => {
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Row key="1">
           <Col span={12}>
@@ -120,7 +161,7 @@ const CluesCustomerAwaitAdd = () => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="organizer"
+              name="resource"
               label="来源"
               hasFeedback
               rules={[{ required: true, message: "请选择来源！" }]}
@@ -130,8 +171,8 @@ const CluesCustomerAwaitAdd = () => {
                   ? source.map((item) => {
                     return (
                       <Option
-                        key={item.id}
-                        value={item.id}
+                        key={item.markValue}
+                        value={item.markValue}
                       >
                         {item.markName}
                       </Option>
@@ -207,7 +248,7 @@ const CluesCustomerAwaitAdd = () => {
               name="turnover"
               label="成交率"
               hasFeedback
-              rules={[{ required: true, message: "请选择来源！" }]}
+              rules={[{ required: true, message: "请选择成交率！" }]}
             >
               <Select placeholder="请选择成交率">
                 <Option key="1" value="50">
@@ -250,15 +291,9 @@ const CluesCustomerAwaitAdd = () => {
           </Col>
           <Col span={24}>
             <Form.Item label="附件" {...fujian}>
-            <input type="file" onChange ={handle} multiple/>
-              {/* <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture"
-                defaultFileList={[...fileList]}
-              >
-                <Button icon={<UploadOutlined />}>Upload</Button>
-              </Upload> */}
-              {/* <UploadFile onChange={onChange} upTitle="附件上传" /> */}
+              <Upload {...props} fileList={fileList}>
+                <Button icon={<UploadOutlined />}>上传附件</Button>
+              </Upload>
             </Form.Item>
           </Col>
         </Row>
