@@ -13,3 +13,8 @@ export function getSysMarkFindMark(data) {
     const url = ip + '/sys-mark/find/mark';
     return http(url, "get", data)
 }
+//用户列表
+export function getSysUserFindDropUser(data) {
+    const url = ip + '/sys-user/find/drop-user';
+    return http(url, "get", data)
+}

@@ -5,15 +5,18 @@ import { ip } from '../../../../Api/http'
 import {
   preProcessData
 } from '../../../../assets/comFun'
-import moment from 'moment';
 //api
 import {
-  getSysMarkFindMark
+  getSysMarkFindMark,
+  getSysUserFindDropUser
 } from '../../../../Api/communalUrl'
 import {
-  putSofClueInsertClue
+  putSofClueInsertClue,
+  getSofClueFindDetailClue,
+  postSofClueUpdateClue
 } from '../../../../Api/userUrl'
 import { CluesCustomerAwaitAddAll } from "./style";
+import moment from 'moment';
 import {
   PageHeader,
   Button,
@@ -33,10 +36,15 @@ const { RangePicker } = DatePicker;
 
 const CluesCustomerAwaitAdd = () => {
   const history = new useHistory();
+  const [form] = Form.useForm();
+  const { setFieldsValue } = form;
   const [deployType, setDeployType] = useState([]); //部署类型
   const [source, setSource] = useState([]); //来源
   const [fileList, setFileList] = useState([]);//上传文件列表
   const [fileUrl, setFileUrl] = useState(null); //上传文件的文件名
+  const [sessionMyClueId, setSessionMyClueId] = useState(null); //线索id
+  const [userList, setUserList] = useState([]); //用户数据
+
   const getSysMarkFindMarkFun = useCallback((type) => {
     const val = {
       typeCode: type
@@ -56,14 +64,69 @@ const CluesCustomerAwaitAdd = () => {
         }
       })();
     }
-
   }, [])
+  //获取用户下拉框
+  const getUserList = useCallback(() => {
+    ; (async () => {
+      const { code, data } = await getSysUserFindDropUser();
+      if (code) {
+        setUserList(data)
+      }
+    })();
+  }, []);
+  //编辑 回显
+  const getClueDetails = useCallback((myClueId) => {
+    const promes = {
+      clueId: myClueId
+    }
+      ; (async () => {
+        const { code, data } = await getSofClueFindDetailClue(promes);
+        if (code === '20000') {
+          let formData = {
+            clientName: data.clientName,
+            linkman: data.linkman,
+            mobile: data.mobile,
+            email: data.email,
+            resource: data.resourceVal,
+            marketing: data.marketing,
+            deploy: data.deployVal,
+            site: data.site,
+            startEndTime: [
+              moment(data.startTime),
+              moment(data.endTime)
+            ],
+            budget: data.budget,
+            nextTime:  data.nextTime ? moment(data.nextTime) : undefined,
+            turnover: data.turnoverVal+ '',
+            pm: data.pmId ? data.pmId + '': undefined
+          };
+          let files = []
+          data.files.forEach(element => {
+            files.push({
+              uid: element.id,
+              name: element.fileName,
+              status: 'done',
+              url: element.path
+            })
+          });
+          setFileList(files);
+
+          setFieldsValue(formData);
+        }
+      })();
+  },[setFieldsValue]) 
 
 
   useEffect(() => {
     getSysMarkFindMarkFun("DEPLOY");
     getSysMarkFindMarkFun("RESOURCE");
-  }, [getSysMarkFindMarkFun]);
+    getUserList();
+    const myClueId = sessionStorage.getItem('myClueId');
+    if (myClueId) {
+      getClueDetails(myClueId);
+      setSessionMyClueId(myClueId);
+    }
+  }, [getSysMarkFindMarkFun, getUserList,getClueDetails]);
   // form
   const onFinish = (values) => {
     if (values.startEndTime) {
@@ -74,19 +137,37 @@ const CluesCustomerAwaitAdd = () => {
     if (values.nextTime) {
       values.nextTime = moment(values.nextTime).format('YYYY-MM-DD');
     }
-    if (fileUrl) {
-      values.paths = fileUrl;
-    }
+
     values = preProcessData(values);
-    ; (async () => {
-      const {code, msg} = await putSofClueInsertClue(values);
-      if(code === '20000'){
-        history.go('-1');
-        message.success('创建成功');
-      }else{
-        message.error(msg);
+    if(sessionMyClueId) { //修改
+      values.id = sessionMyClueId;
+      values.paths = [];
+      fileList&&fileList.forEach(element => {
+        values.paths.push(element.url)
+      });
+      ; (async () => {
+        const { code, msg } = await postSofClueUpdateClue(values);
+        if (code === '20000') {
+          history.go('-1');
+          message.success('修改成功');
+        } else {
+          message.error(msg);
+        }
+      })();
+    }else{ //新增
+      if (fileUrl) {
+        values.paths = fileUrl;
       }
-    })();
+      ; (async () => {
+        const { code, msg } = await putSofClueInsertClue(values);
+        if (code === '20000') {
+          history.go('-1');
+          message.success('创建成功');
+        } else {
+          message.error(msg);
+        }
+      })();
+    }
   };
   const handleChangeFile = info => {
     let fileList = [...info.fileList];
@@ -95,7 +176,7 @@ const CluesCustomerAwaitAdd = () => {
     fileList = fileList.map(file => {
       if (file.response) {
         file.url = file.response.data;
-        if(file.response.code === "20000"){
+        if (file.response.code === "20000") {
           fileUrls.push(file.response.data);
         }
       }
@@ -108,23 +189,29 @@ const CluesCustomerAwaitAdd = () => {
   const props = {
     action: `${ip}/file/upload`,
     multiple: true,
-    data:{
-      folder:'/clue'
+    data: {
+      folder: '/clue'
     },
     onChange: handleChangeFile
   };
+  //返回
+  const handleGoBack = () => {
+    sessionStorage.removeItem('myClueId');
+    history.go(-1);
+  }
   return (
     <CluesCustomerAwaitAddAll>
       <PageHeader
         className="site-page-header"
-        title="我的线索-线索报备"
-        onBack={() => history.go(-1)}
+        title={sessionMyClueId ? "我的线索-线索修改" : "我的线索-线索报备"}
+        onBack={() => handleGoBack()}
       ></PageHeader>
       <Form
         {...layout}
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
+        form={form}
       >
         <Row key="1">
           <Col span={12}>
@@ -198,8 +285,8 @@ const CluesCustomerAwaitAdd = () => {
                   ? deployType.map((item) => {
                     return (
                       <Option
-                        key={item.id}
-                        value={item.id}
+                        key={item.markValue}
+                        value={item.markValue}
                       >
                         {item.markName}
                       </Option>
@@ -240,7 +327,20 @@ const CluesCustomerAwaitAdd = () => {
 
           <Col span={12}>
             <Form.Item label="项目经理" name="pm">
-              <Input />
+              <Select placeholder="请选择项目经理">
+                {userList
+                  ? userList.map((item) => {
+                    return (
+                      <Option
+                        key={item.id}
+                        value={item.id}
+                      >
+                        {item.name}
+                      </Option>
+                    );
+                  })
+                  : null}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -251,40 +351,17 @@ const CluesCustomerAwaitAdd = () => {
               rules={[{ required: true, message: "请选择成交率！" }]}
             >
               <Select placeholder="请选择成交率">
-                <Option key="1" value="50">
+                <Option key="1" value="0.5">
                   50%
                 </Option>
-                <Option key="2" value="65">
+                <Option key="2" value="0.65">
                   65%
                 </Option>
-                <Option key="3" value="80">
+                <Option key="3" value="0.8">
                   80%
                 </Option>
-                <Option key="4" value="100">
+                <Option key="4" value="1">
                   100%
-                </Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="status"
-              label="线索类型"
-              hasFeedback
-              rules={[{ required: true, message: "请选择线索类型！" }]}
-            >
-              <Select placeholder="请选择线索类型">
-                <Option key="1" value="0">
-                  待处理
-                </Option>
-                <Option key="2" value="1">
-                  跟进中
-                </Option>
-                <Option key="3" value="2">
-                  已转客户
-                </Option>
-                <Option key="4" value="3">
-                  已搁置
                 </Option>
               </Select>
             </Form.Item>
@@ -299,7 +376,7 @@ const CluesCustomerAwaitAdd = () => {
         </Row>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
-            提交
+            {sessionMyClueId ? '修改': '提交'}
           </Button>
         </Form.Item>
       </Form>

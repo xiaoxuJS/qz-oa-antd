@@ -1,5 +1,8 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import {
+  sofClueFindClue
+} from '../../../../Api/userUrl'
 import { CluerCutomerIngAll } from "./style";
 //component
 //搜索组件
@@ -12,29 +15,26 @@ import { PageHeader, Button, Table, Space, Popconfirm, message } from "antd";
 const CluerCutomerIng = () => {
   const history = new useHistory();
   const [clueIngModalShow, setClueIngModalShow] = useState(false);
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  const [listData, setListData] = useState([]); //列表数据
+  // const [listTotal, setListTotal] = useState([]); //一共有多少条数据
+  //获取列表
+  const getListData = useCallback((params) => {
+    ; (async () => {
+      const { code, data } = await sofClueFindClue(params);
+      if (code === '20000') {
+        setListData(data.records);
+        // setListTotal(data.total);
+      }
+    })();
+  }, [])
+  useEffect(() => {
+    const params = {
+      currentPage: 1,
+      size: 10,
+      status: 1
+    }
+    getListData(params);
+  }, [getListData]);
   const columns = [
     {
       title: "#",
@@ -42,33 +42,38 @@ const CluerCutomerIng = () => {
     },
     {
       title: "客户名称",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => (
-        <Button type="link" onClick={() => handleEnterDetails()}>
+      dataIndex: "clientName",
+      key: "clientName",
+      render: (text, scoped) => (
+        <Button type="link" onClick={() => handleEnterDetails(scoped.id)}>
           {text}
         </Button>
       ),
     },
     {
       title: "部署类型",
-      dataIndex: "age",
-      key: "age",
+      dataIndex: "deploy",
+      key: "deploy",
     },
     {
-      title: "项目预算",
-      dataIndex: "address",
-      key: "address",
+      title: "项目预算（元）",
+      dataIndex: "budget",
+      key: "budget",
     },
     {
-      title: "周期",
-      dataIndex: "address",
-      key: "address",
+      title: "周期（开始时间）",
+      dataIndex: "startTime",
+      key: "startTime",
+    },
+    {
+      title: "周期（结束时间）",
+      dataIndex: "endTime",
+      key: "endTime",
     },
     {
       title: "成交率",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "turnover",
+      key: "turnover",
     },
 
     {
@@ -76,16 +81,16 @@ const CluerCutomerIng = () => {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <Button type="link" onClick={() => handleEnterChange()}>
+          <Button type="link" onClick={() => handleEnterChange(record.id)}>
             编辑
           </Button>
-          <Button type="link" onClick={() => handleClueIngModalShow(true)}>
+          <Button type="link" onClick={() => handleClueIngModalShow(true, record.id)}>
             线索跟进
           </Button>
           <Popconfirm
             placement="topRight"
             title={"您确认要转搁置吗？"}
-            onConfirm={handleShiftLayAside}
+            onConfirm={() => handleShiftLayAside(record.id)}
             okText="确定"
             cancelText="取消"
           >
@@ -130,8 +135,8 @@ const CluerCutomerIng = () => {
         title="我的线索-跟进中"
       ></PageHeader>
       <SelectSupervise handleChangeList={handleChangeList} />
-      <Table columns={columns} dataSource={data} />
-            {/* 弹框组件 */}
+      <Table columns={columns} dataSource={listData} />
+      {/* 弹框组件 */}
       <ClueIngModal
         clueIngModalShow={clueIngModalShow}
         handleClueIngModalShow={handleClueIngModalShow}

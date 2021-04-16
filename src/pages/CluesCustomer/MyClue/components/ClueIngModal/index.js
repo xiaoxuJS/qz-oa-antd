@@ -58,7 +58,7 @@ const ClueIngModal = ({ clueIngModalShow, handleClueIngModalShow }) => {
   useEffect(() => {
     resetFields();
     getMatter();
-  }, [resetFields , getMatter])
+  }, [clueIngModalShow, resetFields])
   return (
     <Modal
       title="线索跟进"
