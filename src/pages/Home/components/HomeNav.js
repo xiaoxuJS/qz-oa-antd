@@ -1,4 +1,8 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useContext } from "react";
+//公用数据
+import {
+    myContext
+} from '../../../reducer'
 import {
     useHistory
 } from 'react-router-dom'
@@ -9,10 +13,24 @@ const { SubMenu } = Menu;
 const HomeNav = ({ menuData }) => {
     const history = new useHistory();
     const contentHeight = window.innerHeight - 64;
+    const {dispatch} = useContext(myContext)
     useEffect(() => {
     }, [menuData])
 
-    const handleEnterPage = (path) => {
+    const handleEnterPage = (path, title) => {
+        switch(title) {
+            case '待处理':
+                dispatch({type: 'myClueType', myClueType: 0});
+                break;
+            case '跟进中':
+                dispatch({type: 'myClueType', myClueType: 1});
+                break;
+            case '已搁置':
+                dispatch({type: 'myClueType', myClueType: 3});
+                break;
+            default:
+                break;
+        }
         history.push(path)
     }
 
@@ -38,7 +56,7 @@ const HomeNav = ({ menuData }) => {
                                             ? item.page.map((data) => {
                                                 return <Menu.Item
                                                     key={data.key}
-                                                    onClick={() => handleEnterPage(data.path)}
+                                                    onClick={() => handleEnterPage(data.path, data.meta.title)}
                                                 >
                                                     {data.meta.title}
                                                 </Menu.Item>;

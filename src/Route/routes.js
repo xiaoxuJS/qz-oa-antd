@@ -8,10 +8,6 @@ import CluesCustomerAwaitAdd from "../pages/CluesCustomer/MyClue/CluesCustomerAw
 //客户线索-我的线索-待处理-线索详情
 import CluesCustomerAwaitDetails from "../pages/CluesCustomer/MyClue/CluesCustomerAwaitDetails";
 
-//跟进中
-import CluerCutomerIng from "../pages/CluesCustomer/MyClue/CluerCutomerIng";
-//已搁置
-import CluerCutomerAbandon from "../pages/CluesCustomer/MyClue/CluerCutomerAbandon";
 //客户线索-线索池-已分配
 import ClueAllAlready from "../pages/CluesCustomer/ClueAll/ClueAllAlready";
 //客户线索-线索池-待分配
@@ -108,8 +104,8 @@ const menuLeftUserRouter = [
           title: "跟进中",
           icon: <DatabaseOutlined />,
         },
-        path: "/cluerCutomerIng",
-        component: CluerCutomerIng,
+        path: "/cluesCustomerAwait/ing",
+        component: CluesCustomerAwait,
       },
       {
         key: 202,
@@ -117,8 +113,8 @@ const menuLeftUserRouter = [
           title: "已搁置",
           icon: <DatabaseOutlined />,
         },
-        path: "/cluerCutomerAbandon",
-        component: CluerCutomerAbandon,
+        path: "/cluesCustomerAwait/abandon",
+        component: CluesCustomerAwait,
       },
     ],
   },

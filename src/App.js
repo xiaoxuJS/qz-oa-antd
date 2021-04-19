@@ -1,4 +1,5 @@
 
+import React from 'react';
 //引入路由
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -14,22 +15,26 @@ import "moment/locale/zh-cn";
 import "antd/dist/antd.css";
 
 //公共样式
-import {StyleCommon} from './style'
+import { StyleCommon } from './style';
+//公共数据
+import { ContextProvider } from './reducer'
 
 moment.locale("zh_CN");
 
 function App() {
   return (
     <div className="App">
-        <Router basename = "/">
-            <StyleCommon />
-            <ConfigProvider locale = {zhCN}>
-                <Switch>
-                    <Route exact path = "/login" component = { Login } />
-                    <Route path = "/" component = { Home } />
-                </Switch>
-            </ConfigProvider>
-        </Router>
+      <Router basename="/">
+        <StyleCommon />
+        <ConfigProvider locale={zhCN}>
+          <ContextProvider>
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </ContextProvider>
+        </ConfigProvider>
+      </Router>
     </div>
   );
 }

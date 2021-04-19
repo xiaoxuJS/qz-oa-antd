@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useHistory } from "react-router-dom";
 //api
 import {
   sofClueFindClue,
   getSofClueUpdateClue,
   getSofClueDeteleClue
-} from '../../../../Api/userUrl'
+} from '../../../../Api/userUrl';
+//公共数据
+import {
+  myContext
+} from '../../../../reducer'
 //component
 //搜索框组件
 import SelectSupervise from "./components/SelectSupervise";
@@ -23,14 +27,23 @@ const { confirm } = Modal;
  * @returns
  */
 
+
 const CluesCustomerAwait = () => {
   const history = new useHistory();
+  const { state } = useContext(myContext);
+  const { myClueType } = state;
   const [clueIngModalShow, setClueIngModalShow] = useState(false); //弹框控件显示隐藏
   const [listData, setListData] = useState([]); //列表数据
   const [listTotal, setListTotal] = useState([]); //一共有多少条数据
   const [current, setcCurrent] = useState(1); // 当前页
   const [pageSize, setPageSize] = useState(10); //每页条数
   const [selectValue, setSelectValue] = useState(null); //搜索条件
+  const pageTypeValue = [
+    '待处理',
+    '跟进中',
+    '错误',
+    '已搁置'
+  ]
   //获取列表
   const getListData = useCallback((params) => {
     ; (async () => {
@@ -40,22 +53,22 @@ const CluesCustomerAwait = () => {
         setListTotal(data.total);
       }
     })();
-  }, [])
+  }, []);
   useEffect(() => {
     const params = {
       currentPage: 1,
       size: 10,
-      status: 0
+      status: myClueType
     }
     getListData(params);
-  }, [getListData]);
+  }, [getListData, myClueType]);
   //分页函数
   const onShowSizeChange = (current, pageSize) => {
     console.log(current, pageSize);
   };
   const handleChangePage = (page, pageSize) => {
     const params = {
-      status: 0,
+      status: myClueType,
       currentPage: page,
       size: pageSize,
       clientName: selectValue ? selectValue.clientName : null,
@@ -77,7 +90,7 @@ const CluesCustomerAwait = () => {
   //搜索
   const handleChangeList = (values) => {
     const params = {
-      status: 0,
+      status: myClueType,
       currentPage: 1,
       size: 10,
       clientName: values.clientName,
@@ -91,7 +104,7 @@ const CluesCustomerAwait = () => {
   const handleSelectReset = () => {
 
     const params = {
-      status: 0,
+      status: myClueType,
       currentPage: 1,
       size: 10
     }
@@ -107,8 +120,19 @@ const CluesCustomerAwait = () => {
   };
   //线索跟进弹框
   const handleClueIngModalShow = (show, id) => {
-    if(id) {
+    if (id) {
       sessionStorage.setItem('myClueId', id);
+    }
+    if (!show) {
+      const params = {
+        status: myClueType,
+        currentPage: current,
+        size: pageSize,
+        clientName: selectValue ? selectValue.clientName : null,
+        deploy: selectValue ? selectValue.deploy : null,
+        turnover: selectValue ? selectValue.turnover : null
+      }
+      getListData(params);
     }
     setClueIngModalShow(show);
   };
@@ -118,26 +142,26 @@ const CluesCustomerAwait = () => {
       clueId: id,
       status: 3
     }
-    ;(async () => {
-      const {code, msg } = await getSofClueUpdateClue(promes);
-      if(code === '20000'){
-        const params = {
-          status: 0,
-          currentPage: current,
-          size: pageSize,
-          clientName: selectValue? selectValue.clientName : null,
-          deploy:  selectValue? selectValue.deploy: null,
-          turnover:  selectValue? selectValue.turnover: null
+      ; (async () => {
+        const { code, msg } = await getSofClueUpdateClue(promes);
+        if (code === '20000') {
+          const params = {
+            status: myClueType,
+            currentPage: current,
+            size: pageSize,
+            clientName: selectValue ? selectValue.clientName : null,
+            deploy: selectValue ? selectValue.deploy : null,
+            turnover: selectValue ? selectValue.turnover : null
+          }
+          getListData(params);
+          message.success("当前线索已转到搁置！");
+        } else {
+          message.error(msg);
         }
-        getListData(params);
-        message.success("当前线索已转到搁置！");
-      }else{
-        message.error(msg);
-      }
-    })();
+      })();
   };
   //删除线索
-  const handleMyClueDetele  = (id) => {
+  const handleMyClueDetele = (id) => {
     confirm({
       title: '确定要删除当前线索吗?',
       icon: <ExclamationCircleOutlined />,
@@ -145,21 +169,21 @@ const CluesCustomerAwait = () => {
         const promse = {
           clueId: id
         }
-        ;(async () => {
-          const {code } = await getSofClueDeteleClue(promse);
-          if(code === '20000'){
-            const params = {
-              status: 0,
-              currentPage: current,
-              size: pageSize,
-              clientName: selectValue? selectValue.clientName : null,
-              deploy:  selectValue? selectValue.deploy: null,
-              turnover:  selectValue? selectValue.turnover: null
+          ; (async () => {
+            const { code } = await getSofClueDeteleClue(promse);
+            if (code === '20000') {
+              const params = {
+                status: myClueType,
+                currentPage: current,
+                size: pageSize,
+                clientName: selectValue ? selectValue.clientName : null,
+                deploy: selectValue ? selectValue.deploy : null,
+                turnover: selectValue ? selectValue.turnover : null
+              }
+              getListData(params);
+              message.success('删除成功！');
             }
-            getListData(params);
-            message.success('删除成功！');
-          }
-        })();
+          })();
       },
       onCancel() {
         console.log('Cancel');
@@ -242,7 +266,7 @@ const CluesCustomerAwait = () => {
           <Button danger type="text">
             转客户
           </Button>
-          <Button danger type="text" onClick = {() => handleMyClueDetele(record.id)}>
+          <Button danger type="text" onClick={() => handleMyClueDetele(record.id)}>
             删除
           </Button>
         </Space>
@@ -255,12 +279,15 @@ const CluesCustomerAwait = () => {
     <CluesCustomerAwaitAllBox>
       <PageHeader
         className="site-page-header"
-        title="我的线索-待处理"
-        extra={[
-          <Button key="1" type="primary" onClick={() => handleAddClue()}>
-            线索报备
-          </Button>,
-        ]}
+        title={`我的线索-${pageTypeValue[myClueType]}`}
+        extra={
+          [
+            myClueType === 0 ?
+              <Button key="1" type="primary" onClick={() => handleAddClue()}>
+                线索报备
+              </Button> : null
+          ]
+        }
       ></PageHeader>
       <SelectSupervise handleChangeList={handleChangeList} handleSelectReset={handleSelectReset} />
       <Table
