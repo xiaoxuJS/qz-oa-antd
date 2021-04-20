@@ -18,3 +18,9 @@ export function getSysUserFindDropUser(data) {
     const url = ip + '/sys-user/find/drop-user';
     return http(url, "get", data)
 }
+//项目组列表
+export function getSofItemGroupFindItemGroup(data) {
+    const url = ip + '/sof-item-group/find/itemGroup';
+    return http(url, "get", data)
+}
+

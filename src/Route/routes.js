@@ -13,14 +13,18 @@ import ClueAllAlready from "../pages/CluesCustomer/ClueAll/ClueAllAlready";
 //客户线索-线索池-待分配
 import ClueAllAtait from "../pages/CluesCustomer/ClueAll/ClueAllAtait";
 
+//项目管理
+//列表页
+import ItemManagementIndex from '../pages/ItemManagement/ItemManagementIndex';
+//新增项目页面
+import ItemManagementAdd from '../pages/ItemManagement/ItemManagementAdd'
+
 //项目管理-储备项目-物联网项目
 import ReserveIOTItem from "../pages/ItemManagement/ReserveItem/ReserveIOTItem";
 // 传统项目
 import ReserveTraditionItem from "../pages/ItemManagement/ReserveItem/ReserveTraditionItem";
 // 软件项目
 import ReserveSoftwareItem from "../pages/ItemManagement/ReserveItem/ReserveSoftwareItem";
-//项目管理-储备项目-添加项目
-import ReserveItemAdd from "../pages/ItemManagement/ReserveItem/ReserveItemAdd";
 //项目管理-储备项目-项目详情
 import ReserveItemDetails from "../pages/ItemManagement/ReserveItem/ReserveItemDetails";
 //项目管理-进行中项目-物联网项目
@@ -156,8 +160,8 @@ const menuLeftItemRouter = [
       title: "储备项目",
       icon: <DatabaseOutlined />,
     },
-    path: "/reserveIOTItem",
-    component: ReserveIOTItem,
+    path: "/itemManagementIndex",
+    component: ItemManagementIndex,
     page: [
       {
         key: 300,
@@ -165,8 +169,8 @@ const menuLeftItemRouter = [
           title: "物联网项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/reserveIOTItem",
-        component: ReserveIOTItem,
+        path: "/ItemManagement/reserve/IOT",
+        component: ItemManagementIndex,
       },
       {
         key: 301,
@@ -384,8 +388,8 @@ const userRouter = [
   },
   //项目管理
   {
-    path: "/ReserveItem/add",
-    component: ReserveItemAdd,
+    path: "/itemManagement/add",
+    component: ItemManagementAdd,
   },
   {
     path: "/ReserveItem/details",

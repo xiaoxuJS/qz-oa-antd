@@ -2,12 +2,17 @@ import React, { useReducer } from 'react';
 
 const myContext = React.createContext();
 
+const stateAll = {
+    myClueType: 0, //我的线索类型
+    
+}
+
 //更改我的线索类型
-function reducer(state, action) {
+function reducer(state = stateAll, action) {
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type) {
         case 'myClueType':
-            newState = {myClueType: action.myClueType};
+            newState.myClueType = action.myClueType;
             return newState;
         default:
             return state;
