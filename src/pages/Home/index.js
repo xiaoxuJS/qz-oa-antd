@@ -24,7 +24,7 @@ const Home = () => {
       case '/':
         setMenuLeftData(menuLeftUserRouter);
         break;
-      case '/reserveIOTItem':
+      case '/itemManagement/reserve/IOT':
         setMenuLeftData(menuLeftItemRouter);
         break;
       case '/parkMessage':

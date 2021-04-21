@@ -12,7 +12,6 @@ const ClueAllotModal = ({ showHide, handleClueAllotModalShow }) => {
   const { resetFields, validateFields }  = form;
   const handleClueAllotModalOk = () => {
     validateFields().then((values) => {
-      console.log(values)
       handleClueAllotModalShow(false)
     })
 

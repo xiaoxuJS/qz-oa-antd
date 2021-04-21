@@ -17,10 +17,10 @@ import ClueAllAtait from "../pages/CluesCustomer/ClueAll/ClueAllAtait";
 //列表页
 import ItemManagementIndex from '../pages/ItemManagement/ItemManagementIndex';
 //新增项目页面
-import ItemManagementAdd from '../pages/ItemManagement/ItemManagementAdd'
+import ItemManagementAdd from '../pages/ItemManagement/ItemManagementAdd';
+//项目详情页
+import ItemManagementDetails from '../pages/ItemManagement/ItemManagementDetails'
 
-//项目管理-储备项目-物联网项目
-import ReserveIOTItem from "../pages/ItemManagement/ReserveItem/ReserveIOTItem";
 // 传统项目
 import ReserveTraditionItem from "../pages/ItemManagement/ReserveItem/ReserveTraditionItem";
 // 软件项目
@@ -69,8 +69,8 @@ const menuTopRouter = [
       title: "项目管理",
       icon: <LaptopOutlined />,
     },
-    path: "/reserveIOTItem",
-    component: ReserveIOTItem,
+    path: "/itemManagement/reserve/IOT",
+    component: ItemManagementIndex,
   },
   {
     key: 3,
@@ -160,7 +160,7 @@ const menuLeftItemRouter = [
       title: "储备项目",
       icon: <DatabaseOutlined />,
     },
-    path: "/itemManagementIndex",
+    path: "/itemManagement/reserve/IOT",
     component: ItemManagementIndex,
     page: [
       {
@@ -390,6 +390,10 @@ const userRouter = [
   {
     path: "/itemManagement/add",
     component: ItemManagementAdd,
+  },
+  {
+    path: "/itemManagement/Details",
+    component: ItemManagementDetails,
   },
   {
     path: "/ReserveItem/details",

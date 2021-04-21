@@ -22,5 +22,10 @@ export function getSysUserFindDropUser(data) {
 export function getSofItemGroupFindItemGroup(data) {
     const url = ip + '/sof-item-group/find/itemGroup';
     return http(url, "get", data)
-}
+};
+//客户接口
+export function getSofClientFindDropClient(data) {
+    const url = ip + '/sof-client/find/drop-client';
+    return http(url, "get", data)
+};
 

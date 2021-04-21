@@ -2,7 +2,8 @@ import React, { useEffect, useCallback, useState } from "react";
 //api
 import {
     getSysMarkFindMark,
-    getSysUserFindDropUser
+    getSysUserFindDropUser,
+    getSofClientFindDropClient
 } from '../../../../../Api/communalUrl'
 import {
     Form,
@@ -18,10 +19,11 @@ const { Option } = Select;
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const BasicMessage = () => {
+const BasicMessage = ( {show} ) => {
     const [deployType, setDeployType] = useState([]); //部署类型
     const [itemType, setItemType] = useState([]); //项目类型
     const [userList, setUserList] = useState([]); //用户列表
+    const [clientList, setClientList] = useState([]); //客户列表
 
     //获取字典项
     const dictionariesFun = useCallback((parame) => {
@@ -48,6 +50,17 @@ const BasicMessage = () => {
             }
         })();
     }, [])
+    //获取客户列表
+    const clientListFun = useCallback(() => {
+        ; (async () => {
+            const { code, data, msg } = await getSofClientFindDropClient();
+            if (code === '20000') {
+                setClientList(data)
+            } else {
+                message.error(msg)
+            }
+        })();
+    }, [])
     useEffect(() => {
         const deployTypeParame = { //部署类型
             typeCode: 'DEPLOY'
@@ -60,7 +73,8 @@ const BasicMessage = () => {
         dictionariesFun(deployTypeParame);
         dictionariesFun(itemTypeParame);
         userListFun();
-    }, [dictionariesFun, userListFun])
+        clientListFun();
+    }, [dictionariesFun, userListFun, clientListFun])
     return (
         <>
             <Title level={3}>基本信息</Title>
@@ -133,7 +147,8 @@ const BasicMessage = () => {
                         </Radio.Group>
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                {
+                    show ? <Col span={12}>
                     <Form.Item
                         label="项目状态"
                         name="itemStatus"
@@ -147,13 +162,15 @@ const BasicMessage = () => {
                             <Radio value={3}>已成交项目</Radio>
                         </Radio.Group>
                     </Form.Item>
-                </Col>
+                </Col> : null
+                }
+                
                 <Col span={12}>
                     <Form.Item
-                        label="所属客户"
-                        name="clientId"
+                        label="项目经理"
+                        name="mp"
                     >
-                        <Select placeholder="请选择所属客户">
+                        <Select placeholder="请选择项目经理">
                             {userList
                                 ? userList.map((item) => {
                                     return (
@@ -162,6 +179,27 @@ const BasicMessage = () => {
                                             value={item.id}
                                         >
                                             {item.name}
+                                        </Option>
+                                    );
+                                })
+                                : null}
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                        label="所属客户"
+                        name="clientId"
+                    >
+                        <Select placeholder="请选择所属客户">
+                            {clientList
+                                ? clientList.map((item) => {
+                                    return (
+                                        <Option
+                                            key={item.id}
+                                            value={item.id}
+                                        >
+                                            {item.clientName}
                                         </Option>
                                     );
                                 })

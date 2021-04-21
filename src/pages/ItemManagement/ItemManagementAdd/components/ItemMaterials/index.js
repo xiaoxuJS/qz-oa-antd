@@ -6,14 +6,14 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 
 
-const ItemMaterials = () => {
+const ItemMaterials = (materialPrice) => {
     const [allMoney, setAllMoney] = useState([]);
     const [allMoneyData, setAllMoneyData] = useState([]);
     //获取单价
     const handlePrice = (value, key) => {
+        console.log(key)
         let newArray = [...allMoneyData];
         let allMoneyNewArray = [...allMoney];
-        console.log(newArray[key])
         if(!newArray[key]) {
             newArray[key] = {
                 price: value,

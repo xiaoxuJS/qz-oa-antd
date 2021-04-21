@@ -28,6 +28,7 @@ const ReserveItemDetails = () => {
             <PageHeader
                 className="site-page-header"
                 title="储备项目-项目详情"
+                
             ></PageHeader>
             <Title level={3}>基本信息</Title>
             <Row key="1">

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 //api
 import {
     getSofItemGroupFindItemGroup
 } from '../../../Api/communalUrl';
 import {
-    postSofItemInsertItem
+    postSofItemInsertItem,
+    getSofItemFindDetailsItem
 } from '../../../Api/itemUrl';
 import {
     ip
-} from '../../../Api/http'
+} from '../../../Api/http';
 //基本信息模块
 import BasicMessage from './components/BasicMessage';
 //项目周期模块
@@ -37,9 +38,7 @@ import {
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 
-
 const { Title } = Typography;
-
 
 /**
  * @author 徐博亚
@@ -47,9 +46,14 @@ const { Title } = Typography;
  */
 const ReserveItemAdd = () => {
     const history = new useHistory();
+    const location = new useLocation();
+    const [form] = Form.useForm();
+    const {setFieldsValue} = form;
     const [fileList, setFileList] = useState([]); //文件列表
     const [fileUrl, setFileUrl] = useState([]); //文件地址
     const [itemGroupList, setItemGroupList] = useState(null);
+    const [show, setShow] = useState(true); //是否显示- 当是修改的时候隐藏
+    const [materialPrice, setMaterialPrice] = useState({}); //材料总价合集
     const getItemGroupListFun = useCallback(() => {
         ; (async () => {
             const { code, data, msg } = await getSofItemGroupFindItemGroup();
@@ -60,12 +64,78 @@ const ReserveItemAdd = () => {
             }
         })();
     }, [])
+    const getItemData = useCallback(state => {
+        setShow(false);
+        const params = {
+            itemId: state.id
+        }
+        ;(async () => {
+            const {code, data, msg} = await getSofItemFindDetailsItem(params);
+            if(code === '20000'){
+                console.log(data);
+                
+                const val = {
+                    itemName: data.itemName, //项目名称
+                    itemType: data.itemType, //项目类型
+                    deploy: data.deploy, //部署类型
+                    level: data.level, //部署类型
+                    pm: data.pm, //项目经理
+                    clientNameVal: data.clientNameVal, //所属客户
+                    synopsis: data.synopsis, //项目简介
+                    detailedDTOS: data.detailedDTOS ,//项目材料
+                }
+                //材料总价
+                const obj = {};
+                data.detailedDTOS.forEach((element, index) => {
+                    obj[index] = element.price * element.number + element.freight;
+
+                });
+                console.log(obj[0]);
+                setMaterialPrice(obj);
+                //项目周期
+                data.cycleDTOS.forEach(element => {
+                    val[element.groupId] = [ //项目周期
+                        moment(element.startTime),
+                        moment(element.endTime)
+                    ];
+                    val[element.groupId + 'Money'] = element.proportionVal; //奖金比例
+                    //项目成员
+                    val[element.groupId + 'member'] = [];
+                    data.memberDTOS.forEach(item => {
+                        if(element.groupId === item.groupId) {
+                            val[element.groupId + 'member'].push({
+                                name: item.member,
+                                phone: item.mobile
+                            })
+                        }
+                    });
+                });
+                let files = []
+                data.files.forEach(element => {
+                  files.push({
+                    uid: element.id,
+                    name: element.fileName,
+                    status: 'done',
+                    url: element.path
+                  })
+                });
+                setFileList(files);
+
+                setFieldsValue(val);
+            }else{
+                message.error(msg);
+            }
+        })();
+    },[setFieldsValue])
     useEffect(() => {
+        console.log(location.state)
+        if(location.state) {
+            getItemData(location.state)
+        }
         getItemGroupListFun();
-    }, [getItemGroupListFun])
+    }, [getItemGroupListFun, getItemData, location.state])
     // 、、form
     const onFinish = (values) => {
-        console.log(values)
         //获取项目周期数据和奖金比
         let inputValue = {
             cycleDTOS: [],//项目周期及奖金比例
@@ -123,6 +193,7 @@ const ReserveItemAdd = () => {
         inputValue.itemStatus = values.itemStatus; //项目状态
         inputValue.clientId = values.clientId; //所属客户
         inputValue.synopsis = values.synopsis; //项目简介
+        inputValue.mp = values.mp; //项目经理
         if (fileUrl.length > 0) {
             inputValue.files = fileUrl;
         }
@@ -135,9 +206,6 @@ const ReserveItemAdd = () => {
                 message.error(msg);
             }
         })();
-    };
-    const onFinishFailed = (errorInfo) => {
-        console.log("Failed:", errorInfo);
     };
     const handleChangeFile = info => {
         let fileList = [...info.fileList];
@@ -177,10 +245,10 @@ const ReserveItemAdd = () => {
                 name="basic"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                form ={form}
             >
                 {/* 基本信息 */}
-                <BasicMessage />
+                <BasicMessage show = {show}/>
                 {/* 项目周期 */}
                 <ItemTime itemGroupList={itemGroupList} />
 
@@ -189,10 +257,11 @@ const ReserveItemAdd = () => {
                 {/* 项目成员 */}
                 <ItemMember itemGroupList={itemGroupList} />
                 {/* 项目材料 */}
-                <ItemMaterials />
+                <ItemMaterials materialPrice = {materialPrice}/>
                 {/* 项目预算 */}
-                <ItemBudget />
-
+                {
+                    show ? <ItemBudget /> : null
+                }
                 <Title level={3}>技术文件</Title>
                 <Row key="7">
                     <Col span={24}>
