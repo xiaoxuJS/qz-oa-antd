@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 //引入路由
 import UserRoutes from "../../Route";
-import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter } from "../../Route/routes";
+import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter } from "../../Route/routes";
 import { useHistory } from "react-router-dom";
 import { HomeAllBOx, HomeMessage, HomeHeaderConter } from "./style";
 //component
@@ -26,6 +26,9 @@ const Home = () => {
         break;
       case '/itemManagement/reserve/IOT':
         setMenuLeftData(menuLeftItemRouter);
+        break;
+      case '/company/client/index': //客户信息
+        setMenuLeftData(menuLeftClientRouter);
         break;
       case '/parkMessage':
         setMenuLeftData(meunParkMessageRouter);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Space, Row, Col, Typography, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -6,12 +6,19 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 
 
-const ItemMaterials = (materialPrice) => {
+const ItemMaterials = ({materialPrice}) => {
     const [allMoney, setAllMoney] = useState([]);
     const [allMoneyData, setAllMoneyData] = useState([]);
+    useEffect(() => {
+        setAllMoneyData(materialPrice);
+        const newArray = []
+        materialPrice.forEach(element => {
+            newArray.push(element.price * element.number + element.freight)
+        });
+        setAllMoney(newArray);
+    }, [materialPrice])
     //获取单价
     const handlePrice = (value, key) => {
-        console.log(key)
         let newArray = [...allMoneyData];
         let allMoneyNewArray = [...allMoney];
         if(!newArray[key]) {

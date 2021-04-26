@@ -1,10 +1,11 @@
-import React, { useEffect, Fragment, useContext } from "react";
+import React, { useEffect, Fragment, useContext, useCallback } from "react";
 //公用数据
 import {
     myContext
 } from '../../../reducer'
 import {
-    useHistory
+    useHistory,
+    useLocation
 } from 'react-router-dom'
 // antd
 import { Menu } from "antd";
@@ -12,27 +13,76 @@ const { SubMenu } = Menu;
 
 const HomeNav = ({ menuData }) => {
     const history = new useHistory();
+    const location = new useLocation();
     const contentHeight = window.innerHeight - 64;
-    const {dispatch} = useContext(myContext)
+    const { dispatch } = useContext(myContext)
+    const handleEnterPage = useCallback(
+        (path) => {
+            switch (path) {
+                //线索
+                case '/':
+                    dispatch({ type: 'myClueType', myClueType: 0 });
+                    break;
+                case '/cluesCustomerAwait/ing':
+                    dispatch({ type: 'myClueType', myClueType: 1 });
+                    break;
+                case '/cluesCustomerAwait/abandon':
+                    dispatch({ type: 'myClueType', myClueType: 3 });
+                    break;
+                //项目--储备项目
+                case '/itemManagement/reserve/IOT':
+                    dispatch({ type: 'itemMonagement', itemStatus: 0, itemType: 1 });
+                    break;
+                case '/itemManagement/reserve/tradition':
+                    dispatch({ type: 'itemMonagement', itemStatus: 0, itemType: 2 });
+                    break;
+                case '/itemManagement/reserve/software':
+                    dispatch({ type: 'itemMonagement', itemStatus: 0, itemType: 3 });
+                    break;
+                //项目 进行中项目
+                case '/itemManagement/ing/IOT':
+                    dispatch({ type: 'itemMonagement', itemStatus: 1, itemType: 1 });
+                    break;
+                case '/itemManagement/ing/tradition':
+                    dispatch({ type: 'itemMonagement', itemStatus: 1, itemType: 2 });
+                    break;
+                case '/itemManagement/ing/software':
+                    dispatch({ type: 'itemMonagement', itemStatus: 1, itemType: 3 });
+                    break;
+                //项目 质保段项目
+                case '/itemManagement/quality/IOT':
+                    dispatch({ type: 'itemMonagement', itemStatus: 2, itemType: 1 });
+                    break;
+                case '/itemManagement/quality/tradition':
+                    dispatch({ type: 'itemMonagement', itemStatus: 2, itemType: 2 });
+                    break;
+                case '/itemManagement/quality/software':
+                    dispatch({ type: 'itemMonagement', itemStatus: 2, itemType: 3 });
+                    break;
+                //项目 已完成项目
+                case '/itemManagement/over/IOT':
+                    dispatch({ type: 'itemMonagement', itemStatus: 3, itemType: 1 });
+                    break;
+                case '/itemManagement/over/tradition':
+                    dispatch({ type: 'itemMonagement', itemStatus: 3, itemType: 2 });
+                    break;
+                case '/itemManagement/over/software':
+                    dispatch({ type: 'itemMonagement', itemStatus: 3, itemType: 3 });
+                    break;
+                default:
+                    break;
+            }
+        },
+        [dispatch],
+    )
     useEffect(() => {
-    }, [menuData])
-
-    const handleEnterPage = (path, title) => {
-        switch(title) {
-            case '待处理':
-                dispatch({type: 'myClueType', myClueType: 0});
-                break;
-            case '跟进中':
-                dispatch({type: 'myClueType', myClueType: 1});
-                break;
-            case '已搁置':
-                dispatch({type: 'myClueType', myClueType: 3});
-                break;
-            default:
-                break;
-        }
-        history.push(path)
+        handleEnterPage(location.pathname);
+    }, [handleEnterPage, location.pathname])
+    const handleChangeEnterPage = (path) => {
+        handleEnterPage(path);
+        history.push(path);
     }
+
 
     return (
         <Menu
@@ -44,7 +94,7 @@ const HomeNav = ({ menuData }) => {
             {menuData
                 ? menuData.map((item) => {
                     return (
-                        <Fragment key = {item.page ? item.key : '1'}>
+                        <Fragment key={item.page ? item.key : '1'}>
                             {
                                 item.page ?
                                     <SubMenu
@@ -54,25 +104,23 @@ const HomeNav = ({ menuData }) => {
                                     >
                                         {item.page
                                             ? item.page.map((data) => {
+
                                                 return <Menu.Item
                                                     key={data.key}
-                                                    onClick={() => handleEnterPage(data.path, data.meta.title)}
+                                                    onClick={() => handleChangeEnterPage(data.path)}
                                                 >
                                                     {data.meta.title}
                                                 </Menu.Item>;
                                             })
                                             : null}
                                     </SubMenu>
-                                    :
-                                    menuData.map((data) => {
-                                        return <Menu.Item
-                                            key={data.key}
-                                            icon={data.meta.icon}
-                                            onClick={() => handleEnterPage(data.path)}
-                                        >
-                                            {data.meta.title}
-                                        </Menu.Item>;
-                                    })
+                                    : <Menu.Item
+                                        key={item.key}
+                                        icon={item.meta.icon}
+                                        onClick={() => handleChangeEnterPage(item.path)}
+                                    >
+                                        {item.meta.title}
+                                    </Menu.Item>
 
                             }
                         </Fragment>

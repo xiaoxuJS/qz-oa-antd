@@ -168,7 +168,7 @@ const BasicMessage = ( {show} ) => {
                 <Col span={12}>
                     <Form.Item
                         label="项目经理"
-                        name="mp"
+                        name="pm"
                     >
                         <Select placeholder="请选择项目经理">
                             {userList

@@ -1,12 +1,17 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useContext } from "react";
 import {
     useHistory
 } from 'react-router-dom';
+//公共数据
+import {
+    myContext
+  } from '../../../reducer';
 //api
 import {
     postSofItemFindItem,
     getSofItemFindLogItem,
-    postSofItemLogItem
+    postSofItemLogItem,
+    getSofItemDeleteItem
 } from '../../../Api/itemUrl'
 import SelectItemManagement from './components/SelectItemManagement';
 import { ItemManagementIndexAll } from "./style";
@@ -15,6 +20,8 @@ const { confirm } = Modal;
 
 const ItemManagementIndex = () => {
     const history = new useHistory();
+    const {state} = useContext(myContext);
+    const { itemStatus, itemType } = state;
     const [listData, setListData] = useState([]); //列表数据
     const [listTotal, setListTotal] = useState([]); //一共有多少条数据
     const [current, setcCurrent] = useState(1); // 当前页
@@ -31,18 +38,24 @@ const ItemManagementIndex = () => {
             }
         })();
     }, [])
+    const itemTypeLeft = {
+        0:'储备项目',1:'进行中项目',2:'质保段项目',3:'已成交项目'
+    }
+    const itemTypeRight = {
+        1:'物联网项目',2:'传统项目',3:'软件项目'
+    }
     useEffect(() => {
         const promes = {
             // "clientId": 0, //所属客户
             currentPage: 1, //当前页
-            itemStatus: 0, //	项目状态(0:储备项目,1:进行中项目,2:质保段项目,3:已成交项目)
-            itemType: 1, //项目类型(1:物联网项目,2:传统项目,3:软件项目)
+            itemStatus: itemStatus, //	项目状态(0:储备项目,1:进行中项目,2:质保段项目,3:已成交项目)
+            itemType: itemType, //项目类型(1:物联网项目,2:传统项目,3:软件项目)
             // "pm": 0, //项目经理
             // "process": 0, //当前流程(0:未开始,1:方案设计,2:开发生产,3:调试,4:部署安装,5:交付)
             size: 10 //每页条数
         }
         getItemList(promes);
-    }, [getItemList])
+    }, [getItemList, itemStatus, itemType])
 
     const columns = [
         {
@@ -53,7 +66,7 @@ const ItemManagementIndex = () => {
             title: '项目名称',
             dataIndex: 'itemName',
             key: 'itemName',
-            render: text => <Button type="link" onClick={() => handleEnterReserveItemDetails()}>{text}</Button>
+            render: (text, record) => <Button type="link" onClick={() => handleEnterReserveItemDetails(record.id)}>{text}</Button>
         },
         {
             title: '项目简介',
@@ -89,6 +102,7 @@ const ItemManagementIndex = () => {
             render: (text, record) => (
                 <Space size="middle">
                     <Button type="link" onClick={() => handleItemChange(record.id)}>项目维护</Button>
+                    <Button type="link" danger onClick={() => handleRemove(record.id)}>删除</Button>
                 </Space>
             ),
         },
@@ -118,17 +132,14 @@ const ItemManagementIndex = () => {
                     title: `当前状态为${data}!是否更新到下个状态！`,
                     onOk() {
                       ;(async () => {
-                        const {code, msg} = await postSofItemLogItem({itemId:id});
+                        const {code, msg} = await postSofItemLogItem({id});
                         if(code === '20000') {
                             message.success('更新成功!');
                         }else{
                             message.error(msg);
                         }
                       })();
-                    },
-                    onCancel() {
-                      console.log('Cancel');
-                    },
+                    }
                   });
             }else{
                 message.error(msg);
@@ -139,12 +150,13 @@ const ItemManagementIndex = () => {
         history.push('/itemManagement/add')
     }
     //进入项目详情
-    const handleEnterReserveItemDetails = () => {
-        history.push('/itemManagement/Details')
+    const handleEnterReserveItemDetails = (id) => {
+        history.push({pathname:'/itemManagement/Details',state : {
+            id
+        }})
     };
     //搜索
     const handleChangeList = values => {
-        console.log(values)
         const params = {
             clientId: values.clientId, //所属客户
             currentPage: 1, //当前页
@@ -172,6 +184,32 @@ const ItemManagementIndex = () => {
         setPageSize(10);
         setSelectValue(null);
         getItemList(params);
+    };
+    //删除项目
+    const handleRemove = (id) => {
+        confirm({
+            title: '确定要删除当前项目吗?',
+            onOk() {
+              ;(async () => {
+                const {code, msg} = await getSofItemDeleteItem({itemId: id});
+                if(code === '20000') {
+                    message.success('删除成功！');
+                    const params = {
+                        clientId: selectValue ? selectValue.clientId : null, //所属客户
+                        currentPage: current, //当前页
+                        itemStatus: 0, //	项目状态(0:储备项目,1:进行中项目,2:质保段项目,3:已成交项目)
+                        itemType: 1, //项目类型(1:物联网项目,2:传统项目,3:软件项目)
+                        pm: selectValue ? selectValue.pm: null, //项目经理
+                        process: selectValue ? selectValue.process: null, //当前流程(0:未开始,1:方案设计,2:开发生产,3:调试,4:部署安装,5:交付)
+                        size: pageSize //每页条数
+                    }
+                    getItemList(params);
+                }else{
+                    message.error(msg);
+                }
+              })();
+            }
+          });
     }
     //分页函数
     const onShowSizeChange = (current, pageSize) => {
@@ -203,7 +241,7 @@ const ItemManagementIndex = () => {
         <ItemManagementIndexAll>
             <PageHeader
                 className="site-page-header"
-                title="储备项目-物联网项目"
+                title={`${itemTypeLeft[itemStatus]} - ${itemTypeRight[itemType]}`}
                 extra={[
                     <Button
                         key="1"

@@ -21,30 +21,13 @@ import ItemManagementAdd from '../pages/ItemManagement/ItemManagementAdd';
 //项目详情页
 import ItemManagementDetails from '../pages/ItemManagement/ItemManagementDetails'
 
-// 传统项目
-import ReserveTraditionItem from "../pages/ItemManagement/ReserveItem/ReserveTraditionItem";
-// 软件项目
-import ReserveSoftwareItem from "../pages/ItemManagement/ReserveItem/ReserveSoftwareItem";
-//项目管理-储备项目-项目详情
-import ReserveItemDetails from "../pages/ItemManagement/ReserveItem/ReserveItemDetails";
-//项目管理-进行中项目-物联网项目
-import ItemIngIOTItem from "../pages/ItemManagement/ItemIng/ItemIngIOTItem";
-//传统项目
-import ItemIngTraditionItem from "../pages/ItemManagement/ItemIng/ItemIngTraditionItem";
-//软件项目
-import ItemIngSoftwareItem from "../pages/ItemManagement/ItemIng/ItemIngSoftwareItem";
-//项目管理-已成交项目-物联网项目
-import OverIOTItem from "../pages/ItemManagement/OverItem/OverIOTItem";
-//传统项目
-import OverTraditionItem from "../pages/ItemManagement/OverItem/OverTraditionItem";
-//软件项目
-import OverSoftwareItem from "../pages/ItemManagement/OverItem/OverSoftwareItem";
-//项目管理-质保段项目-互联网项目
-import QualityIOTItem from "../pages/ItemManagement/qualityItem/QualityIOTItem";
-//传统项目
-import QualityTraditionItem from "../pages/ItemManagement/qualityItem/QualityTraditionItem";
-//软件项目
-import QualitySoftwareItem from "../pages/ItemManagement/qualityItem/QualitySoftwareItem";
+//客户管理
+//list
+import CompanyClientIndex from '../pages/ClientMangement/CompanyClient/CompanyClientIndex';
+//add
+import CompanyClientAdd from '../pages/ClientMangement/CompanyClient/CompanyClientAdd';
+//details
+import CompanyClientDetails from '../pages/ClientMangement/CompanyClient/CompanyClientDetails'
 //停车场管理-车辆信息-车辆列表
 import ParkMessage from "../pages/ParkingLot/ParkMessage/ParkMessage";
 //车辆详情
@@ -73,7 +56,16 @@ const menuTopRouter = [
     component: ItemManagementIndex,
   },
   {
-    key: 3,
+    key: 'client',
+    meta: {
+      title: "客户管理",
+      icon: <LaptopOutlined />,
+    },
+    path: "/company/client/index",
+    component: CompanyClientIndex,
+  },
+  {
+    key: 4,
     meta: {
       title: "停车场管理",
       icon: <LaptopOutlined />,
@@ -169,7 +161,7 @@ const menuLeftItemRouter = [
           title: "物联网项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/ItemManagement/reserve/IOT",
+        path: "/itemManagement/reserve/IOT",
         component: ItemManagementIndex,
       },
       {
@@ -178,8 +170,8 @@ const menuLeftItemRouter = [
           title: "传统项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/reserveTraditionItem",
-        component: ReserveTraditionItem,
+        path: "/itemManagement/reserve/tradition",
+        component: ItemManagementIndex,
       },
       {
         key: 302,
@@ -187,8 +179,8 @@ const menuLeftItemRouter = [
           title: "软件项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/reserveSoftwareItem",
-        component: ReserveSoftwareItem,
+        path: "/itemManagement/reserve/software",
+        component: ItemManagementIndex,
       },
     ],
   },
@@ -198,8 +190,8 @@ const menuLeftItemRouter = [
       title: "进行中项目",
       icon: <DatabaseOutlined />,
     },
-    path: "/itemIngIOTItem",
-    component: ItemIngIOTItem,
+    path: "/itemManagement/ing/IOT",
+    component: ItemManagementIndex,
     page: [
       {
         key: 310,
@@ -207,8 +199,8 @@ const menuLeftItemRouter = [
           title: "物联网项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/itemIngIOTItem",
-        component: ItemIngIOTItem,
+        path: "/itemManagement/ing/IOT",
+        component: ItemManagementIndex,
       },
       {
         key: 311,
@@ -216,8 +208,8 @@ const menuLeftItemRouter = [
           title: "传统项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/itemIngTraditionItem",
-        component: ItemIngTraditionItem,
+        path: "/itemManagement/ing/tradition",
+        component: ItemManagementIndex,
       },
       {
         key: 312,
@@ -225,8 +217,8 @@ const menuLeftItemRouter = [
           title: "软件项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/itemIngSoftwareItem",
-        component: ItemIngSoftwareItem,
+        path: "/itemManagement/ing/software",
+        component: ItemManagementIndex,
       },
     ],
   },
@@ -236,8 +228,8 @@ const menuLeftItemRouter = [
       title: "质保段项目",
       icon: <DatabaseOutlined />,
     },
-    path: "/qualityIOTItem",
-    component: QualityIOTItem,
+    path: "/itemManagement/quality/IOT",
+    component: ItemManagementIndex,
     page: [
       {
         key: 320,
@@ -245,8 +237,8 @@ const menuLeftItemRouter = [
           title: "物联网项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/qualityIOTItem",
-        component: QualityIOTItem,
+        path: "/itemManagement/quality/IOT",
+        component: ItemManagementIndex,
       },
       {
         key: 321,
@@ -254,8 +246,8 @@ const menuLeftItemRouter = [
           title: "传统项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/qualityTraditionItem",
-        component: QualityTraditionItem,
+        path: "/itemManagement/quality/tradition",
+        component: ItemManagementIndex,
       },
       {
         key: 322,
@@ -263,8 +255,8 @@ const menuLeftItemRouter = [
           title: "软件项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/qualitySoftwareItem",
-        component: QualitySoftwareItem,
+        path: "/itemManagement/quality/software",
+        component: ItemManagementIndex,
       },
     ],
   },
@@ -274,8 +266,8 @@ const menuLeftItemRouter = [
       title: "已成交项目",
       icon: <DatabaseOutlined />,
     },
-    path: "/overIOTItem",
-    component: OverIOTItem,
+    path: "/itemManagement/over/IOT",
+    component: ItemManagementIndex,
     page: [
       {
         key: 330,
@@ -283,8 +275,8 @@ const menuLeftItemRouter = [
           title: "物联网项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/overIOTItem",
-        component: OverIOTItem,
+        path: "/itemManagement/over/IOT",
+        component: ItemManagementIndex,
       },
       {
         key: 331,
@@ -292,8 +284,8 @@ const menuLeftItemRouter = [
           title: "传统项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/overTraditionItem",
-        component: OverTraditionItem,
+        path: "/itemManagement/over/tradition",
+        component: ItemManagementIndex,
       },
       {
         key: 332,
@@ -301,12 +293,34 @@ const menuLeftItemRouter = [
           title: "软件项目",
           icon: <DatabaseOutlined />,
         },
-        path: "/overSoftwareItem",
-        component: OverSoftwareItem,
+        path: "/itemManagement/over/software",
+        component: ItemManagementIndex,
       },
     ],
   },
 ];
+
+//侧边栏导航-客户管理
+const menuLeftClientRouter = [
+  {
+    key: 'clientCompany',
+    meta: {
+      title: "企业客户",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/company/client/index",
+    component: CompanyClientIndex
+  },
+  {
+    key: 'clientCooperation',
+    meta: {
+      title: "活动客户",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/cooperation/client/index",
+    component: CompanyClientIndex
+  },
+]
 
 //侧边栏导航-停车场管理
 const meunParkMessageRouter = [
@@ -355,14 +369,14 @@ const meunParkMessageRouter = [
 const dataDispose = (data) => {
   let newArray = [];
   data.forEach((element) => {
-    let data = [];
+    let dataV = [];
     if(element.hasOwnProperty('page')) {
       element.page.forEach((item) => {
-        data.push(item);
+        dataV.push(item);
       });
-      newArray = [...newArray, ...data];
+      newArray = [...dataV];
     }else{
-      newArray = [...newArray];
+      newArray = [...data];
     }
     
   });
@@ -372,12 +386,14 @@ const dataDispose = (data) => {
 let menuLeftUserRouterPage = dataDispose(menuLeftUserRouter);
 let menuLeftItemRouterPage = dataDispose(menuLeftItemRouter);
 let meunParkMessageRouterPage = dataDispose(meunParkMessageRouter);
+let menuLeftClientRouterPage = dataDispose(menuLeftClientRouter);
 
 const userRouter = [
   ...menuTopRouter,
   ...menuLeftUserRouterPage,
   ...menuLeftItemRouterPage,
   ...meunParkMessageRouterPage,
+  ...menuLeftClientRouterPage,
   {
     path: "/cluesCustomerAwait/add",
     component: CluesCustomerAwaitAdd,
@@ -395,9 +411,14 @@ const userRouter = [
     path: "/itemManagement/Details",
     component: ItemManagementDetails,
   },
+  //客户管理
   {
-    path: "/ReserveItem/details",
-    component: ReserveItemDetails,
+    path: "/company/client/add",
+    component: CompanyClientAdd
+  },
+  {
+    path: "/company/client/details",
+    component: CompanyClientDetails
   },
   //停车场信息
   {
@@ -405,4 +426,4 @@ const userRouter = [
     component:ParkMessageDetails
   }
 ];
-export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter,  userRouter };
+export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter ,  userRouter };
