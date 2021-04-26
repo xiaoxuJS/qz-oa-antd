@@ -1,7 +1,7 @@
 
 import React from 'react';
 //引入路由
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 //引入登录页面和首页
 import Login from "./pages/Login";
@@ -22,6 +22,12 @@ import { ContextProvider } from './reducer'
 moment.locale("zh_CN");
 
 function App() {
+  const  isLogin = () =>{
+    if(!sessionStorage.getItem("token")){
+      return false
+    }
+    return true
+  }
   return (
     <div className="App">
       <Router basename="/">
@@ -30,7 +36,12 @@ function App() {
           <ContextProvider>
             <Switch>
               <Route exact path="/login" component={Login} />
-              <Route path="/" component={Home} />
+              {/* <Route path="/" component={Home} /> */}
+              <Route path="/" render={()=>
+		       	 	    		   isLogin()?<Home/>:<Redirect to ="/Login"/>
+		       	 	    		   //判断成功进入页面，不成功跳转登录
+        		  	  } 
+        		    />
             </Switch>
           </ContextProvider>
         </ConfigProvider>
