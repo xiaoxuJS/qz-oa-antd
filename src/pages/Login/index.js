@@ -5,7 +5,7 @@ import {
   LoginBox
 } from './style'
 //antd
-import { Button, Form, Input, Checkbox, Card } from 'antd';
+import { Button, Form, Input, Card } from 'antd';
 
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
     <LoginAll>
       <LoginBox>
         <Card title="祺智传媒OA系统登录"
-          extra={<a href="#">More</a>}
+          extra={<Button type = 'link'>More</Button>}
           style={{ width: 300 }}
         >
           <Form

@@ -22,8 +22,8 @@ import { ContextProvider } from './reducer'
 moment.locale("zh_CN");
 
 function App() {
-  const  isLogin = () =>{
-    if(!sessionStorage.getItem("token")){
+  const isLogin = () => {
+    if (!sessionStorage.getItem("token")) {
       return false
     }
     return true
@@ -36,12 +36,11 @@ function App() {
           <ContextProvider>
             <Switch>
               <Route exact path="/login" component={Login} />
-              {/* <Route path="/" component={Home} /> */}
-              <Route path="/" render={()=>
-		       	 	    		   isLogin()?<Home/>:<Redirect to ="/Login"/>
-		       	 	    		   //判断成功进入页面，不成功跳转登录
-        		  	  } 
-        		    />
+              <Route path="/" render={() =>
+                isLogin() ? <Home /> : <Redirect to="/Login" />
+                //判断成功进入页面，不成功跳转登录
+              }
+              />
             </Switch>
           </ContextProvider>
         </ConfigProvider>

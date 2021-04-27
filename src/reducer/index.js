@@ -10,7 +10,6 @@ const stateAll = {
 
 //更改我的线索类型
 function reducer(state = stateAll, action) {
-    console.log(state)
     let newState = JSON.parse(JSON.stringify(state));
     switch(action.type) {
         case 'myClueType':

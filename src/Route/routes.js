@@ -38,7 +38,7 @@ import ParkingManagement from "../pages/ParkingLot/SystemManagement/ParkingManag
 //头部导航
 const menuTopRouter = [
   {
-    key: 1,
+    key: 'clues',
     meta: {
       title: "客户线索",
       icon: <DatabaseOutlined />,
@@ -47,7 +47,7 @@ const menuTopRouter = [
     component: CluesCustomerAwait,
   },
   {
-    key: 2,
+    key: 'item',
     meta: {
       title: "项目管理",
       icon: <LaptopOutlined />,
@@ -65,7 +65,7 @@ const menuTopRouter = [
     component: CompanyClientIndex,
   },
   {
-    key: 4,
+    key: 'park',
     meta: {
       title: "停车场管理",
       icon: <LaptopOutlined />,
@@ -77,7 +77,7 @@ const menuTopRouter = [
 //侧边栏导航-客户线索
 const menuLeftUserRouter = [
   {
-    key: 20,
+    key: 'clues',
     meta: {
       title: "我的线索",
       icon: <DatabaseOutlined />,
@@ -86,7 +86,7 @@ const menuLeftUserRouter = [
     component: CluesCustomerAwait,
     page: [
       {
-        key: 200,
+        key: 'cluesAwait',
         meta: {
           title: "待处理",
           icon: <DatabaseOutlined />,
@@ -95,7 +95,7 @@ const menuLeftUserRouter = [
         component: CluesCustomerAwait,
       },
       {
-        key: 201,
+        key: 'cluesIng',
         meta: {
           title: "跟进中",
           icon: <DatabaseOutlined />,
@@ -104,7 +104,7 @@ const menuLeftUserRouter = [
         component: CluesCustomerAwait,
       },
       {
-        key: 202,
+        key: 'cluesAbandon',
         meta: {
           title: "已搁置",
           icon: <DatabaseOutlined />,
@@ -115,7 +115,7 @@ const menuLeftUserRouter = [
     ],
   },
   {
-    key: 21,
+    key: 'cluesAll',
     meta: {
       title: "线索池",
       icon: <DatabaseOutlined />,
@@ -124,7 +124,7 @@ const menuLeftUserRouter = [
     component: ClueAllAtait,
     page: [
       {
-        key: 210,
+        key: 'cluesAllAtait',
         meta: {
           title: "待分配",
           icon: <DatabaseOutlined />,
@@ -133,7 +133,7 @@ const menuLeftUserRouter = [
         component: ClueAllAtait,
       },
       {
-        key: 211,
+        key: 'cluesAllAlready',
         meta: {
           title: "已分配",
           icon: <DatabaseOutlined />,
@@ -147,7 +147,7 @@ const menuLeftUserRouter = [
 //侧边栏导航-项目管理
 const menuLeftItemRouter = [
   {
-    key: 30,
+    key: 'item',
     meta: {
       title: "储备项目",
       icon: <DatabaseOutlined />,
@@ -156,7 +156,7 @@ const menuLeftItemRouter = [
     component: ItemManagementIndex,
     page: [
       {
-        key: 300,
+        key: 'itemReserveIOT',
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -165,7 +165,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 301,
+        key: 'itemReserveTradition',
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -174,7 +174,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 302,
+        key: 'itemReserveSoftware',
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
@@ -185,7 +185,7 @@ const menuLeftItemRouter = [
     ],
   },
   {
-    key: 31,
+    key: 'itemIng',
     meta: {
       title: "进行中项目",
       icon: <DatabaseOutlined />,
@@ -194,7 +194,7 @@ const menuLeftItemRouter = [
     component: ItemManagementIndex,
     page: [
       {
-        key: 310,
+        key: 'itemIngIOT',
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -203,7 +203,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 311,
+        key: 'itemIngTradition',
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -212,7 +212,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 312,
+        key: 'itemIngSoftware',
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
@@ -223,7 +223,7 @@ const menuLeftItemRouter = [
     ],
   },
   {
-    key: 32,
+    key: 'itemQuality',
     meta: {
       title: "质保段项目",
       icon: <DatabaseOutlined />,
@@ -232,7 +232,7 @@ const menuLeftItemRouter = [
     component: ItemManagementIndex,
     page: [
       {
-        key: 320,
+        key: 'itemQualityIOT',
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -241,7 +241,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 321,
+        key: 'itemQualityTradition',
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -250,7 +250,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 322,
+        key: 'itemQualitySoftware',
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
@@ -261,7 +261,7 @@ const menuLeftItemRouter = [
     ],
   },
   {
-    key: 33,
+    key: 'itemOver',
     meta: {
       title: "已成交项目",
       icon: <DatabaseOutlined />,
@@ -270,7 +270,7 @@ const menuLeftItemRouter = [
     component: ItemManagementIndex,
     page: [
       {
-        key: 330,
+        key: 'itemOverIOT',
         meta: {
           title: "物联网项目",
           icon: <DatabaseOutlined />,
@@ -279,7 +279,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 331,
+        key: 'itemOverTradition',
         meta: {
           title: "传统项目",
           icon: <DatabaseOutlined />,
@@ -288,7 +288,7 @@ const menuLeftItemRouter = [
         component: ItemManagementIndex,
       },
       {
-        key: 332,
+        key: 'itemOverSoftware',
         meta: {
           title: "软件项目",
           icon: <DatabaseOutlined />,
@@ -374,7 +374,7 @@ const dataDispose = (data) => {
       element.page.forEach((item) => {
         dataV.push(item);
       });
-      newArray = [...dataV];
+      newArray = [...newArray,...dataV];
     }else{
       newArray = [...data];
     }
@@ -424,6 +424,6 @@ const userRouter = [
   {
     path: "/parkMessage/details",
     component:ParkMessageDetails
-  }
+  },
 ];
 export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter ,  userRouter };
