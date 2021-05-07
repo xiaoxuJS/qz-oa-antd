@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CompanyClientDetailsAll = styled.div`
+    padding: 20px;
     .ant-page-header{
         border-bottom: 1px solid #DCE0E0;
     }
@@ -10,5 +11,8 @@ export const CompanyClientDetailsAll = styled.div`
     }
     .ant-btn-link{
         padding: 0px;
+    }
+    .ant-col-3{
+        text-align: right;
     }
 `

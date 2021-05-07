@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ReserveItemDetailsAll = styled.div`
-padding: 20px;
-.ant-page-header{
+  padding: 20px;
+  .ant-page-header{
     border-bottom: 1px solid #DCE0E0;
   }
   .ant-form{
