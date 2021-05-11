@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 //引入路由
 import UserRoutes from "../../Route";
-import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter } from "../../Route/routes";
+import { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter, menuLeftProductionRouter } from "../../Route/routes";
 import { useHistory } from "react-router-dom";
 import { HomeAllBOx, HomeMessage, HomeHeaderConter } from "./style";
 //component
@@ -43,9 +43,13 @@ const Home = () => {
 
   //头部导航页面跳转
   const handleEnterPage = (path, key) => {
+    console.log(path)
     switch (path) {
-      case '/':
+      case '/clues/customer/await': //客户线索
         setMenuLeftData(menuLeftUserRouter);
+        break;
+      case '/': //营销管理
+        setMenuLeftData(menuLeftProductionRouter);
         break;
       case '/itemManagement/reserve/IOT':
         setMenuLeftData(menuLeftItemRouter);

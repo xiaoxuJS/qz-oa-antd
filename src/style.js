@@ -56,5 +56,9 @@ body {
 .clearfix {
     *zoom: 1
 }
+/* 日期 */
+.ant-picker {
+        width: 100%;
+    }
 
 `;

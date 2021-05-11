@@ -1,6 +1,12 @@
 import React from "react";
-//导航栏
+//导航栏icon
 import { DatabaseOutlined, LaptopOutlined } from "@ant-design/icons";
+//营销管理
+//列表
+import Production from '../pages/Marketing/Production/Production';
+//详情操作
+import ProductionDetailsOperation from '../pages/Marketing/Production/ProductionDetailsOperation'
+
 //客户线索-我的线索-待处理
 import CluesCustomerAwait from "../pages/CluesCustomer/MyClue/CluesCustomerAwait";
 //客户线索-我的线索-待处理-线索报备
@@ -38,12 +44,21 @@ import ParkingManagement from "../pages/ParkingLot/SystemManagement/ParkingManag
 //头部导航
 const menuTopRouter = [
   {
+    key: 'production',
+    meta: {
+      title: "营销管理",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/",
+    component: Production,
+  },
+  {
     key: 'clues',
     meta: {
       title: "客户线索",
       icon: <DatabaseOutlined />,
     },
-    path: "/",
+    path: "/clues/customer/await",
     component: CluesCustomerAwait,
   },
   {
@@ -74,6 +89,29 @@ const menuTopRouter = [
     component: ParkMessage,
   },
 ];
+//侧边栏导航-营销管理
+const menuLeftProductionRouter = [
+  {
+    key: 'production',
+    meta: {
+      title: "生产计划",
+      icon: <DatabaseOutlined />,
+    },
+    path: "/",
+    component: Production,
+    page: [
+      {
+        key: 'production',
+        meta: {
+          title: "进行中",
+          icon: <DatabaseOutlined />,
+        },
+        path: "/",
+        component: Production,
+      }
+    ],
+  }
+];
 //侧边栏导航-客户线索
 const menuLeftUserRouter = [
   {
@@ -82,7 +120,7 @@ const menuLeftUserRouter = [
       title: "我的线索",
       icon: <DatabaseOutlined />,
     },
-    path: "/",
+    path: "/clues/customer/await",
     component: CluesCustomerAwait,
     page: [
       {
@@ -91,7 +129,7 @@ const menuLeftUserRouter = [
           title: "待处理",
           icon: <DatabaseOutlined />,
         },
-        path: "/",
+        path: "/clues/customer/await",
         component: CluesCustomerAwait,
       },
       {
@@ -370,19 +408,20 @@ const dataDispose = (data) => {
   let newArray = [];
   data.forEach((element) => {
     let dataV = [];
-    if(element.hasOwnProperty('page')) {
+    if (element.hasOwnProperty('page')) {
       element.page.forEach((item) => {
         dataV.push(item);
       });
-      newArray = [...newArray,...dataV];
-    }else{
+      newArray = [...newArray, ...dataV];
+    } else {
       newArray = [...data];
     }
-    
+
   });
   return newArray;
 };
 
+let menuLeftProductionRouterPage = dataDispose(menuLeftProductionRouter);
 let menuLeftUserRouterPage = dataDispose(menuLeftUserRouter);
 let menuLeftItemRouterPage = dataDispose(menuLeftItemRouter);
 let meunParkMessageRouterPage = dataDispose(meunParkMessageRouter);
@@ -390,6 +429,7 @@ let menuLeftClientRouterPage = dataDispose(menuLeftClientRouter);
 
 const userRouter = [
   ...menuTopRouter,
+  ...menuLeftProductionRouterPage,
   ...menuLeftUserRouterPage,
   ...menuLeftItemRouterPage,
   ...meunParkMessageRouterPage,
@@ -423,7 +463,13 @@ const userRouter = [
   //停车场信息
   {
     path: "/parkMessage/details",
-    component:ParkMessageDetails
+    component: ParkMessageDetails
   },
+    //生产计划详情 操作
+    {
+      path: "/production/detailsoperation",
+      component: ProductionDetailsOperation
+    },
+
 ];
-export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter ,  userRouter };
+export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter, menuLeftProductionRouter, userRouter };
