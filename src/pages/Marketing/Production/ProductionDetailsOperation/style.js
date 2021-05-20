@@ -27,4 +27,7 @@ export const ProductionDetailsOperationAll = styled.div`
   .ant-timeline-item-label{
     width: 200px
   }
+  .top{
+    height: 20px;
+  }
 `

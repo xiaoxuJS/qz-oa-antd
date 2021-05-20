@@ -1,15 +1,16 @@
 import React from 'react';
-import { 
-    Modal,Form, Input, Select, DatePicker
+import {
+    Modal, Form, Input, Select, DatePicker, Upload, message, Button
 } from 'antd';
 
+import { UploadOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 const ProductionAdd = ({ productionAddShow, productionAddFun }) => {
     const [form] = Form.useForm();
     const {
         // setFieldsValue, 
-        validateFields} = form;
+        validateFields } = form;
 
     const handleOk = () => {
         validateFields().then(values => {
@@ -25,13 +26,31 @@ const ProductionAdd = ({ productionAddShow, productionAddFun }) => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
+    //上传
+    const props = {
+        name: 'file',
+        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        headers: {
+          authorization: 'authorization-text',
+        },
+        onChange(info) {
+          if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+          }
+          if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+          } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+          }
+        },
+      };
     return <Modal title="添加生产计划" visible={productionAddShow} onOk={handleOk} onCancel={handleCancel}>
         <Form
             {...layout}
             name="basic"
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            form = {form}
+            form={form}
         >
             <Form.Item
                 label="客户名称"
@@ -95,14 +114,23 @@ const ProductionAdd = ({ productionAddShow, productionAddFun }) => {
                 name="jiaohuoriqi"
                 rules={[{ required: true, message: '请选择交货日期!' }]}
             >
-                <DatePicker style = {{width: '100%'}}/>
+                <DatePicker style={{ width: '100%' }} />
             </Form.Item>
             <Form.Item
                 label="下发日期"
                 name="xiafariqi"
                 rules={[{ required: true, message: '请选择下发日期!' }]}
             >
-                <DatePicker style = {{width: '100%'}}/>
+                <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item
+                label="上传合同"
+                name="file"
+                rules={[{ required: true, message: '请选择下发日期!' }]}
+            >
+                <Upload {...props}>
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                </Upload>
             </Form.Item>
         </Form>
     </Modal>

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Row, Col, Button, Form, Select } from "antd";
+import { Row, Col, Button,  Form , DatePicker  } from "antd";
 import { Modal } from 'antd';
-const { Option } = Select;
 
-const MarketingReception = ({ setFlow }) => {
+const Production = ({setFlow}) => {
     const [form] = Form.useForm();
     const {
         // setFieldsValue, 
-        validateFields } = form;
+        validateFields} = form;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const hanldeNextStep = () => {
         setIsModalVisible(true);
@@ -16,10 +15,10 @@ const MarketingReception = ({ setFlow }) => {
     const handleOk = () => {
         validateFields().then(values => {
             console.log(values);
-            setFlow('17');
+            setFlow('1');
             setIsModalVisible(false);
         })
-
+        
     };
 
     const handleCancel = () => {
@@ -27,24 +26,24 @@ const MarketingReception = ({ setFlow }) => {
     };
     return <>
         <Row>
-            <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>(营销部)签收</Button></Col>
+            {/* 签收的时候会填写计划生产时间 */}
+            <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（生产制造部）9.签收</Button></Col>
+
+            {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>10. （生产制造部制作完成）下发（技术部）</Button></Col> */}
         </Row>
         <Modal title="是否确认签收" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
             <Form
                 {...layout}
                 name="basic"
                 initialValues={{ remember: true }}
-                form={form}
+                form = {form}
             >
-                <Form.Item name="gender" label="发货人" rules={[{ required: true }]}>
-                    <Select
-                        placeholder="请选择发货人"
-                        allowClear
-                    >
-                        <Option value="male">male</Option>
-                        <Option value="female">female</Option>
-                        <Option value="other">other</Option>
-                    </Select>
+                <Form.Item
+                    label="计划完成日期"
+                    name="username"
+                    rules={[{ required: true, message: '请选择计划完成日期!' }]}
+                >
+                    <DatePicker />
                 </Form.Item>
             </Form>
         </Modal>
@@ -53,6 +52,6 @@ const MarketingReception = ({ setFlow }) => {
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
-};
+  };
 
-export default MarketingReception;
+export default Production;

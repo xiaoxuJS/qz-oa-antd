@@ -14,8 +14,7 @@ const Supply = ({setFlow}) => {
 
     const handleOk = () => {
         validateFields().then(values => {
-            console.log(values);
-            setFlow('12')
+            setFlow('4')
             setIsModalVisible(false);
         })
         
@@ -26,7 +25,10 @@ const Supply = ({setFlow}) => {
     };
     return <>
         <Row>
-            <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>签收(供应部)</Button></Col>
+            {/* 签收的时候填写交货时间 */}
+            {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>6.1(供应部)签收</Button></Col> */}
+            {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>6.2(供应部)驳回</Button></Col> */}
+            <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>7.（供应部）下发 (技术部)</Button></Col>
         </Row>
         <Modal title="是否确认签收" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
             <Form

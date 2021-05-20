@@ -1,6 +1,8 @@
 import React from "react";
 //导航栏icon
 import { DatabaseOutlined, LaptopOutlined } from "@ant-design/icons";
+//工作台
+import Home from '../pages/Home'
 //营销管理
 //列表
 import Production from '../pages/Marketing/Production/Production';
@@ -41,435 +43,484 @@ import ParkMessageDetails from "../pages/ParkingLot/ParkMessage/ParkMessageDetai
 //停车场管理-系统管理-车厂设置
 import ParkingManagement from "../pages/ParkingLot/SystemManagement/ParkingManagement";
 
+//人事管理
+//人事管理-人员管理-list
+import PersonnelAllManagementList from '../pages/PersonnelManagement/PersonnelAllManagement/PersonnelAllManagementList';
+
 //头部导航
 const menuTopRouter = [
-  {
-    key: 'production',
-    meta: {
-      title: "营销管理",
-      icon: <DatabaseOutlined />,
-    },
-    path: "/",
-    component: Production,
-  },
-  {
-    key: 'clues',
-    meta: {
-      title: "客户线索",
-      icon: <DatabaseOutlined />,
-    },
-    path: "/clues/customer/await",
-    component: CluesCustomerAwait,
-  },
-  {
-    key: 'item',
-    meta: {
-      title: "项目管理",
-      icon: <LaptopOutlined />,
-    },
-    path: "/itemManagement/reserve/IOT",
-    component: ItemManagementIndex,
-  },
-  {
-    key: 'client',
-    meta: {
-      title: "客户管理",
-      icon: <LaptopOutlined />,
-    },
-    path: "/company/client/index",
-    component: CompanyClientIndex,
-  },
-  {
-    key: 'park',
-    meta: {
-      title: "停车场管理",
-      icon: <LaptopOutlined />,
-    },
-    path: "/parkMessage",
-    component: ParkMessage,
-  },
-];
-//侧边栏导航-营销管理
-const menuLeftProductionRouter = [
-  {
-    key: 'production',
-    meta: {
-      title: "生产计划",
-      icon: <DatabaseOutlined />,
-    },
-    path: "/",
-    component: Production,
-    page: [
-      {
-        key: 'production',
+    {
+        key: 'Home',
         meta: {
-          title: "进行中",
-          icon: <DatabaseOutlined />,
+            title: "工作台",
+            icon: <DatabaseOutlined />,
         },
         path: "/",
-        component: Production,
-      }
-    ],
-  }
-];
-//侧边栏导航-客户线索
-const menuLeftUserRouter = [
-  {
-    key: 'clues',
-    meta: {
-      title: "我的线索",
-      icon: <DatabaseOutlined />,
+        component: Home,
     },
-    path: "/clues/customer/await",
-    component: CluesCustomerAwait,
-    page: [
-      {
-        key: 'cluesAwait',
+    {
+        key: 'production',
         meta: {
-          title: "待处理",
-          icon: <DatabaseOutlined />,
+            title: "营销管理",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/production",
+        component: Production,
+    },
+    {
+        key: 'clues',
+        meta: {
+            title: "客户线索",
+            icon: <DatabaseOutlined />,
         },
         path: "/clues/customer/await",
         component: CluesCustomerAwait,
-      },
-      {
-        key: 'cluesIng',
-        meta: {
-          title: "跟进中",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/cluesCustomerAwait/ing",
-        component: CluesCustomerAwait,
-      },
-      {
-        key: 'cluesAbandon',
-        meta: {
-          title: "已搁置",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/cluesCustomerAwait/abandon",
-        component: CluesCustomerAwait,
-      },
-    ],
-  },
-  {
-    key: 'cluesAll',
-    meta: {
-      title: "线索池",
-      icon: <DatabaseOutlined />,
     },
-    path: "/clueAllAtait",
-    component: ClueAllAtait,
-    page: [
-      {
-        key: 'cluesAllAtait',
+    {
+        key: 'item',
         meta: {
-          title: "待分配",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/clueAllAtait",
-        component: ClueAllAtait,
-      },
-      {
-        key: 'cluesAllAlready',
-        meta: {
-          title: "已分配",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/clueAllAlready",
-        component: ClueAllAlready,
-      },
-    ],
-  },
-];
-//侧边栏导航-项目管理
-const menuLeftItemRouter = [
-  {
-    key: 'item',
-    meta: {
-      title: "储备项目",
-      icon: <DatabaseOutlined />,
-    },
-    path: "/itemManagement/reserve/IOT",
-    component: ItemManagementIndex,
-    page: [
-      {
-        key: 'itemReserveIOT',
-        meta: {
-          title: "物联网项目",
-          icon: <DatabaseOutlined />,
+            title: "项目管理",
+            icon: <LaptopOutlined />,
         },
         path: "/itemManagement/reserve/IOT",
         component: ItemManagementIndex,
-      },
-      {
-        key: 'itemReserveTradition',
-        meta: {
-          title: "传统项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/reserve/tradition",
-        component: ItemManagementIndex,
-      },
-      {
-        key: 'itemReserveSoftware',
-        meta: {
-          title: "软件项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/reserve/software",
-        component: ItemManagementIndex,
-      },
-    ],
-  },
-  {
-    key: 'itemIng',
-    meta: {
-      title: "进行中项目",
-      icon: <DatabaseOutlined />,
     },
-    path: "/itemManagement/ing/IOT",
-    component: ItemManagementIndex,
-    page: [
-      {
-        key: 'itemIngIOT',
+    {
+        key: 'client',
         meta: {
-          title: "物联网项目",
-          icon: <DatabaseOutlined />,
+            title: "客户管理",
+            icon: <LaptopOutlined />,
+        },
+        path: "/company/client/index",
+        component: CompanyClientIndex,
+    },
+    {
+        key: 'park',
+        meta: {
+            title: "停车场管理",
+            icon: <LaptopOutlined />,
+        },
+        path: "/parkMessage",
+        component: ParkMessage,
+    },
+    {
+        key: 'personnel',
+        meta: {
+            title: "人事管理",
+            icon: <LaptopOutlined />,
+        },
+        path: "/personnel/all/management/list",
+        component: PersonnelAllManagementList,
+    },
+];
+//侧边栏导航-营销管理
+const menuLeftProductionRouter = [
+    {
+        key: 'production',
+        meta: {
+            title: "生产计划",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/production",
+        component: Production,
+        page: [
+            {
+                key: 'production',
+                meta: {
+                    title: "进行中",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/production",
+                component: Production,
+            }
+        ],
+    }
+];
+//侧边栏导航-客户线索
+const menuLeftUserRouter = [
+    {
+        key: 'clues',
+        meta: {
+            title: "我的线索",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/clues/customer/await",
+        component: CluesCustomerAwait,
+        page: [
+            {
+                key: 'cluesAwait',
+                meta: {
+                    title: "待处理",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/clues/customer/await",
+                component: CluesCustomerAwait,
+            },
+            {
+                key: 'cluesIng',
+                meta: {
+                    title: "跟进中",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/cluesCustomerAwait/ing",
+                component: CluesCustomerAwait,
+            },
+            {
+                key: 'cluesAbandon',
+                meta: {
+                    title: "已搁置",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/cluesCustomerAwait/abandon",
+                component: CluesCustomerAwait,
+            },
+        ],
+    },
+    {
+        key: 'cluesAll',
+        meta: {
+            title: "线索池",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/clueAllAtait",
+        component: ClueAllAtait,
+        page: [
+            {
+                key: 'cluesAllAtait',
+                meta: {
+                    title: "待分配",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/clueAllAtait",
+                component: ClueAllAtait,
+            },
+            {
+                key: 'cluesAllAlready',
+                meta: {
+                    title: "已分配",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/clueAllAlready",
+                component: ClueAllAlready,
+            },
+        ],
+    },
+];
+//侧边栏导航-项目管理
+const menuLeftItemRouter = [
+    {
+        key: 'item',
+        meta: {
+            title: "储备项目",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/itemManagement/reserve/IOT",
+        component: ItemManagementIndex,
+        page: [
+            {
+                key: 'itemReserveIOT',
+                meta: {
+                    title: "物联网项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/reserve/IOT",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemReserveTradition',
+                meta: {
+                    title: "传统项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/reserve/tradition",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemReserveSoftware',
+                meta: {
+                    title: "软件项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/reserve/software",
+                component: ItemManagementIndex,
+            },
+        ],
+    },
+    {
+        key: 'itemIng',
+        meta: {
+            title: "进行中项目",
+            icon: <DatabaseOutlined />,
         },
         path: "/itemManagement/ing/IOT",
         component: ItemManagementIndex,
-      },
-      {
-        key: 'itemIngTradition',
-        meta: {
-          title: "传统项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/ing/tradition",
-        component: ItemManagementIndex,
-      },
-      {
-        key: 'itemIngSoftware',
-        meta: {
-          title: "软件项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/ing/software",
-        component: ItemManagementIndex,
-      },
-    ],
-  },
-  {
-    key: 'itemQuality',
-    meta: {
-      title: "质保段项目",
-      icon: <DatabaseOutlined />,
+        page: [
+            {
+                key: 'itemIngIOT',
+                meta: {
+                    title: "物联网项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/ing/IOT",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemIngTradition',
+                meta: {
+                    title: "传统项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/ing/tradition",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemIngSoftware',
+                meta: {
+                    title: "软件项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/ing/software",
+                component: ItemManagementIndex,
+            },
+        ],
     },
-    path: "/itemManagement/quality/IOT",
-    component: ItemManagementIndex,
-    page: [
-      {
-        key: 'itemQualityIOT',
+    {
+        key: 'itemQuality',
         meta: {
-          title: "物联网项目",
-          icon: <DatabaseOutlined />,
+            title: "质保段项目",
+            icon: <DatabaseOutlined />,
         },
         path: "/itemManagement/quality/IOT",
         component: ItemManagementIndex,
-      },
-      {
-        key: 'itemQualityTradition',
-        meta: {
-          title: "传统项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/quality/tradition",
-        component: ItemManagementIndex,
-      },
-      {
-        key: 'itemQualitySoftware',
-        meta: {
-          title: "软件项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/quality/software",
-        component: ItemManagementIndex,
-      },
-    ],
-  },
-  {
-    key: 'itemOver',
-    meta: {
-      title: "已成交项目",
-      icon: <DatabaseOutlined />,
+        page: [
+            {
+                key: 'itemQualityIOT',
+                meta: {
+                    title: "物联网项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/quality/IOT",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemQualityTradition',
+                meta: {
+                    title: "传统项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/quality/tradition",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemQualitySoftware',
+                meta: {
+                    title: "软件项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/quality/software",
+                component: ItemManagementIndex,
+            },
+        ],
     },
-    path: "/itemManagement/over/IOT",
-    component: ItemManagementIndex,
-    page: [
-      {
-        key: 'itemOverIOT',
+    {
+        key: 'itemOver',
         meta: {
-          title: "物联网项目",
-          icon: <DatabaseOutlined />,
+            title: "已成交项目",
+            icon: <DatabaseOutlined />,
         },
         path: "/itemManagement/over/IOT",
         component: ItemManagementIndex,
-      },
-      {
-        key: 'itemOverTradition',
-        meta: {
-          title: "传统项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/over/tradition",
-        component: ItemManagementIndex,
-      },
-      {
-        key: 'itemOverSoftware',
-        meta: {
-          title: "软件项目",
-          icon: <DatabaseOutlined />,
-        },
-        path: "/itemManagement/over/software",
-        component: ItemManagementIndex,
-      },
-    ],
-  },
+        page: [
+            {
+                key: 'itemOverIOT',
+                meta: {
+                    title: "物联网项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/over/IOT",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemOverTradition',
+                meta: {
+                    title: "传统项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/over/tradition",
+                component: ItemManagementIndex,
+            },
+            {
+                key: 'itemOverSoftware',
+                meta: {
+                    title: "软件项目",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/itemManagement/over/software",
+                component: ItemManagementIndex,
+            },
+        ],
+    },
 ];
 
 //侧边栏导航-客户管理
 const menuLeftClientRouter = [
-  {
-    key: 'clientCompany',
-    meta: {
-      title: "企业客户",
-      icon: <DatabaseOutlined />,
+    {
+        key: 'clientCompany',
+        meta: {
+            title: "企业客户",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/company/client/index",
+        component: CompanyClientIndex
     },
-    path: "/company/client/index",
-    component: CompanyClientIndex
-  },
-  {
-    key: 'clientCooperation',
-    meta: {
-      title: "活动客户",
-      icon: <DatabaseOutlined />,
+    {
+        key: 'clientCooperation',
+        meta: {
+            title: "活动客户",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/cooperation/client/index",
+        component: CompanyClientIndex
     },
-    path: "/cooperation/client/index",
-    component: CompanyClientIndex
-  },
 ]
 
 //侧边栏导航-停车场管理
 const meunParkMessageRouter = [
-  {
-    key: 60,
-    meta: {
-      title: "停车信息",
-      icon: <DatabaseOutlined />,
-    },
-    path: "/parkMessage",
-    component: ParkMessage,
-    page: [
-      {
-        key: 600,
+    {
+        key: 60,
         meta: {
-          title: "车辆列表",
-          icon: <DatabaseOutlined />,
+            title: "停车信息",
+            icon: <DatabaseOutlined />,
         },
         path: "/parkMessage",
         component: ParkMessage,
-      }
-    ],
-  },
-  {
-    key: 61,
-    meta: {
-      title: "系统管理",
-      icon: <DatabaseOutlined />,
+        page: [
+            {
+                key: 600,
+                meta: {
+                    title: "车辆列表",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/parkMessage",
+                component: ParkMessage,
+            }
+        ],
     },
-    path: "/parkingManagement",
-    component: ParkingManagement,
-    page: [
-      {
-        key: 610,
+    {
+        key: 61,
         meta: {
-          title: "车厂管理",
-          icon: <DatabaseOutlined />,
+            title: "系统管理",
+            icon: <DatabaseOutlined />,
         },
         path: "/parkingManagement",
         component: ParkingManagement,
-      }
-    ],
-  },
+        page: [
+            {
+                key: 610,
+                meta: {
+                    title: "车厂管理",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/parkingManagement",
+                component: ParkingManagement,
+            }
+        ],
+    },
+];
+
+//侧边栏导航-人事管理
+const menuLeftPersonnelRouter = [
+    {
+        key: 'personnel',
+        meta: {
+            title: "人员管理",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/personnel/all/management/list",
+        component: PersonnelAllManagementList,
+        page: [
+            {
+                key: 'personnel',
+                meta: {
+                    title: "人员列表",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/personnel/all/management/list",
+                component: PersonnelAllManagementList,
+            }
+        ],
+    }
 ];
 //对导航栏进行数据处理
 const dataDispose = (data) => {
-  let newArray = [];
-  data.forEach((element) => {
-    let dataV = [];
-    if (element.hasOwnProperty('page')) {
-      element.page.forEach((item) => {
-        dataV.push(item);
-      });
-      newArray = [...newArray, ...dataV];
-    } else {
-      newArray = [...data];
-    }
+    let newArray = [];
+    data.forEach((element) => {
+        let dataV = [];
+        if (element.hasOwnProperty('page')) {
+            element.page.forEach((item) => {
+                dataV.push(item);
+            });
+            newArray = [...newArray, ...dataV];
+        } else {
+            newArray = [...data];
+        }
 
-  });
-  return newArray;
+    });
+    return newArray;
 };
+
 
 let menuLeftProductionRouterPage = dataDispose(menuLeftProductionRouter);
 let menuLeftUserRouterPage = dataDispose(menuLeftUserRouter);
 let menuLeftItemRouterPage = dataDispose(menuLeftItemRouter);
 let meunParkMessageRouterPage = dataDispose(meunParkMessageRouter);
 let menuLeftClientRouterPage = dataDispose(menuLeftClientRouter);
+let menuLeftPersonnelRouterPage = dataDispose(menuLeftPersonnelRouter);
 
 const userRouter = [
-  ...menuTopRouter,
-  ...menuLeftProductionRouterPage,
-  ...menuLeftUserRouterPage,
-  ...menuLeftItemRouterPage,
-  ...meunParkMessageRouterPage,
-  ...menuLeftClientRouterPage,
-  {
-    path: "/cluesCustomerAwait/add",
-    component: CluesCustomerAwaitAdd,
-  },
-  {
-    path: "/cluesCustomerAwait/details",
-    component: CluesCustomerAwaitDetails,
-  },
-  //项目管理
-  {
-    path: "/itemManagement/add",
-    component: ItemManagementAdd,
-  },
-  {
-    path: "/itemManagement/Details",
-    component: ItemManagementDetails,
-  },
-  //客户管理
-  {
-    path: "/company/client/add",
-    component: CompanyClientAdd
-  },
-  {
-    path: "/company/client/details",
-    component: CompanyClientDetails
-  },
-  //停车场信息
-  {
-    path: "/parkMessage/details",
-    component: ParkMessageDetails
-  },
+    ...menuTopRouter,
+    ...menuLeftProductionRouterPage,
+    ...menuLeftUserRouterPage,
+    ...menuLeftItemRouterPage,
+    ...meunParkMessageRouterPage,
+    ...menuLeftClientRouterPage,
+    ...menuLeftPersonnelRouterPage,
+    {
+        path: "/cluesCustomerAwait/add",
+        component: CluesCustomerAwaitAdd,
+    },
+    {
+        path: "/cluesCustomerAwait/details",
+        component: CluesCustomerAwaitDetails,
+    },
+    //项目管理
+    {
+        path: "/itemManagement/add",
+        component: ItemManagementAdd,
+    },
+    {
+        path: "/itemManagement/Details",
+        component: ItemManagementDetails,
+    },
+    //客户管理
+    {
+        path: "/company/client/add",
+        component: CompanyClientAdd
+    },
+    {
+        path: "/company/client/details",
+        component: CompanyClientDetails
+    },
+    //停车场信息
+    {
+        path: "/parkMessage/details",
+        component: ParkMessageDetails
+    },
     //生产计划详情 操作
     {
-      path: "/production/detailsoperation",
-      component: ProductionDetailsOperation
+        path: "/production/detailsoperation",
+        component: ProductionDetailsOperation
     },
 
 ];
-export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter, menuLeftProductionRouter, userRouter };
+export { menuTopRouter, menuLeftUserRouter, menuLeftItemRouter, meunParkMessageRouter, menuLeftClientRouter, menuLeftProductionRouter, userRouter, menuLeftPersonnelRouter };
