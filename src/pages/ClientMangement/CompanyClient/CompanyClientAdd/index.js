@@ -84,7 +84,7 @@ const CompanyClientAdd = () => {
             <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
                     提交
-                    </Button>
+                </Button>
             </Form.Item>
         </Form>
     </CompanyClientAddAll>

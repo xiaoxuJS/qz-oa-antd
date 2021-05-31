@@ -40,16 +40,26 @@ const ProductionDetailsOperation = () => {
     const flowShow = () => {
         switch (flow) {
             case '1': //营销部
+            case '6': //营销部接收技术部完成的流程单
+            case '7': //营销部下发到生产制造部门
             case '12': //营销部
                 return <Marketing setFlow={setFlow} flow = {flow}/>
             case '2': //技术部签收
-                return <Skill setFlow={setFlow} />
-            case '3': //技术部签收
-                return <Electric setFlow={setFlow} />
+            case '2.2.1': //技术部上传图纸
+            case '2.2.2': //下发供应部
+            case '5': //下发供应部
+            case '10': //签收 质检
+                return <Skill setFlow={setFlow} flow = {flow}/>
+            case '2.1.1': //电气智能签收
+            case '2.1.2': //电气智设计图纸
+            case '2.1.3': //下发供应部
+                return <Electric setFlow={setFlow} flow = {flow}/>
+            case '3': //供应部
             case '4': //供应部
-                return <Supply setFlow={setFlow} />
-            case '5': //供应部
-                return <Production setFlow={setFlow} />
+                return <Supply setFlow={setFlow} flow = {flow}/>
+            case '8': //生产制造部
+            case '9': //下发
+                return <Production setFlow={setFlow} flow = {flow}/>
             default:
                 break;
         }
@@ -174,31 +184,8 @@ const ProductionDetailsOperation = () => {
                 operationShow ? <>
                     <Title level={3}>操作</Title>
                     {flowShow()}
-                    {/* <Marketing setFlow={setFlow} /> */}
-                    {/* <Skill setFlow={setFlow} /> */}
-                    {/* <Electric setFlow={setFlow} /> */}
-                    {/* <Supply setFlow={setFlow} /> */}
-                    {/* <Production setFlow={setFlow} /> */}
                 </> : null
             }
-
-            
-            {/* <div className='top'>
-
-            </div>
-            
-            <div className='top'>
-
-            </div>
-            
-            <div className='top'>
-
-            </div>
-            
-            <div className='top'>
-
-            </div>
-             */}
 
 
         </Typography>

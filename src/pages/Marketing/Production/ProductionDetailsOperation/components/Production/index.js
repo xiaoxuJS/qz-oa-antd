@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Row, Col, Button,  Form , DatePicker  } from "antd";
 import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+const {confirm} = Modal;
 
-const Production = ({setFlow}) => {
+const Production = ({setFlow, flow}) => {
     const [form] = Form.useForm();
     const {
         // setFieldsValue, 
@@ -11,11 +13,11 @@ const Production = ({setFlow}) => {
     const hanldeNextStep = () => {
         setIsModalVisible(true);
     };
-
+    //签收
     const handleOk = () => {
         validateFields().then(values => {
             console.log(values);
-            setFlow('1');
+            setFlow('9');
             setIsModalVisible(false);
         })
         
@@ -24,9 +26,34 @@ const Production = ({setFlow}) => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    //下发技术部
+    const hanldeNextStepSkill = () => {
+        confirm({
+            title: '您确定要将流程单发往技术部吗?',
+            icon: <ExclamationCircleOutlined />,
+            onOk() {
+                setFlow('10');
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+    const buttonShow = () => {
+        switch (flow) {
+          case '8':
+            return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（生产制造部）8.签收</Button></Col>;
+          case '9':
+            return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>9. （生产制造部制作完成）下发（技术部）</Button></Col>;
+          default:
+            break;
+        }
+      }
     return <>
         <Row>
             {/* 签收的时候会填写计划生产时间 */}
+            {buttonShow()}
             <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（生产制造部）9.签收</Button></Col>
 
             {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>10. （生产制造部制作完成）下发（技术部）</Button></Col> */}

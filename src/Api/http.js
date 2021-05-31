@@ -3,7 +3,7 @@ let ip = "";
 if(process.env.NODE_ENV === 'development') { //开发环境;
     ip = "http://192.168.3.5:9829/oa"; //服务器地址
 }else if(process.env.NODE_ENV === 'production') { // 打包环境
-    ip = ""; //服务器地址
+    ip = "http://192.168.3.5:9829/oa"; //服务器地址
 }
 
 //封装请求方法
