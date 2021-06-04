@@ -68,7 +68,7 @@ const HomeContent = () => {
             </div>
             <div className="centre">
                 <p>
-                    你好！xiaoxujs，祝您今天工作顺利！
+                    你好！xiaoxujs，祝您今天工作顺利！为了联盟！
                 </p>
                 <div>
                     签名：<Image width={40} src={imgUrl ? imgUrl:  "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"} />
