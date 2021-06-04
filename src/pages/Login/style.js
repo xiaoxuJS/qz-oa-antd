@@ -10,6 +10,6 @@ export const LoginBox = styled.div`
     width: 300px;
     position: absolute;
     top: 50%;
-    right: 10%;
+    right: 15%;
     margin-top: -120px;
 `

@@ -39,3 +39,33 @@ export function putSofClueRecordInsertRecord(data) {
     const url = ip + '/sof-clue-record/insert/record';
     return http(url, "put", data)
 }
+//用户注册
+export function putSysUserRegisterUser(data) {
+    const url = ip + '/sys-user/registerUser';
+    return http(url, "put", data)
+}
+//更新手签
+export function getSysUserUpdateManually(data) {
+    const url = ip + '/sys-user/updateManually';
+    return http(url, "get", data)
+}
+//手签--回显
+export function getSysUserEchoManually(data) {
+    const url = ip + '/sys-user/echoManually';
+    return http(url, "get", data)
+}
+//修改个人资料 -- 回显
+export function getSysUserUpdMaterial(data) {
+    const url = ip + '/sys-user/updMaterial';
+    return http(url, "get", data)
+}
+//修改个人资料
+export function postSysUserUpdMaterial(data) {
+    const url = ip + '/sys-user/updMaterial';
+    return http(url, "post", data)
+}
+//删除用户
+export function getSysUserDeleteUser(data) {
+    const url = ip + '/sys-user/deleteUser';
+    return http(url, "get", data)
+}

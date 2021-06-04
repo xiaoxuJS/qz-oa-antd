@@ -22,31 +22,31 @@ import { ContextProvider } from './reducer'
 moment.locale("zh_CN");
 
 function App() {
-  const isLogin = () => {
-    if (!sessionStorage.getItem("token")) {
-      return false
+    const isLogin = () => {
+        if (!localStorage.getItem("token")) {
+            return false
+        }
+        return true
     }
-    return true
-  }
-  return (
-    <div className="App">
-      <Router basename="/">
-        <StyleCommon />
-        <ConfigProvider locale={zhCN}>
-          <ContextProvider>
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <Route path="/" render={() =>
-                isLogin() ? <Home /> : <Redirect to="/Login" />
-                //判断成功进入页面，不成功跳转登录
-              }
-              />
-            </Switch>
-          </ContextProvider>
-        </ConfigProvider>
-      </Router>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Router basename="/">
+                <StyleCommon />
+                <ConfigProvider locale={zhCN}>
+                    <ContextProvider>
+                        <Switch>
+                            <Route exact path="/login" component={Login} />
+                            <Route path="/" render={() =>
+                                isLogin() ? <Home /> : <Redirect to="/Login" />
+                                //判断成功进入页面，不成功跳转登录
+                            }
+                            />
+                        </Switch>
+                    </ContextProvider>
+                </ConfigProvider>
+            </Router>
+        </div>
+    );
 }
 
 export default App;

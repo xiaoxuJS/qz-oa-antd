@@ -1,10 +1,49 @@
 import Axios from 'axios';
 let ip = "";
-if(process.env.NODE_ENV === 'development') { //开发环境;
-    ip = "http://192.168.3.5:9829/oa"; //服务器地址
-}else if(process.env.NODE_ENV === 'production') { // 打包环境
-    ip = "http://192.168.3.5:9829/oa"; //服务器地址
+if (process.env.NODE_ENV === 'development') { //开发环境;
+    ip = 'http://192.168.3.5:9829/oa'; //服务器地址
+} else if (process.env.NODE_ENV === 'production') { // 打包环境
+    ip = 'http://192.168.3.5:9829/oa'; //服务器地址
 }
+
+Axios.interceptors.request.use(
+    config => {
+        if (sessionStorage.getItem("token")) {
+            config.headers.authentication = sessionStorage.getItem("token");
+        }
+        if (localStorage.getItem("token")) {
+            config.headers.authentication = localStorage.getItem("token");
+        }
+        return config;
+    },
+    error => {
+        console.log("===发送请求拦截器报错===")
+        console.log(error);
+        console.log("===end===");
+        Promise.reject(error);
+    }
+);
+
+Axios.interceptors.response.use(
+    response => {
+        //拦截响应，做统一处理 
+        switch (response.data.code) {
+            case 10021:
+                window.open('/login', '_self');
+                break;
+            case 10019:
+                localStorage.removeItem('token');
+                break;
+            default:
+                break;
+
+        }
+        return response
+    },
+    //接口错误状态处理，也就是说无响应时的处理
+    error => {
+        return Promise.reject(error.response.status) // 返回接口返回的错误信息
+    })
 
 //封装请求方法
 const http = (
@@ -17,7 +56,7 @@ const http = (
         Axios({
             url,
             method,
-            [xhrArgsName]:args
+            [xhrArgsName]: args
         }).then(response => {
             resolve(response.data);
         }).catch(error => {
