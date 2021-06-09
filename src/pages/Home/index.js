@@ -20,27 +20,34 @@ const Home = () => {
     useEffect(() => {
         const sessionValue = sessionStorage.getItem('topKey')
         if (sessionValue) {
-          setTopKey(sessionValue);
-          switch (sessionValue) {
-            case 'clues': //线索
-              setMenuLeftData(menuLeftUserRouter);
-              break;
-            case 'item': //项目
-              setMenuLeftData(menuLeftItemRouter);
-              break;
-            case 'client': //客户信息
-              setMenuLeftData(menuLeftClientRouter);
-              break;
-            case '/park': //停车场
-              setMenuLeftData(meunParkMessageRouter);
-              break;
-            default:
-              setMenuLeftData(menuLeftUserRouter);
-          }
+            setTopKey(sessionValue);
+            switch (sessionValue) {
+                case 'clues': //线索
+                    setMenuLeftData(menuLeftUserRouter);
+                    break;
+                case 'item': //项目
+                    setMenuLeftData(menuLeftItemRouter);
+                    break;
+                case 'client': //客户信息
+                    setMenuLeftData(menuLeftClientRouter);
+                    break;
+                case 'park': //停车场
+                    setMenuLeftData(meunParkMessageRouter);
+                    break;
+                case 'production': //停车场
+                    setMenuLeftData(menuLeftProductionRouter);
+                    break;
+                case 'personnel': //人事管理
+                    setMenuLeftData(menuLeftPersonnelRouter);
+                    break;
+                default:
+                    setMenuLeftData(menuLeftProductionRouter);
+            }
         } else {
-          setMenuLeftData(menuLeftUserRouter);
+            setTopKey('Home');
+            setMenuLeftData(menuLeftProductionRouter);
         }
-        setMenuLeftData(menuLeftUserRouter);
+        // setMenuLeftData(menuLeftUserRouter);
     }, [])
 
     //头部导航页面跳转
@@ -74,6 +81,7 @@ const Home = () => {
     //退出
     const handleExit = () => {
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('topKey')
         history.push('/login');
     }
     return (
@@ -101,37 +109,36 @@ const Home = () => {
                     </HomeHeaderConter>
                     <HomeMessage>
                         <Space>
-                            xiaoxujs
-              <Button type="primary" onClick={handleExit}>退出登录</Button>
+                            <Button type="primary" onClick={handleExit}>退出登录</Button>
                         </Space>
                     </HomeMessage>
 
                 </Header>
                 {
-                    location.pathname === '/' 
-                    ? 
-                    <Layout>
-                        <HomeContent />
-                    </Layout> 
-                    : 
-                    <Layout>
-                        <Sider width={200} className="site-layout-background">
-                            <HomeNav menuData={menuLeftData} />
-                        </Sider>
-                        <Layout style={{ padding: "8px 8px 0px 8px", background: "#DCE0E0" }}>
-                            <Content
-                                className="site-layout-background"
-                                style={{
-                                    margin: 0,
-                                    height: contentHeight,
-                                    background: '#fff',
-                                    overflow: "auto"
-                                }}
-                            >
-                                <UserRoutes />
-                            </Content>
+                    location.pathname === '/'
+                        ?
+                        <Layout>
+                            <HomeContent />
                         </Layout>
-                    </Layout>
+                        :
+                        <Layout>
+                            <Sider width={200} className="site-layout-background">
+                                <HomeNav menuData={menuLeftData} />
+                            </Sider>
+                            <Layout style={{ padding: "8px 8px 0px 8px", background: "#DCE0E0" }}>
+                                <Content
+                                    className="site-layout-background"
+                                    style={{
+                                        margin: 0,
+                                        height: contentHeight,
+                                        background: '#fff',
+                                        overflow: "auto"
+                                    }}
+                                >
+                                    <UserRoutes />
+                                </Content>
+                            </Layout>
+                        </Layout>
                 }
 
             </Layout>

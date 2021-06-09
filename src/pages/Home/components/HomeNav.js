@@ -20,11 +20,11 @@ const HomeNav = ({ menuData }) => {
     const handleEnterPage = useCallback((path) => {
         switch (path) {
             //线索
-            case '/':
-                dispatch({ type: 'myClueType', myClueType: 0 });
+            case '/clues/customer/await':
+                dispatch({ type: 'myClueType', myClueType: 1 });
                 break;
             case '/cluesCustomerAwait/ing':
-                dispatch({ type: 'myClueType', myClueType: 1 });
+                dispatch({ type: 'myClueType', myClueType: 2 });
                 break;
             case '/cluesCustomerAwait/abandon':
                 dispatch({ type: 'myClueType', myClueType: 3 });
@@ -68,6 +68,23 @@ const HomeNav = ({ menuData }) => {
                 break;
             case '/itemManagement/over/software':
                 dispatch({ type: 'itemMonagement', itemStatus: 3, itemType: 3 });
+                break;
+            //客户管理
+            case '/company/client/index':
+                dispatch({ type: 'client', clientType: 0 });
+                break;
+            case '/cooperation/client/index':
+                dispatch({ type: 'client', clientType: 1 });
+                break;
+            //线索池
+            case '/clueAllAtait':
+                dispatch({ type: 'cluesAll', cluesType: 1 });
+                break;
+            case '/clueAllAlready':
+                dispatch({ type: 'cluesAll', cluesType: 2 });
+                break;
+            case '/cluesAllShelve':
+                dispatch({ type: 'cluesAll', cluesType: 3 });
                 break;
             default:
                 break;

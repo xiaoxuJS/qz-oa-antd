@@ -4,8 +4,9 @@ import { DatabaseOutlined, LaptopOutlined } from "@ant-design/icons";
 //工作台
 import Home from '../pages/Home'
 //营销管理
-//列表
+//列表 --生产计划
 import Production from '../pages/Marketing/Production/Production';
+import ProductionOver from '../pages/Marketing/Production/ProductionOver'
 //详情操作
 import ProductionDetailsOperation from '../pages/Marketing/Production/ProductionDetailsOperation'
 
@@ -15,9 +16,6 @@ import CluesCustomerAwait from "../pages/CluesCustomer/MyClue/CluesCustomerAwait
 import CluesCustomerAwaitAdd from "../pages/CluesCustomer/MyClue/CluesCustomerAwaitAdd";
 //客户线索-我的线索-待处理-线索详情
 import CluesCustomerAwaitDetails from "../pages/CluesCustomer/MyClue/CluesCustomerAwaitDetails";
-
-//客户线索-线索池-已分配
-import ClueAllAlready from "../pages/CluesCustomer/ClueAll/ClueAllAlready";
 //客户线索-线索池-待分配
 import ClueAllAtait from "../pages/CluesCustomer/ClueAll/ClueAllAtait";
 
@@ -46,6 +44,10 @@ import ParkingManagement from "../pages/ParkingLot/SystemManagement/ParkingManag
 //人事管理
 //人事管理-人员管理-list
 import PersonnelAllManagementList from '../pages/PersonnelManagement/PersonnelAllManagement/PersonnelAllManagementList';
+//部门管理
+import PostManagement from '../pages/PersonnelManagement/PostManagement';
+//权限管理
+import AuthorManagement from '../pages/PersonnelManagement/AuthorManagement';
 
 //头部导航
 const menuTopRouter = [
@@ -94,15 +96,15 @@ const menuTopRouter = [
         path: "/company/client/index",
         component: CompanyClientIndex,
     },
-    {
-        key: 'park',
-        meta: {
-            title: "停车场管理",
-            icon: <LaptopOutlined />,
-        },
-        path: "/parkMessage",
-        component: ParkMessage,
-    },
+    // {
+    //     key: 'park',
+    //     meta: {
+    //         title: "停车场管理",
+    //         icon: <LaptopOutlined />,
+    //     },
+    //     path: "/parkMessage",
+    //     component: ParkMessage,
+    // },
     {
         key: 'personnel',
         meta: {
@@ -125,13 +127,22 @@ const menuLeftProductionRouter = [
         component: Production,
         page: [
             {
-                key: 'production',
+                key: 'productionList',
                 meta: {
                     title: "进行中",
                     icon: <DatabaseOutlined />,
                 },
-                path: "/production",
+                path: "/production/list",
                 component: Production,
+            },
+            {
+                key: 'productionOver',
+                meta: {
+                    title: "已完成",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/Production/over",
+                component: ProductionOver,
             }
         ],
     }
@@ -150,7 +161,7 @@ const menuLeftUserRouter = [
             {
                 key: 'cluesAwait',
                 meta: {
-                    title: "待处理",
+                    title: "跟进中",
                     icon: <DatabaseOutlined />,
                 },
                 path: "/clues/customer/await",
@@ -159,7 +170,7 @@ const menuLeftUserRouter = [
             {
                 key: 'cluesIng',
                 meta: {
-                    title: "跟进中",
+                    title: "已转客户",
                     icon: <DatabaseOutlined />,
                 },
                 path: "/cluesCustomerAwait/ing",
@@ -188,7 +199,7 @@ const menuLeftUserRouter = [
             {
                 key: 'cluesAllAtait',
                 meta: {
-                    title: "待分配",
+                    title: "跟进中",
                     icon: <DatabaseOutlined />,
                 },
                 path: "/clueAllAtait",
@@ -197,11 +208,20 @@ const menuLeftUserRouter = [
             {
                 key: 'cluesAllAlready',
                 meta: {
-                    title: "已分配",
+                    title: "已转客户",
                     icon: <DatabaseOutlined />,
                 },
                 path: "/clueAllAlready",
-                component: ClueAllAlready,
+                component: ClueAllAtait,
+            },
+            {
+                key: 'cluesAllShelve',
+                meta: {
+                    title: "已搁置",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/cluesAllShelve",
+                component: ClueAllAtait,
             },
         ],
     },
@@ -376,7 +396,7 @@ const menuLeftClientRouter = [
     {
         key: 'clientCooperation',
         meta: {
-            title: "活动客户",
+            title: "合作客户",
             icon: <DatabaseOutlined />,
         },
         path: "/cooperation/client/index",
@@ -449,6 +469,24 @@ const menuLeftPersonnelRouter = [
                 component: PersonnelAllManagementList,
             }
         ],
+    },
+    {
+        key: 'postManagement',
+        meta: {
+            title: "部门管理",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/post/management",
+        component: PostManagement,
+    },
+    {
+        key: 'authorManagement',
+        meta: {
+            title: "权限管理",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/author/management",
+        component: AuthorManagement,
     }
 ];
 //对导航栏进行数据处理

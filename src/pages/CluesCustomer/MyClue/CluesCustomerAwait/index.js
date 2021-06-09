@@ -41,7 +41,7 @@ const CluesCustomerAwait = () => {
   const pageTypeValue = [
     '待处理',
     '跟进中',
-    '错误',
+    '已转客户',
     '已搁置'
   ]
   //获取列表
@@ -137,10 +137,10 @@ const CluesCustomerAwait = () => {
     setClueIngModalShow(show);
   };
   //转搁置
-  const handleShiftLayAside = (id) => {
+  const handleShiftLayAside = (id, status) => {
     const promes = {
       clueId: id,
-      status: 3
+      status: status
     }
       ; (async () => {
         const { code, msg } = await getSofClueUpdateClue(promes);
@@ -154,7 +154,7 @@ const CluesCustomerAwait = () => {
             turnover: selectValue ? selectValue.turnover : null
           }
           getListData(params);
-          message.success("当前线索已转到搁置！");
+          message.success("当前线索已转成功！");
         } else {
           message.error(msg);
         }
@@ -255,7 +255,7 @@ const CluesCustomerAwait = () => {
           <Popconfirm
             placement="topRight"
             title={"您确认要转搁置吗？"}
-            onConfirm={() => handleShiftLayAside(record.id)}
+            onConfirm={() => handleShiftLayAside(record.id, 3)}
             okText="确定"
             cancelText="取消"
           >
@@ -263,9 +263,18 @@ const CluesCustomerAwait = () => {
               转搁置
             </Button>
           </Popconfirm>
-          <Button danger type="text">
-            转客户
+          <Popconfirm
+            placement="topRight"
+            title={"您确认要转客户吗？"}
+            onConfirm={() => handleShiftLayAside(record.id, 2)}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Button danger type="text">
+              转客户
           </Button>
+          </Popconfirm>
+
           <Button danger type="text" onClick={() => handleMyClueDetele(record.id)}>
             删除
           </Button>
@@ -282,7 +291,7 @@ const CluesCustomerAwait = () => {
         title={`我的线索-${pageTypeValue[myClueType]}`}
         extra={
           [
-            myClueType === 0 ?
+            myClueType === 1 ?
               <Button key="1" type="primary" onClick={() => handleAddClue()}>
                 线索报备
               </Button> : null

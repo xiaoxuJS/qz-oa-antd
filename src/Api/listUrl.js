@@ -22,4 +22,9 @@ export function getSysUserFindDropUser(data) {
     const url = ip + '/sys-user/find/drop-user';
     return http(url, "get", data)
 }
+//部门-用户
+export function getSysUserTreeUserByDpt(data) {
+    const url = ip + '/sys-user/treeUserByDpt';
+    return http(url, "get", data)
+}
 

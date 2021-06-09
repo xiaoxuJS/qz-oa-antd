@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ClueAllAlreadyAll = styled.div`
+export const ClueAllDetailsAll = styled.div`
   .ant-page-header{
     border-bottom: 1px solid #DCE0E0;
   }

@@ -1,11 +1,11 @@
 import Axios from 'axios';
 let ip = "";
 if (process.env.NODE_ENV === 'development') { //开发环境;
-    ip = 'http://192.168.3.5:9829/oa'; //服务器地址
+    ip = 'http://192.168.3.5:9829/oa'; //服务器地址(公司)
+    // ip = 'http://u33633e001.qicp.vip/oa'; //服务器地址（家里）
 } else if (process.env.NODE_ENV === 'production') { // 打包环境
-    ip = 'http://192.168.3.5:9829/oa'; //服务器地址
+    ip = 'http://47.98.41.126:9829/oa'; //服务器地址
 }
-
 Axios.interceptors.request.use(
     config => {
         if (sessionStorage.getItem("token")) {
@@ -29,7 +29,7 @@ Axios.interceptors.response.use(
         //拦截响应，做统一处理 
         switch (response.data.code) {
             case 10021:
-                window.open('/login', '_self');
+                // window.open('/login', '_self');
                 break;
             case 10019:
                 localStorage.removeItem('token');
@@ -42,6 +42,7 @@ Axios.interceptors.response.use(
     },
     //接口错误状态处理，也就是说无响应时的处理
     error => {
+        // window.open('/login', '_self');
         return Promise.reject(error.response.status) // 返回接口返回的错误信息
     })
 

@@ -1,159 +1,47 @@
 import React, { useState } from 'react';
-import { Row, Col, Button, Form, DatePicker, Select, Upload, message } from "antd";
-import { Modal } from 'antd';
-import { UploadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import ElectricSignForSkill from './ElectricSignForSkill';
+import ElectricIssueSupplyModal from './ElectricIssueSupplyModal'
+import { Row, Col, Button } from "antd";
 
-const { Option } = Select;
-const { confirm } = Modal;
+const Production = ({ taskId, id, taskName }) => {
+    const [electricSignForSkillModalShow, setElectricSignForSkillModalShow] = useState(false);
+    const [electricIssueSupplyModalShow, setElectricIssueSupplyModalShow] = useState(false);
 
-const Production = ({ setFlow, flow }) => {
-    const [form] = Form.useForm();
-    const [formFile] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [fileVisible, setFileVisible] = useState(false); //图纸上传、材料表上传
     const hanldeNextStep = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        form.validateFields().then(values => {
-            console.log(values);
-            setFlow('2.1.2');
-            setIsModalVisible(false);
-        })
-
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-    //上传
-    const fileVisibleFun = () => {
-        setFlow('2.1.3');
-        setFileVisible(true)
-    }
-    const handleFileOk = () => {
-        formFile.validateFields().then(values => {
-            console.log(values);
-            setFlow('5');
-            setFileVisible(false);
-        })
-
-    };
-    const handleFileCancel = () => {
-        setFileVisible(false);
-    };
-    const props = {
-        name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        headers: {
-            authorization: 'authorization-text',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
+        setElectricSignForSkillModalShow(true)
     };
     //下发供应科
     const hanldeNextStepSupply = () => {
-        confirm({
-            title: '您确定要将流程单发往供应部吗?',
-            icon: <ExclamationCircleOutlined />,
-            onOk() {
-                setFlow('3');
-                console.log('OK');
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
+        setElectricIssueSupplyModalShow(true);
     }
     //根据状态选择按钮的显示
     const buttonShow = () => {
-        switch (flow) {
-            case '2.1.1':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（电气智能部）2.1.1.签收</Button></Col>;
-            case '2.1.2':
-                return <Col span={3}><Button type='primary' onClick={() => fileVisibleFun()}>2.1.2. 图纸上传、材料表上传</Button></Col>;
-            case '2.1.3':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>2.1.3. 下发（供应科）</Button></Col>;
+        switch (taskName) {
+            case '智能部签收':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（电气智能部）签收</Button></Col>;
+            case '智能部作业':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>作业完成</Button></Col>;
             default:
                 break;
         }
     }
     return <>
         <Row>
-            {/* 签收的时候指定图纸负责人 */}
             {buttonShow()}
-            {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（电气智能部）3.签收</Button></Col> */}
-            {/* <Col span={3}><Button type='primary' onClick={() => fileVisibleFun()}>4. 图纸上传、材料表上传</Button></Col> */}
-            {/* <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>5. 下发（供应科）</Button></Col> */}
         </Row>
-        <Modal title="是否确认签收" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Form
-                {...layout}
-                name="basic"
-                initialValues={{ remember: true }}
-                form={form}
-            >
-                <Form.Item
-                    label="图纸负责人"
-                    name="user"
-                    rules={[{ required: true, message: '请选择图纸负责人!' }]}
-                >
-                    <Select>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    label="图纸完成日期"
-                    name="username"
-                    rules={[{ required: true, message: '请选择图纸完成日期!' }]}
-                >
-                    <DatePicker />
-                </Form.Item>
-            </Form>
-        </Modal>
-        <Modal title="上传" visible={fileVisible} onOk={handleFileOk} onCancel={handleFileCancel}>
-            <Form
-                {...layout}
-                name="basic"
-                initialValues={{ remember: true }}
-                form={formFile}
-            >
-                <Form.Item
-                    label="上传图纸"
-                    name="tuzhi"
-                    rules={[{ required: true, message: '请选择图纸负责人!' }]}
-                >
-                    <Upload {...props}>
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                </Form.Item>
-                <Form.Item
-                    label="上传材料表"
-                    name="cailiaobiao"
-                    rules={[{ required: true, message: '请选择图纸完成日期!' }]}
-                >
-                    <Upload {...props}>
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                </Form.Item>
-            </Form>
-        </Modal>
+        <ElectricSignForSkill 
+            electricSignForSkillModalShow = {electricSignForSkillModalShow}
+            setElectricSignForSkillModalShow = {setElectricSignForSkillModalShow}
+            taskId = {taskId}
+            id = {id}
+        />
+        <ElectricIssueSupplyModal 
+            electricIssueSupplyModalShow = {electricIssueSupplyModalShow}
+            setElectricIssueSupplyModalShow = {setElectricIssueSupplyModalShow}
+            taskId = {taskId}
+            id = {id}
+        />
     </>
 }
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
 
 export default Production;

@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    useHistory
+    useHistory,
+    useLocation
 } from 'react-router-dom';
 import {
-    ip
-} from '../../../../Api/http';
-import BasicMessage from './components/BasicMessage'
+    sysUploadUrl
+} from '../../../../Api/fileUrl';
+import {
+    putSofClientInsertClient,
+    getSofClientEchoClient,
+    postSofClientUpdateClient
+} from '../../../../Api/clientUrl'
+import BasicMessage from './components/BasicMessage';
 import {
     CompanyClientAddAll
 } from './style';
@@ -13,10 +19,9 @@ import {
     PageHeader,
     Button,
     Form,
-    Row,
-    Col,
     Upload,
-    Typography
+    Typography,
+    message
 } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 
@@ -24,42 +29,103 @@ const { Title } = Typography;
 
 
 const CompanyClientAdd = () => {
-    const history = useHistory();
-    const { form } = Form.useForm();
-    const [fileList, setFileList] = useState([]); //文件列表
-    // const [fileUrl, setFileUrl] = useState([]); //文件地址
-    const onFinish = (values) => {
-        console.log(values);
-    };
-    const handleChangeFile = info => {
-        let fileList = [...info.fileList];
-        fileList = fileList.slice(-3);
-        let fileUrls = [];
-        fileList = fileList.map(file => {
-            if (file.response) {
-                file.url = file.response.data;
-                if (file.response.code === "20000") {
-                    fileUrls.push(file.response.data);
+    const history = new useHistory();
+    const location = new useLocation();
+    const  [form]  = Form.useForm();
+    const {setFieldsValue} = form;
+    const [fileList , setFileList ] = useState([]);
+    useEffect(() => {
+        if(location.state.clientId) {
+            ;(async () => {
+                const {code, msg, data} = await getSofClientEchoClient({clientId: location.state.clientId});
+                if(code === '20000') {
+                    let arr = []
+                    data.files.forEach(element => {
+                        arr.push(    {
+                            uid: element.path,
+                            name: element.fileName,
+                            status: 'done',
+                            url: element.path,
+                          },)
+                    });
+                    setFileList(arr);
+                    delete data.paths;
+                    setFieldsValue(data);
+                }else{
+                    message.error(msg);
                 }
-            }
-            return file;
-        });
-        setFileList(fileList);
-        // setFileUrl(fileUrls);
-    }
+            })();
+        }
+    }, [location.state, setFieldsValue])
+    const onFinish = (values) => {
+        
+        if (values.paths) {
+            const arrayImgUrl = [];
+            values.paths.fileList.forEach(element => {
+                arrayImgUrl.push(element.url);
+            });
+            values.paths = arrayImgUrl;
+        }
+        if(!values.paths && fileList.length > 0) {
+            const arrayImgUrl = [];
+            fileList.forEach(element => {
+                arrayImgUrl.push(element.url);
+            });
+            values.paths = arrayImgUrl;
+        }
+        console.log(values)
+        if(location.state.clientId) {
+            values.id = location.state.clientId
+            ;(async () => {
+                const {code, msg} = await postSofClientUpdateClient(values);
+                if(code === '20000') {
+                    message.success('修改成功！');
+                    history.go('-1');
+                }else{
+                    message.error(msg);
+                }
+            })();
+
+        }else{
+            ;(async () => {
+                const {code, msg} = await putSofClientInsertClient(values);
+                if(code === '20000') {
+                    message.success('新增成功！');
+                    history.go('-1');
+                }else{
+                    message.error(msg);
+                }
+            })();
+        }
+
+    };
     //上传附件
     const props = {
-        action: `${ip}/file/upload`,
-        multiple: true,
-        data: {
-            folder: '/clue'
+        name: 'file',
+        action: sysUploadUrl(),
+        fileList:fileList,
+        headers: {
+            authentication: localStorage.getItem("token")
         },
-        onChange: handleChangeFile
+        data: {
+            folder: '/client'
+        },
+        onChange(info) {
+            let fileList = [...info.fileList];
+            fileList = fileList.slice(-3);
+            fileList = fileList.map(file => {
+              if (file.response) {
+                file.url = file.response.data;
+              }
+              return file;
+            });
+            setFileList(fileList);
+        },
     };
     return <CompanyClientAddAll>
         <PageHeader
             className="site-page-header"
-            title="客户管理-添加客户"
+            title={`客户管理-${location.state.clientId ? "修改": "添加"}客户`}
             onBack={() => history.go(-1)}
         ></PageHeader>
         <Form
@@ -72,15 +138,13 @@ const CompanyClientAdd = () => {
             {/* //基本信息 */}
             <BasicMessage />
             <Title level={3}>客户附件</Title>
-            <Row key="7">
-                <Col span={24}>
-                    <Form.Item label="附件" {...span24}>
-                        <Upload {...props} fileList={fileList}>
-                            <Button icon={<UploadOutlined />}>上传附件</Button>
-                        </Upload>
-                    </Form.Item>
-                </Col>
-            </Row>
+            <Form.Item 
+                label="附件"
+                name="paths" {...span24}>
+                <Upload {...props}>
+                    <Button icon={<UploadOutlined />}>上传附件</Button>
+                </Upload>
+            </Form.Item>
             <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
                     提交

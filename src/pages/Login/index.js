@@ -79,7 +79,7 @@ const Login = () => {
     return (
         <LoginAll>
             <LoginBox>
-                <Card title="智能装车"
+                <Card title="智能oa系统"
                     extra={<Button type='link' onClick={() => handleLoginType(loginType)}> {
                         loginType ? '手机号登录' : '账号登录'
                     } </Button>}
