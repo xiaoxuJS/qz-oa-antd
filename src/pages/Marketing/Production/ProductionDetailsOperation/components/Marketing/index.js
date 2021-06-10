@@ -43,7 +43,7 @@ const Marketing = ({taskId, id, taskName }) => {
             case '产品交付签收':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSignFor()}>签收</Button></Col>;
             case '产品交付':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepFahuo()}>签收</Button></Col>;
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepFahuo()}>产品交付</Button></Col>;
             default:
                 break;
         }

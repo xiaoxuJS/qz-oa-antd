@@ -89,7 +89,7 @@ const Home = () => {
             <Layout>
                 <Header className="header">
                     <div className="logo">
-                        琪智科技
+                        煤化OA系统
           </div>
                     <HomeHeaderConter>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]} selectedKeys={[topKey]}>

@@ -5,7 +5,7 @@ import { Row, Col, Button } from "antd";
 
 const Production = ({ taskId, id, taskName }) => {
     const [productionSignForMarketingModalShow, setProductionSignForMarketingModalShow] = useState(false);
-    const [productionIssueQuality, setProductionIssueQuality] = useState(true)
+    const [productionIssueQuality, setProductionIssueQuality] = useState(false)
     const hanldeNextStep = () => {
         setProductionSignForMarketingModalShow(true)
     };
@@ -18,7 +18,7 @@ const Production = ({ taskId, id, taskName }) => {
             case '生产部签收':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（生产制造部）签收</Button></Col>;
             case '生产部作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>9. （生产制造部制作完成）下发（技术部）</Button></Col>;
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>下发</Button></Col>;
             default:
                 break;
         }

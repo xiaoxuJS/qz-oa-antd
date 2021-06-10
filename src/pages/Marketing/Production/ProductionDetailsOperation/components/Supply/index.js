@@ -20,7 +20,7 @@ const Supply = ({  taskName, taskId, id }) => {
             case '供应部签收':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>(供应部)签收</Button></Col>;
             case '供应部作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>（供应部）下发 (技术部)</Button></Col>;
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>下发</Button></Col>;
             default:
                 break;
         }

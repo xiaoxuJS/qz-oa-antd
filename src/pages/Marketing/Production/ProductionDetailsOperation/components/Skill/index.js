@@ -64,13 +64,7 @@ const Skill = ({ setFlow , taskName, taskId, id }) => {
             case '技术总监下发':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeIssueSkill()}>（技术部）下发技术部（或智能部）</Button></Col>;
             case '技术部作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>（技术部）下发（供应科）</Button></Col> ;
-            case '5':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>5. （技术部）接收并下发（营销部）</Button></Col> ;
-            case '10':
-                return <Col span={3}><Button type='primary' onClick={() => qualifiedVisibleFun()}>10. （技术部）质检结果</Button></Col> ;
-            case '11':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepMarketing()}>11. （技术部）下发（营销部）</Button></Col> ;
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>（技术部）下发（供应科）</Button></Col> ;;
             default:
                 break;
         }
