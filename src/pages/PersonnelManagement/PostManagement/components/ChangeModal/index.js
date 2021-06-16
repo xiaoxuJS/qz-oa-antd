@@ -8,7 +8,6 @@ import {
 import {
     Modal,
     Form,
-    Input,
     message,
     Select
 } from 'antd';
@@ -17,7 +16,7 @@ const { Option } = Select;
 
 const ChangeModal = ({ setAddModalShow, addModalShow, clickCode, setClickCode , listFun}) => {
     const [form] = Form.useForm();
-    const { validateFields, resetFields, setFieldsValue } = form;
+    const { validateFields, resetFields } = form;
     const [userList, setUserList] = useState([]);
 
     //用户列表

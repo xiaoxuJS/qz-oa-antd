@@ -20,8 +20,8 @@ const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketin
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -51,7 +51,6 @@ const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketin
                 }
             })();
         })
-        // setSignForSupplyModalShow(false);
     };
 
     const handleCancel = () => {
@@ -76,6 +75,7 @@ const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketin
             <Form.Item
                 label="预计完成时间"
                 name="targetDate"
+                rules={[{ required: true, message: '请选择预计发货时间!' }]}
             >
                 <DatePicker />
             </Form.Item>

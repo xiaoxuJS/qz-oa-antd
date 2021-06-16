@@ -19,7 +19,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
-const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalShow, taskId , id}) => {
+const WarehouseDeliveModal = ({ warehouseDeliverModalShow, setWarehouseDeliverModalShow, taskId , id}) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -29,7 +29,7 @@ const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalSh
             setConfirmLoading(true)
             values.id = id;
             values.taskId = taskId;
-            values.nape  = 5;
+            values.nape  = 10;
             if(values.url) {
                 let arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -56,7 +56,7 @@ const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalSh
 
     const handleCancel = () => {
         resetFields();
-        setIssueMarketingModalShow(false);
+        setWarehouseDeliverModalShow(false);
     };
     //文件上传
     const props = {
@@ -79,7 +79,7 @@ const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalSh
           }
         },
       };
-    return <Modal title="下发" visible={issueMarketingModalShow} onOk={handleOk} onCancel={handleCancel} confirmLoading = {confirmLoading}>
+    return <Modal title="发货" visible={warehouseDeliverModalShow} onOk={handleOk} onCancel={handleCancel} confirmLoading = {confirmLoading}>
         <Form
             {...layout}
             initialValues={{ remember: true }}
@@ -107,4 +107,4 @@ const layout = {
     wrapperCol: { span: 18 },
 };
 
-export default IssueMarketingModal;
+export default WarehouseDeliveModal;

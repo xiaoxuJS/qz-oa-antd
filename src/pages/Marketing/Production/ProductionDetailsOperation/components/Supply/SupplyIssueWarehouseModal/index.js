@@ -20,7 +20,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIssueWarehouseModalShow, taskId , id }) => {
+const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIssueWarehouseModalShow, taskId, id }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -36,16 +36,16 @@ const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIss
             values.id = id;
             values.taskId = taskId;
             values.nape = 4;
-                ; (async () => {
-                    const { code, msg } = await postSofPlanDetailCompleteTask(values);
-                    if (code === '20000') {
-                        message.success('签收成功！');
-                        resetFields();
-                        history.go('-1');
-                    } else {
-                        message.error(msg);
-                    }
-                })();
+            ; (async () => {
+                const { code, msg } = await postSofPlanDetailCompleteTask(values);
+                if (code === '20000') {
+                    message.success('签收成功！');
+                    resetFields();
+                    history.go('-1');
+                } else {
+                    message.error(msg);
+                }
+            })();
         })
         // setSignForSupplyModalShow(false);
     };
@@ -71,13 +71,13 @@ const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIss
             }
         },
     };
-    return <Modal title="签收" visible={supplyIssueWarehouseModalShow} onOk={handleOk} onCancel={handleCancel}>
+    return <Modal title="下发" visible={supplyIssueWarehouseModalShow} onOk={handleOk} onCancel={handleCancel}>
         <Form
             {...layout}
             initialValues={{ remember: true }}
             form={form}
         >
-                        <Form.Item
+            <Form.Item
                 label="批注"
                 name="comment"
             >

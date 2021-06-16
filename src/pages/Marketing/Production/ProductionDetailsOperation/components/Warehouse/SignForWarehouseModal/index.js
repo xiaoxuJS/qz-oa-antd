@@ -68,6 +68,7 @@ const SignForWarehouseModal = ({ signForWarehouseModalShow, setSignForWarehouseM
             <Form.Item
                 label="预计完成时间"
                 name="targetDate"
+                rules={[{ required: true, message: '请选择预计完成时间!' }]}
             >
                 <DatePicker />
             </Form.Item>

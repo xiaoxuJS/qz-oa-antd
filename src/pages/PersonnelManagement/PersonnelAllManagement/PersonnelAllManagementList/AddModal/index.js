@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import {
     sysManuallyUrl
 } from '../../../../../Api/fileUrl';
-import {
-    getSysGetCode
-} from '../../../../../Api/loginUrl';
+// import {
+//     getSysGetCode
+// } from '../../../../../Api/loginUrl';
 import {
     putSysUserRegisterUser
 } from '../../../../../Api/userUrl'
@@ -13,9 +13,6 @@ import {
     Form,
     Input,
     Radio,
-    Button,
-    Col,
-    Row,
     Upload,
     message
 } from 'antd';
@@ -26,15 +23,15 @@ const AddModal = ({ addGroupModalShow, setAddGroupModalShow, addGroupId, addUser
     const { validateFields, resetFields } = form;
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [timeValue, setTimeValue] = useState(2); //验证码即时
-    const [authCode, setAuthCode] = useState(true); //验证码按钮样式
-    const [mobile, setMobile] = useState(null) //电话号码
-    const [identification, setIdentification] = useState(null); //验证码标识
+    // const [timeValue, setTimeValue] = useState(2); //验证码即时
+    // const [authCode, setAuthCode] = useState(true); //验证码按钮样式
+    // const [mobile, setMobile] = useState(null) //电话号码
+    // const [identification, setIdentification] = useState(null); //验证码标识
     const handleOk = () => {
         validateFields().then(values => {
             values.manuallyUid = values.manually.file.response.data
             delete values.manually;
-            values.mark = identification;
+            // values.mark = identification;
             values.department = addGroupId;
             ; (async () => {
                 const { code, msg } = await putSysUserRegisterUser(values);
@@ -57,34 +54,34 @@ const AddModal = ({ addGroupModalShow, setAddGroupModalShow, addGroupId, addUser
         setAddGroupModalShow(false);
     };
 
-    //发送验证码
-    const handleAuthCodeFun = () => {
-        if (!mobile) {
-            message.error('请输入手机号');
-            return;
-        }
-        setAuthCode(false);
-        ; (async () => {
-            const { code, msg, data } = await getSysGetCode({ mobile });
-            if (code === '20000') {
-                setIdentification(data);
-                let timer = setInterval(() => {
-                    setTimeValue(timeValue => {
-                        if (timeValue <= 0) {
-                            clearInterval(timer);
-                            setAuthCode(true);
-                            setTimeValue(60);
-                        } else {
-                            return timeValue - 1
-                        }
+    // //发送验证码
+    // const handleAuthCodeFun = () => {
+    //     if (!mobile) {
+    //         message.error('请输入手机号');
+    //         return;
+    //     }
+    //     setAuthCode(false);
+    //     ; (async () => {
+    //         const { code, msg, data } = await getSysGetCode({ mobile });
+    //         if (code === '20000') {
+    //             setIdentification(data);
+    //             let timer = setInterval(() => {
+    //                 setTimeValue(timeValue => {
+    //                     if (timeValue <= 0) {
+    //                         clearInterval(timer);
+    //                         setAuthCode(true);
+    //                         setTimeValue(60);
+    //                     } else {
+    //                         return timeValue - 1
+    //                     }
 
-                    })
-                }, 1000);
-            } else {
-                message.error(msg);
-            }
-        })();
-    }
+    //                 })
+    //             }, 1000);
+    //         } else {
+    //             message.error(msg);
+    //         }
+    //     })();
+    // }
     //上传处理
     const beforeUpload = (file) => {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -162,7 +159,7 @@ const AddModal = ({ addGroupModalShow, setAddGroupModalShow, addGroupId, addUser
             >
                 <Input />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
                 label="手机号"
                 name="mobile"
                 rules={[{ required: true, message: '请输入手机号!' }]}
@@ -187,7 +184,7 @@ const AddModal = ({ addGroupModalShow, setAddGroupModalShow, addGroupId, addUser
                         }
                     </Col>
                 </Row>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
                 label="密码"
                 name="password"

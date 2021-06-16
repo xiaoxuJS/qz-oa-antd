@@ -26,8 +26,8 @@ const DeliveryModal = ({ deliveryModalShow, setDeliveryModalShow, taskId, id }) 
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const handleOk = () => {
-        setConfirmLoading(true);
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -74,7 +74,7 @@ const DeliveryModal = ({ deliveryModalShow, setDeliveryModalShow, taskId, id }) 
             }
         },
     };
-    return <Modal title="产品交付" visible={deliveryModalShow} onOk={handleOk} onCancel={handleCancel} confirmLoading = {confirmLoading}>
+    return <Modal title="下发" visible={deliveryModalShow} onOk={handleOk} onCancel={handleCancel} confirmLoading = {confirmLoading}>
         <Form
             {...layout}
             initialValues={{ remember: true }}

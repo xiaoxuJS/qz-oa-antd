@@ -1,8 +1,8 @@
 import Axios from 'axios';
 let ip = "";
 if (process.env.NODE_ENV === 'development') { //开发环境;
-    // ip = 'http://192.168.3.5:9829/oa'; //服务器地址(公司)
-    ip = 'http://47.98.41.126:9829/oa'; //服务器地址（家里）
+    ip = 'http://192.168.3.5:9829/oa'; //服务器地址(公司)
+    // ip = 'http://47.98.41.126:9829/oa'; //服务器地址（家里）
 } else if (process.env.NODE_ENV === 'production') { // 打包环境
     ip = 'http://47.98.41.126:9829/oa'; //服务器地址
 }

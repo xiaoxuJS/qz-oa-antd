@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import {
     putSofPlanDetailSignTask
-} from '../../../../../../../Api/productionUrl'
+} from '../../../../../../../Api/productionUrl';
 import {
     Modal,
     Form,
@@ -14,44 +14,42 @@ import {
 } from 'antd';
 import moment from 'moment';
 
-const OneSignFor = ({ oneSignForShow, setOneSignForShow, taskId , id}) => {
+const WarehouseIssueModal = ({ warehouseSignForModalShow, setWarehouseSignForModalShow, taskId , id }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
     const handleOk = () => {
         validateFields().then(values => {
-            if(values.url) {
+            if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
                     arrayImgUrl.push(element.response.data);
                 });
                 values.url = arrayImgUrl;
             }
-
             values.id = id;
             values.taskId = taskId;
-            values.nape  = 2;
+            values.nape = 10;
             values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             console.log(values)
-            ;(async () => {
-                const {code, msg} = await putSofPlanDetailSignTask(values);
-                if(code === '20000') {
-                    message.success('签收成功！');
-                    resetFields();
-                    history.go('-1');
-                }else{
-                    message.error(msg);
-                }
-            })();
+                ; (async () => {
+                    const { code, msg } = await putSofPlanDetailSignTask(values);
+                    if (code === '20000') {
+                        message.success('签收成功！');
+                        resetFields();
+                        history.go('-1');
+                    } else {
+                        message.error(msg);
+                    }
+                })();
         })
     };
 
     const handleCancel = () => {
-        resetFields();
-        setOneSignForShow(false);
+        setWarehouseSignForModalShow(false);
     };
 
-    return <Modal title="签收" visible={oneSignForShow} onOk={handleOk} onCancel={handleCancel}>
+    return <Modal title="签收" visible={warehouseSignForModalShow} onOk={handleOk} onCancel={handleCancel}>
         <Form
             {...layout}
             initialValues={{ remember: true }}
@@ -59,7 +57,7 @@ const OneSignFor = ({ oneSignForShow, setOneSignForShow, taskId , id}) => {
         >
             <Form.Item
                 label="是否签收"
-                name="isSignArt"
+                name="isSignWh"
                 rules={[{ required: true, message: '请选择是否签收!' }]}
             >
                 <Radio.Group>
@@ -82,4 +80,4 @@ const layout = {
     wrapperCol: { span: 18 },
 };
 
-export default OneSignFor;
+export default WarehouseIssueModal;

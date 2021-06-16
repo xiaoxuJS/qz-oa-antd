@@ -27,8 +27,9 @@ const ExecutiveIssueSkillModalShow = ({ executiveIssueSkillModalShow, setExecuti
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
+        
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {

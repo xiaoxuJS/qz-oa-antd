@@ -20,8 +20,9 @@ const SignForWareHouseModal = ({ signForWareHouseModalShow, setSignForWareHouseM
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
+        
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -38,9 +39,10 @@ const SignForWareHouseModal = ({ signForWareHouseModalShow, setSignForWareHouseM
                     if (code === '20000') {
                         message.success('签收成功！');
                         resetFields();
-                        confirmLoading(false)
+                        setConfirmLoading(false)
                         history.go('-1');
                     } else {
+                        setConfirmLoading(false)
                         message.error(msg);
                     }
                 })();
@@ -49,6 +51,7 @@ const SignForWareHouseModal = ({ signForWareHouseModalShow, setSignForWareHouseM
     };
 
     const handleCancel = () => {
+        resetFields();
         setSignForWareHouseModalShow(false);
     };
 
@@ -71,6 +74,7 @@ const SignForWareHouseModal = ({ signForWareHouseModalShow, setSignForWareHouseM
             <Form.Item
                 label="预计完成时间"
                 name="targetDate"
+                rules={[{ required: true, message: '请选择是否签收!' }]}
             >
                 <DatePicker />
             </Form.Item>

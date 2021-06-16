@@ -10,7 +10,7 @@ import {
     putSofPlanInsertPlan
 } from '../../../../../../Api/productionUrl'
 import {
-    Modal, Form, Input, Select, DatePicker, Upload, message, Button, InputNumber 
+    Modal, Form, Input, Select, DatePicker, Upload, message, Button
 } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
@@ -127,7 +127,7 @@ const ProductionAdd = ({ productionAddShow, productionAddFun, listFun }) => {
                 name="contractPrice"
                 rules={[{ required: true, message: '请输入合同总价!' }]}
             >
-                <InputNumber  />
+                <Input />
             </Form.Item>
             <Form.Item
                 label="预计交货日期"
@@ -162,13 +162,12 @@ const ProductionAdd = ({ productionAddShow, productionAddFun, listFun }) => {
                 name="orderSize"
                 rules={[{ required: true, message: '请输入订单数量!' }]}
             >
-                <InputNumber  />
+                <Input />
             </Form.Item>
 
             <Form.Item
                 label="销售人员"
                 name="sell"
-                rules={[{ required: true, message: '请选择销售人员!' }]}
             >
                 <Select>
                     {

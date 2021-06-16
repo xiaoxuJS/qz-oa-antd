@@ -20,14 +20,15 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setExecutiveIssueSkillModalShow, taskId, id }) => {
+const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setElectricIssueSupplyModalShow, taskId, id }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
+       
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -54,7 +55,7 @@ const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setExecutiveIs
     };
 
     const handleCancel = () => {
-        setExecutiveIssueSkillModalShow(false);
+        setElectricIssueSupplyModalShow(false);
     };
     //文件上传
     const props = {

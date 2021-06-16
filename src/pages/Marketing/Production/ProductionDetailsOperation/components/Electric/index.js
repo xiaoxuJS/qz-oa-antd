@@ -21,6 +21,8 @@ const Production = ({ taskId, id, taskName }) => {
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>（电气智能部）签收</Button></Col>;
             case '智能部作业':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>作业完成</Button></Col>;
+            case '生产签收(智能)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSupply()}>生产签收(智能)</Button></Col>;
             default:
                 break;
         }

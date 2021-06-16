@@ -77,7 +77,7 @@ const IssueSupplyModal = ({ nextStepSupply, setNextStepSupply, taskId, id }) => 
     const handleCancel = () => {
         setNextStepSupply(false);
     };
-    return <Modal title="下发供应科" visible={nextStepSupply} onOk={handleOk} onCancel={handleCancel}>
+    return <Modal title="下发" visible={nextStepSupply} onOk={handleOk} onCancel={handleCancel}>
         <Form
             {...layout}
             initialValues={{ remember: true }}

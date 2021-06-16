@@ -26,8 +26,8 @@ const IssueSkillModal = ({ issueSkillModalShow, setIssueSkillModalShow, taskId ,
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const handleOk = () => {
-        setConfirmLoading(true)
         validateFields().then(values => {
+            setConfirmLoading(true)
             values.id = id;
             values.taskId = taskId;
             values.nape  = 2;

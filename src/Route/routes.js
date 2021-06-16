@@ -7,8 +7,12 @@ import Home from '../pages/Home'
 //列表 --生产计划
 import Production from '../pages/Marketing/Production/Production';
 import ProductionOver from '../pages/Marketing/Production/ProductionOver'
+//列表 -- 已删除生产计划
+import ProductionDelete from '../pages/Marketing/Production/ProductionDelete'
 //详情操作
-import ProductionDetailsOperation from '../pages/Marketing/Production/ProductionDetailsOperation'
+import ProductionDetailsOperation from '../pages/Marketing/Production/ProductionDetailsOperation';
+//部门留言页面
+import ProductionLeaveWord from '../pages/Marketing/Production/ProductionLeaveWord'
 
 //客户线索-我的线索-待处理
 import CluesCustomerAwait from "../pages/CluesCustomer/MyClue/CluesCustomerAwait";
@@ -143,6 +147,15 @@ const menuLeftProductionRouter = [
                 },
                 path: "/Production/over",
                 component: ProductionOver,
+            },
+            {
+                key: 'productionDelete',
+                meta: {
+                    title: "已删除",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/Production/delete",
+                component: ProductionDelete,
             }
         ],
     }
@@ -558,6 +571,11 @@ const userRouter = [
     {
         path: "/production/detailsoperation",
         component: ProductionDetailsOperation
+    },
+    //部门留言页面
+    {
+        path: "/production/leaveWord",
+        component: ProductionLeaveWord
     },
 
 ];

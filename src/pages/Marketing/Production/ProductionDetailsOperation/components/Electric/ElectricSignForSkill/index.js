@@ -20,8 +20,9 @@ const ElectricSignForSkill = ({ electricSignForSkillModalShow, setElectricIssueS
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
+        
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -74,6 +75,7 @@ const ElectricSignForSkill = ({ electricSignForSkillModalShow, setElectricIssueS
             <Form.Item
                 label="预计完成时间"
                 name="targetDate"
+                rules={[{ required: true, message: '请选择预计完成时间!' }]}
             >
                 <DatePicker />
             </Form.Item>

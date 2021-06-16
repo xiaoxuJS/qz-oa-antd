@@ -15,10 +15,10 @@ const Quality = ({ taskId, id, taskName }) => {
     }
     const buttonShow = () => {
         switch (taskName) {
-            case '质检部签收':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>质检部签收</Button></Col>;
-            case '质检部作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>质检完成下发</Button></Col>;
+            case '质检签收(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>质检签收(技术)</Button></Col>;
+            case '质检作业(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>质检作业(技术)</Button></Col>;
             default:
                 break;
         }

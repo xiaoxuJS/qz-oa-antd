@@ -2,6 +2,13 @@ import {
     http,
     ip
 } from './http';
+
+/**
+ * 
+ * @param {生产计划URL}
+ * @returns 
+ */
+
 //添加生产计划
 export function putSofPlanInsertPlan(data) {
     const url = ip + '/sof-plan/insert/plan';
@@ -35,6 +42,21 @@ export function postSofPlanFindAllPlan(data) {
 //生产计划删除
 export function getSofPlanDeletePlan(data) {
     const url = ip + '/sof-plan/delete/plan';
+    return http(url, "get", data)
+}
+//添加留言
+export function putSofPlanInsertLeave(data) {
+    const url = ip + '/sof-plan/insert/leave';
+    return http(url, "put", data)
+}
+//查看留言
+export function getSofPlanFindLeave(data) {
+    const url = ip + '/sof-plan/find/leave';
+    return http(url, "get", data)
+}
+//删除留言
+export function getSofPlanDeleteLeave(data) {
+    const url = ip + '/sof-plan/delete/leave';
     return http(url, "get", data)
 }
 

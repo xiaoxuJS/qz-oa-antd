@@ -17,10 +17,14 @@ const Supply = ({  taskName, taskId, id }) => {
     //根据状态选择按钮的显示
     const buttonShow = () => {
         switch (taskName) {
-            case '供应部签收':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>(供应部)签收</Button></Col>;
-            case '供应部作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>下发</Button></Col>;
+            case '供应部签收(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>供应部签收(技术)</Button></Col>;
+            case '供应部作业(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>供应部作业(技术)</Button></Col>;
+            case '供应部签收(智能)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>供应部签收(智能)</Button></Col>;
+            case '供应部作业(智能)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSkill()}>供应部作业(智能)</Button></Col>;
             default:
                 break;
         }

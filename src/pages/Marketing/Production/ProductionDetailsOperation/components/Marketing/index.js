@@ -36,14 +36,18 @@ const Marketing = ({taskId, id, taskName }) => {
         switch (taskName) {
             case '下发计划':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>{taskName}</Button></Col>;
-            case '生产安排签收':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeSignFor()}>接收(仓管)</Button></Col>;
-            case '生产安排作业':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepProduction()}>（营销部）下发（生产制造部）</Button></Col>;
-            case '产品交付签收':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSignFor()}>签收</Button></Col>;
-            case '产品交付':
-                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepFahuo()}>产品交付</Button></Col>;
+            case '生产安排签收(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeSignFor()}>生产安排签收(技术)</Button></Col>;
+            case '生产安排作业(技术)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepProduction()}>生产安排作业(技术)</Button></Col>;
+            case '生产安排签收(智能)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeSignFor()}>生产安排签收(智能)</Button></Col>;
+            case '生产安排作业(智能)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepProduction()}>生产安排作业(智能)</Button></Col>;
+            case '产品交付(签收)':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepSignFor()}>产品交付(签收)</Button></Col>;
+            case '产品交付下发':
+                return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepFahuo()}>产品交付下发</Button></Col>;
             default:
                 break;
         }

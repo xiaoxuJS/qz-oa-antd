@@ -22,7 +22,7 @@ import Executive from './components/Executive'
 import {
     ProductionDetailsOperationAll
 } from './style';
-import { PageHeader, Typography, message, Row, Col, Space, Button } from "antd";
+import { PageHeader, Typography, message, Row, Col, Button } from "antd";
 
 const { Title } = Typography;
 
@@ -73,10 +73,12 @@ const ProductionDetailsOperation = () => {
     const flowShow = () => {
         switch (location.state.taskName) {
             case '下发计划':
-            case '生产安排签收':
-            case '生产安排作业':
-            case '产品交付签收':
-            case '产品交付':
+            case '生产安排签收(技术)':
+            case '生产安排作业(技术)':
+            case '生产安排签收(智能)':
+            case '生产安排作业(智能)':
+            case '产品交付(签收)':
+            case '产品交付下发':
                 return <Marketing taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
             case '技术总监签收':
             case '技术总监下发':
@@ -84,18 +86,25 @@ const ProductionDetailsOperation = () => {
                 return <Skill taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
             case '智能部签收': //电气智能签收
             case '智能部作业': //下发供应部
+            case '生产签收(智能)': 
                 return <Electric taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '供应部签收': //供应部
-            case '供应部作业': //供应部
+            case '供应部签收(技术)': //供应部
+            case '供应部签收(智能)': //供应部
+            case '供应部作业(技术)': //供应部
+            case '供应部作业(智能)': //供应部
                 return <Supply taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '生产部签收':
-            case '生产部作业':
+            case '生产签收(技术)':
+            case '生产作业(技术)':
                 return <Production taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '仓管部签收':
-            case '仓管部作业':
+            case '仓管签收(技术)':
+            case '仓管签收(智能)':
+            case '仓管作业(技术)':
+            case '仓管作业(智能)':
+            case '仓管签收':
+            case '仓管发货':
                 return <Warehouse taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '质检部签收':
-            case '质检部作业':
+            case '质检签收(技术)':
+            case '质检作业(技术)':
                 return <Quality taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
             case '高管签收':
             case '高管审批':
@@ -150,7 +159,7 @@ const ProductionDetailsOperation = () => {
                     <>
                         <Title level={3}>{item.work}</Title>
                         <Row>
-                            <Col span={3}>负责人:</Col>
+                            {/* <Col span={3}>负责人:</Col>
                             <Col span={21}>{item.operation}</Col>
                             <Col span={3}>预计完成时间:</Col>
                             <Col span={21}>{item.targetDate}</Col>
@@ -167,7 +176,7 @@ const ProductionDetailsOperation = () => {
                                         item.files.length > 0 && item.files.map(element => <a href={element.path} >{element.fileName}</a>)
                                     }
                                 </Space>
-                            </Col>
+                            </Col> */}
 
                         </Row>
                     </>

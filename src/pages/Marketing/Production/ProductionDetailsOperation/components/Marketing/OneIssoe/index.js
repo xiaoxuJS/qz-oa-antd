@@ -26,8 +26,8 @@ const OneIssoe = ({ oneIssonShow, setOneIssonShow, taskId , id}) => {
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const handleOk = () => {
-        setConfirmLoading(true);
         validateFields().then(values => {
+            setConfirmLoading(true)
             if(values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {

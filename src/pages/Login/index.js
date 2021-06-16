@@ -14,7 +14,9 @@ import { Button, Form, Input, Card, message, Row, Col } from 'antd';
 
 const Login = () => {
     const history = new useHistory();
-    const [loginType, setLoginType] = useState(true);
+    const [loginType, 
+        // setLoginType
+    ] = useState(true);
     const [authCode, setAuthCode] = useState(true);
     const [timeValue, setTimeValue] = useState(2);
     const [mobile, setMobile] = useState(null) //电话号码
@@ -40,11 +42,11 @@ const Login = () => {
         })();
 
     };
-    //登录类型
-    const handleLoginType = (type) => {
-        setIdentification(null);
-        setLoginType(!type);
-    }
+    // //登录类型
+    // const handleLoginType = (type) => {
+    //     setIdentification(null);
+    //     setLoginType(!type);
+    // }
     //发送验证码
     const handleAuthCodeFun = () => {
         
@@ -80,9 +82,9 @@ const Login = () => {
         <LoginAll>
             <LoginBox>
                 <Card title="智能oa系统"
-                    extra={<Button type='link' onClick={() => handleLoginType(loginType)}> {
-                        loginType ? '手机号登录' : '账号登录'
-                    } </Button>}
+                    // extra={<Button type='link' onClick={() => handleLoginType(loginType)}> {
+                    //     loginType ? '手机号登录' : '账号登录'
+                    // } </Button>}
                     style={{ width: 450 }}
                 >
                     {

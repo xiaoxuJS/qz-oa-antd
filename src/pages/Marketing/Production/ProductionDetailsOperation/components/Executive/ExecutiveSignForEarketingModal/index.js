@@ -9,10 +9,8 @@ import {
     Modal,
     Form,
     Radio,
-    message,
-    DatePicker
+    message
 } from 'antd';
-import moment from 'moment';
 
 const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiveSignForEarketingModalShow, taskId, id }) => {
     const [form] = Form.useForm();
@@ -20,8 +18,9 @@ const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiv
     const history = new useHistory();
     const [confirmLoading, setConfirmLoading] = useState(false)
     const handleOk = () => {
-        setConfirmLoading(true)
+        
         validateFields().then(values => {
+            setConfirmLoading(true)
             if (values.url) {
                 const arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
@@ -32,7 +31,6 @@ const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiv
             values.id = id;
             values.taskId = taskId;
             values.nape = 1;
-            values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             ; (async () => {
                 const { code, msg } = await putSofPlanDetailSignTask(values);
                 if (code === '20000') {
@@ -70,12 +68,6 @@ const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiv
                     <Radio value={true}>是</Radio>
                     <Radio value={false}>否</Radio>
                 </Radio.Group>
-            </Form.Item>
-            <Form.Item
-                label="预计完成时间"
-                name="targetDate"
-            >
-                <DatePicker />
             </Form.Item>
         </Form>
     </Modal>

@@ -3,20 +3,16 @@ import {
     useHistory
 } from 'react-router-dom';
 import {
-    postSofPlanFindPlan,
-    getSofPlanDeletePlan
+    postSofPlanFindAllPlan
 } from '../../../../Api/productionUrl';
 import ProductionAdd from './components/ProductionAdd';
 import SelectProduction from './components/SelectProduction'
 import {
     ProductionAll
 } from './style';
-import { PageHeader, Button, Table, Space, message, Spin, Modal } from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { PageHeader, Button, Table, Space, message, Spin } from "antd";
 
-const { confirm } = Modal;
-
-const Production = () => {
+const ProductionDelete = () => {
     const history = new useHistory();
     const [productionAddShow, setProductionAddShow] = useState(false);
     const [listData, setListData] = useState([]); //生产计划列表
@@ -24,11 +20,11 @@ const Production = () => {
     const listFun = useCallback(
         (parames = {
             currentPage: 1,
+            isDelete: true,
             size: 10
         }) => {
-            setSpinning(true);
             ; (async () => {
-                const { code, msg, data } = await postSofPlanFindPlan(parames);
+                const { code, msg, data } = await postSofPlanFindAllPlan(parames);
                 if (code === '20000') {
                     setSpinning(false);
                     setListData(data.records);
@@ -49,29 +45,6 @@ const Production = () => {
     //进入详情
     const handleEnterDetails = (type, id, taskId, taskName) => {
         history.push({ pathname: '/production/detailsoperation', state: { type, id, taskId, taskName } })
-    }
-    //删除
-    const handleDelete = id => {
-        // getSofPlanDeletePlan
-        confirm({
-            title: '确定要删除当前生产计划吗?',
-            icon: <ExclamationCircleOutlined />,
-            onOk() {
-                ; (async () => {
-                    const { code, msg } = await getSofPlanDeletePlan({ id });
-                    if (code === '20000') {
-                        listFun();
-                        message.success('删除成功！')
-                    } else {
-                        message.error(msg);
-                    }
-                })();
-            }
-        });
-    }
-    //进入留言页面
-    const handleLeaveWord = id => {
-        history.push({pathname: '/production/leaveWord', state:{planId: id}});
     }
     const columns = [
         {
@@ -105,19 +78,19 @@ const Production = () => {
         },
         {
             title: '当前步骤',
-            dataIndex: 'taskName'
+            render: (text, record) => (
+                <Space size="middle">
+                    {
+                        record.tasks.map(item => <span>{item.taskName}</span>)
+                    }
+                </Space>
+            )
         },
         {
             title: '操作',
             render: (text, record) => (
                 <Space size="middle">
-                    <Button type='link' onClick={() => handleEnterDetails('operation', record.id, record.taskId, record.taskName)} >操作</Button>
-                    <Button type='link' danger onClick={() => handleDelete(record.id)}>终止</Button>
-                    <Button type='link' onClick={() => handleLeaveWord(record.id)}>留言</Button>
-                    <Button type='link' onClick={() => handleEnterDetails('details', record.id, record.taskId, record.taskName)}>查看</Button>
-                    <Button type='link' danger onClick={() => handleDelete(record.id)}>删除</Button>
-                    
-                    
+                    <Button type='link' onClick={() => handleEnterDetails('details', record.id)}>查看</Button>
                 </Space>
             ),
         },
@@ -126,25 +99,12 @@ const Production = () => {
     return <ProductionAll>
         <PageHeader
             className="site-page-header"
-            title='生产计划'
-            extra={
-                [
-                    <Button
-                        key="1"
-                        type="primary"
-                        onClick={() => productionAddFun(true)}
-                    >
-                        添加生产计划
-                    </Button>,
-                ]
-
-            }
+            title='已删除计划'
         ></PageHeader>
         <SelectProduction />
         <Spin tip="Loading..." spinning={spinning}>
             <Table columns={columns} dataSource={listData} rowKey='id' />
         </Spin>,
-
         <ProductionAdd
             productionAddShow={productionAddShow}
             productionAddFun={productionAddFun}
@@ -155,4 +115,4 @@ const Production = () => {
 
 
 
-export default Production;
+export default ProductionDelete;
