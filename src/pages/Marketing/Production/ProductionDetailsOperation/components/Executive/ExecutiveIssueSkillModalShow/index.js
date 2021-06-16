@@ -21,7 +21,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const ExecutiveIssueSkillModalShow = ({ executiveIssueSkillModalShow, setExecutiveIssueSkillModalShow, taskId, id }) => {
+const ExecutiveIssueSkillModalShow = ({ executiveIssueSkillModalShow, setExecutiveIssueSkillModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -40,6 +40,7 @@ const ExecutiveIssueSkillModalShow = ({ executiveIssueSkillModalShow, setExecuti
             values.id = id;
             values.taskId = taskId;
             values.nape = 1;
+            values.taskName = taskName;
             ; (async () => {
                 const { code, msg } = await postSofPlanDetailCompleteTask(values);
                 if (code === '20000') {

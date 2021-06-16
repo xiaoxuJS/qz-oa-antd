@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 
-const SignForWarehouseModal = ({ signForWarehouseModalShow, setSignForWarehouseModalShow, taskId , id }) => {
+const SignForWarehouseModal = ({ signForWarehouseModalShow, setSignForWarehouseModalShow, taskId , id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -30,6 +30,7 @@ const SignForWarehouseModal = ({ signForWarehouseModalShow, setSignForWarehouseM
             values.id = id;
             values.taskId = taskId;
             values.nape = 5;
+            values.taskName = taskName;
             values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             console.log(values)
                 ; (async () => {

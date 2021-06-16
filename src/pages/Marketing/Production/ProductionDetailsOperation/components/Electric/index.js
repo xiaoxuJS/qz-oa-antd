@@ -36,12 +36,14 @@ const Production = ({ taskId, id, taskName }) => {
             setElectricSignForSkillModalShow = {setElectricSignForSkillModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <ElectricIssueSupplyModal 
             electricIssueSupplyModalShow = {electricIssueSupplyModalShow}
             setElectricIssueSupplyModalShow = {setElectricIssueSupplyModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
     </>
 }

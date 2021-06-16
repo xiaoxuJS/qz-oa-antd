@@ -21,7 +21,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const QualityIssueMarketing = ({ qualityIssueMarketingModalShow, setQualityIssueMarketingModalShow, taskId, id }) => {
+const QualityIssueMarketing = ({ qualityIssueMarketingModalShow, setQualityIssueMarketingModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -39,6 +39,7 @@ const QualityIssueMarketing = ({ qualityIssueMarketingModalShow, setQualityIssue
             values.id = id;
             values.taskId = taskId;
             values.nape = 8;
+            values.taskName = taskName;
             ; (async () => {
                 const { code, msg } = await postSofPlanDetailCompleteTask(values);
                 if (code === '20000') {

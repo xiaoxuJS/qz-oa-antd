@@ -4,7 +4,7 @@ import IssueSkillModal from './IssueSkillModal';
 import IssueSupplyModal from './IssueSupplyModal'
 import { Row, Col, Button } from "antd";
 
-const Skill = ({ setFlow , taskName, taskId, id }) => {
+const Skill = ({taskName, taskId, id }) => {
     const [oneSignForShow, setOneSignForShow] = useState(false); // 签收营销中心发来计划modal
     const [issueSkillModalShow, setIssueSkillModalShow] = useState(false); //下发给技术部或者智能部
     const [nextStepSupply, setNextStepSupply] = useState(false); //技术部下发给供应科
@@ -44,18 +44,21 @@ const Skill = ({ setFlow , taskName, taskId, id }) => {
             oneSignForShow = {oneSignForShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <IssueSkillModal 
             setIssueSkillModalShow = {setIssueSkillModalShow}
             issueSkillModalShow = {issueSkillModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <IssueSupplyModal 
             nextStepSupply = {nextStepSupply}
             setNextStepSupply = {setNextStepSupply}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
 
     </>

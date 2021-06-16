@@ -38,12 +38,14 @@ const Supply = ({  taskName, taskId, id }) => {
             setSignForSupplyModalShow={setSignForSupplyModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <SupplyIssueWarehouseModal
             supplyIssueWarehouseModalShow={supplyIssueWarehouseModalShow}
             setSupplyIssueWarehouseModalShow={setSupplyIssueWarehouseModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
     </>
 }

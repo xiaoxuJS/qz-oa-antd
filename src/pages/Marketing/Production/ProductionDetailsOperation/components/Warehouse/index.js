@@ -54,24 +54,28 @@ const Warehouse = ({ taskName, taskId, id }) => {
             setSignForWarehouseModalShow={setSignForWarehouseModalShow}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
         <IssueMarketingModal
             issueMarketingModalShow={issueMarketingModalShow}
             setIssueMarketingModalShow={setIssueMarketingModalShow}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
         <WarehouseIssueModal
             warehouseSignForModalShow={warehouseSignForModalShow}
             setWarehouseSignForModalShow={setWarehouseSignForModalShow}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
         <WarehouseDeliveModal
             warehouseDeliverModalShow={warehouseDeliverModalShow}
             setWarehouseDeliverModalShow={setWarehouseDeliverModalShow}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
     </>
 }

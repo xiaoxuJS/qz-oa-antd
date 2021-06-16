@@ -20,7 +20,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setElectricIssueSupplyModalShow, taskId, id }) => {
+const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setElectricIssueSupplyModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -39,6 +39,7 @@ const ElectricIssueSupplyModal = ({ electricIssueSupplyModalShow, setElectricIss
             values.id = id;
             values.taskId = taskId;
             values.nape = 3;
+            values.taskName = taskName;
             ; (async () => {
                 const { code, msg } = await postSofPlanDetailCompleteTask(values);
                 if (code === '20000') {

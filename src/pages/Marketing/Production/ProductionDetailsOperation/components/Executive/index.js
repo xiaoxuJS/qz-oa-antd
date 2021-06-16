@@ -34,12 +34,14 @@ const Executive = ({taskId, id, taskName }) => {
             setExecutiveSignForEarketingModalShow = {setExecutiveSignForEarketingModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <ExecutiveIssueSkillModalShow 
             executiveIssueSkillModalShow = {executiveIssueSkillModalShow}
             setExecutiveIssueSkillModalShow = {setExecutiveIssueSkillModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
     </>
 }

@@ -20,7 +20,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
-const OneIssoe = ({ oneIssonShow, setOneIssonShow, taskId , id}) => {
+const OneIssoe = ({ oneIssonShow, setOneIssonShow, taskId , id, taskName}) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -38,6 +38,7 @@ const OneIssoe = ({ oneIssonShow, setOneIssonShow, taskId , id}) => {
             values.id = id;
             values.taskId = taskId;
             values.nape  = 0;
+            values.taskName  = taskName;
             ;(async () => {
                 const {code, msg} = await postSofPlanDetailCompleteTask(values);
                 if(code === '20000') {

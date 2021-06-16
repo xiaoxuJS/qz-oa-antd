@@ -6,7 +6,7 @@ import {
     ProductionLeaveWordAll,
     ProductionLeaveWordList
 } from './style';
-import { Button, message, PageHeader, Typography, Modal } from 'antd';
+import { Button, message, PageHeader, Typography, Modal, Empty } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
@@ -75,7 +75,7 @@ const ProductionLeaveWord = () => {
             }
         ></PageHeader>
         {
-            listData.map(item =>
+            listData.length > 0 ?   listData.map(item =>
                 <ProductionLeaveWordList key = {item.emitDepartment}>
                     <Title level={3}> {item.emitDepartment} </Title>
                     <div className='list-item' >
@@ -94,7 +94,7 @@ const ProductionLeaveWord = () => {
                             </p>)
                         }
                     </div>
-                </ProductionLeaveWordList>)
+                </ProductionLeaveWordList>) : <Empty description = '暂无留言'/>
         }
         <AddLeaveWordModal
             addLeaveWordModalShow={addLeaveWordModalShow}

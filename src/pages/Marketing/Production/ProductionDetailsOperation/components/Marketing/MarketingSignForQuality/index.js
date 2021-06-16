@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 
-const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketingSignForQualityModalShow, taskId, id }) => {
+const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketingSignForQualityModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -32,6 +32,7 @@ const MarketingSignForQuality = ({ marketingSignForQualityModalShow, setMarketin
             values.id = id;
             values.taskId = taskId;
             values.nape = 9;
+            values.taskName = taskName;
             values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             ; (async () => {
                 const { code, msg } = await putSofPlanDetailSignTask(values);

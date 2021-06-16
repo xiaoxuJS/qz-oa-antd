@@ -20,7 +20,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIssueWarehouseModalShow, taskId, id }) => {
+const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIssueWarehouseModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -36,6 +36,7 @@ const SupplyIssueWarehouseModal = ({ supplyIssueWarehouseModalShow, setSupplyIss
             values.id = id;
             values.taskId = taskId;
             values.nape = 4;
+            values.taskName = taskName;
             ; (async () => {
                 const { code, msg } = await postSofPlanDetailCompleteTask(values);
                 if (code === '20000') {

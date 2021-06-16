@@ -32,12 +32,14 @@ const Production = ({ taskId, id, taskName }) => {
             setProductionSignForMarketingModalShow={setProductionSignForMarketingModalShow}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
         <ProductionIssueQuality
             productionIssueQuality={productionIssueQuality}
             setProductionIssueQuality={setProductionIssueQuality}
             taskId={taskId}
             id={id}
+            taskName = {taskName}
         />
 
     </>

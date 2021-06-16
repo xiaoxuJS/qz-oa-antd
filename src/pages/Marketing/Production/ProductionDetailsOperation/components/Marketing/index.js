@@ -61,30 +61,35 @@ const Marketing = ({taskId, id, taskName }) => {
             setOneIssonShow = {setOneIssonShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <SignForWareHouseModal 
             signForWareHouseModalShow = {signForWareHouseModalShow}
             setSignForWareHouseModalShow = {setSignForWareHouseModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <MarketingIssueProductionModal 
             marketingIssueProductionModalShow = {marketingIssueProductionModalShow}
             setMarketingIssueProductionModalShow = {setMarketingIssueProductionModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <MarketingSignForQuality 
             marketingSignForQualityModalShow = {marketingSignForQualityModalShow}
             setMarketingSignForQualityModalShow = {setMarketingSignForQualityModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
         <DeliveryModal 
             deliveryModalShow = {deliveryModalShow}
             setDeliveryModalShow = {setDeliveryModalShow}
             taskId = {taskId}
             id = {id}
+            taskName = {taskName}
         />
     </>
 }

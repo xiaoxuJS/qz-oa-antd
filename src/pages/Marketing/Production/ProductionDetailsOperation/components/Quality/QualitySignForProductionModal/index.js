@@ -17,7 +17,7 @@ import moment from 'moment';
 
 const { TextArea } = Input;
 
-const QualitySignForProductionModal = ({ qualitySignForProductionModalShow, setQualitySignForProductionModalShow, taskId, id }) => {
+const QualitySignForProductionModal = ({ qualitySignForProductionModalShow, setQualitySignForProductionModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -35,6 +35,7 @@ const QualitySignForProductionModal = ({ qualitySignForProductionModalShow, setQ
             values.id = id;
             values.taskId = taskId;
             values.nape = 8;
+            values.taskName =taskName;
             values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             ; (async () => {
                 const { code, msg } = await putSofPlanDetailSignTask(values);

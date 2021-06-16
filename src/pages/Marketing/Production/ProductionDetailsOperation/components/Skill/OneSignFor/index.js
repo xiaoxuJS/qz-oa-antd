@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 
-const OneSignFor = ({ oneSignForShow, setOneSignForShow, taskId , id}) => {
+const OneSignFor = ({ oneSignForShow, setOneSignForShow, taskId , id, taskName}) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -31,6 +31,7 @@ const OneSignFor = ({ oneSignForShow, setOneSignForShow, taskId , id}) => {
             values.id = id;
             values.taskId = taskId;
             values.nape  = 2;
+            values.taskName  = taskName;
             values.targetDate = moment(values.targetDate).format('YYYY-MM-DD');
             console.log(values)
             ;(async () => {

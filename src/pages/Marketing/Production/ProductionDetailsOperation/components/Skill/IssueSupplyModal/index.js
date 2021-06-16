@@ -20,7 +20,7 @@ import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 // 技术部 下发 供应部
-const IssueSupplyModal = ({ nextStepSupply, setNextStepSupply, taskId, id }) => {
+const IssueSupplyModal = ({ nextStepSupply, setNextStepSupply, taskId, id, taskName }) => {
     const history = new useHistory();
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
@@ -50,6 +50,7 @@ const IssueSupplyModal = ({ nextStepSupply, setNextStepSupply, taskId, id }) => 
             values.id = id;
             values.taskId = taskId;
             values.nape  = 2;
+            values.taskName  = taskName;
             const arrayImgUrl = [];
             if(values.url) {
                 values.url.fileList.forEach(element => {

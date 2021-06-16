@@ -12,7 +12,7 @@ import {
     message
 } from 'antd';
 
-const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiveSignForEarketingModalShow, taskId, id }) => {
+const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiveSignForEarketingModalShow, taskId, id, taskName }) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -31,6 +31,7 @@ const SignForWareHouseModal = ({ executiveSignForEarketingModalShow, setExecutiv
             values.id = id;
             values.taskId = taskId;
             values.nape = 1;
+            values.taskName = taskName;
             ; (async () => {
                 const { code, msg } = await putSofPlanDetailSignTask(values);
                 if (code === '20000') {

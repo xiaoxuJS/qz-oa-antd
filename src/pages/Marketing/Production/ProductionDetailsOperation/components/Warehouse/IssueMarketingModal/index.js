@@ -19,7 +19,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
-const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalShow, taskId , id}) => {
+const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalShow, taskId , id, taskName}) => {
     const [form] = Form.useForm();
     const { validateFields, resetFields } = form;
     const history = new useHistory();
@@ -30,6 +30,7 @@ const IssueMarketingModal = ({ issueMarketingModalShow, setIssueMarketingModalSh
             values.id = id;
             values.taskId = taskId;
             values.nape  = 5;
+            values.taskName  = taskName;
             if(values.url) {
                 let arrayImgUrl = [];
                 values.url.fileList.forEach(element => {
