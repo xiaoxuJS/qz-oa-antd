@@ -78,13 +78,13 @@ const ProductionDelete = () => {
         },
         {
             title: '当前步骤',
-            render: (text, record) => (
-                <Space size="middle">
-                    {
-                        record.tasks.map(item => <span>{item.taskName}</span>)
-                    }
-                </Space>
-            )
+            render: (text, record )=> <>
+             {
+                record.tasks.map(item => <span>
+                    {item}
+                </span>)
+            }
+            </>
         },
         {
             title: '操作',

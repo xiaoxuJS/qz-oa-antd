@@ -8,6 +8,7 @@ import {
 // MATTER: 洽谈事项
 // DEPLOY: 部署类型
 // RESOURCE: 线索来源
+//HKLX: 付款类型
 
 export function getSysMarkFindMark(data) {
     const url = ip + '/sys-mark/find/mark';

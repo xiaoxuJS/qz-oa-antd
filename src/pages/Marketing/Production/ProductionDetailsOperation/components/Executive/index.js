@@ -17,9 +17,9 @@ const Executive = ({taskId, id, taskName }) => {
     }
     const buttonShow = () => {
         switch (taskName) {
-            case '高管签收':
+            case 'ECO【签收】':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStep()}>签收</Button></Col>;
-            case '高管审批':
+            case 'ECO【审批】':
                 return <Col span={3}><Button type='primary' onClick={() => hanldeNextStepExamine()}>审批</Button></Col>;
             default:
                 break;

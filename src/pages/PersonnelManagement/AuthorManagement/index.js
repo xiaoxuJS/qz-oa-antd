@@ -121,7 +121,7 @@ const AuthorManagement = () => {
             if (item.children) {
                 return (
                     <TreeNode checkable={false} title={item.title} key={item.key} dataRef={item}>
-                        { renderTreeNodes(item.children)}
+                        {renderTreeNodes(item.children)}
                     </TreeNode>
                 );
             }
@@ -187,7 +187,7 @@ const AuthorManagement = () => {
                         {
                             authorList.map(element => <Form.Item label={element.mainMenu} name={element.id}>
                                 <Checkbox.Group>
-                                    <Space>
+                                    <Space wrap>
                                         {
                                             element.tree.map(item => <Checkbox value={item.id} style={{ lineHeight: '32px' }}>
                                                 {item.mainMenu}
@@ -200,7 +200,7 @@ const AuthorManagement = () => {
                         <Form.Item {...tailLayout}>
                             <Button type="primary" htmlType="submit">
                                 修改
-        </Button>
+                            </Button>
                         </Form.Item>
                     </Form>
                 </div>

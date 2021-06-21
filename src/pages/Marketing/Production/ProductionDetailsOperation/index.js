@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getSofPlanDetailPlanDetail } from '../../../../Api/productionUrl';
-import {ip} from '../../../../Api/http'
+import { ip } from '../../../../Api/http'
 //营销中心操作
 import Marketing from './components/Marketing';
 //技术部
@@ -22,7 +22,7 @@ import Executive from './components/Executive'
 import {
     ProductionDetailsOperationAll
 } from './style';
-import { PageHeader, Typography, message, Row, Col, Button } from "antd";
+import { PageHeader, Typography, message, Row, Col, Button, Space } from "antd";
 
 const { Title } = Typography;
 
@@ -84,14 +84,17 @@ const ProductionDetailsOperation = () => {
             case '技术总监下发':
             case '技术部作业':
                 return <Skill taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '智能部签收': //电气智能签收
-            case '智能部作业': //下发供应部
-            case '生产签收(智能)': 
+            case '智能部签收':
+            case '智能部作业':
+            case '生产签收(智能)':
+            case '生产作业(智能)':
+            case '质检签收(智能)':
+            case '质检作业(智能)':
                 return <Electric taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '供应部签收(技术)': //供应部
-            case '供应部签收(智能)': //供应部
-            case '供应部作业(技术)': //供应部
-            case '供应部作业(智能)': //供应部
+            case '供应部签收(技术)':
+            case '供应部签收(智能)':
+            case '供应部作业(技术)':
+            case '供应部作业(智能)':
                 return <Supply taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
             case '生产签收(技术)':
             case '生产作业(技术)':
@@ -106,8 +109,8 @@ const ProductionDetailsOperation = () => {
             case '质检签收(技术)':
             case '质检作业(技术)':
                 return <Quality taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
-            case '高管签收':
-            case '高管审批':
+            case 'ECO【签收】':
+            case 'ECO【审批】':
                 return <Executive taskId={location.state.taskId} id={location.state.id} taskName={location.state.taskName} />
             default:
                 break;
@@ -119,10 +122,10 @@ const ProductionDetailsOperation = () => {
             title="生产计划详情"
             onBack={() => handleGoBack()}
             extra={[
-                <Button key="1" type = 'primary' onClick = {() => handleExport(true)}>预览计划</Button>,
-                <Button key="2" type = 'primary' onClick = {() => handleExport(false)}>导出计划</Button>
-                
-              ]}
+                <Button key="1" type='primary' onClick={() => handleExport(true)}>预览计划</Button>,
+                <Button key="2" type='primary' onClick={() => handleExport(false)}>导出计划</Button>
+
+            ]}
         ></PageHeader>
         <Typography>
             {
@@ -158,27 +161,58 @@ const ProductionDetailsOperation = () => {
                 detailAuxDTOS.map(item => (
                     <>
                         <Title level={3}>{item.work}</Title>
-                        <Row>
-                            {/* <Col span={3}>负责人:</Col>
-                            <Col span={21}>{item.operation}</Col>
-                            <Col span={3}>预计完成时间:</Col>
-                            <Col span={21}>{item.targetDate}</Col>
-                            <Col span={3}>开始时间:</Col>
-                            <Col span={21}> {item.receiptDate}</Col>
-                            <Col span={3}>实际完成时间:</Col>
-                            <Col span={21}>{item.practicalDate}</Col>
-                            <Col span={3}>批注:</Col>
-                            <Col span={21}>{item.comment}</Col>
-                            <Col span={3}>附件:</Col>
-                            <Col span={21}>
-                                <Space >
+                        {
+                            item.detailPlans.map(val => <>
+                                {
+                                    item.detailPlans.length > 1 ? <Title level={5} style={{ marginLeft: '20px' }}>{val.taskName}</Title> : null
+                                }
+                                <Row>
+                                    <Col span={3}>负责人:</Col>
+                                    <Col span={21}>{val.operation}</Col>
+                                    <Col span={3}>预计完成时间:</Col>
+                                    <Col span={21}>{val.targetDate}</Col>
+                                    <Col span={3}>开始时间:</Col>
+                                    <Col span={21}> {val.receiptDate}</Col>
+                                    <Col span={3}>实际完成时间:</Col>
+                                    <Col span={21}>{val.practicalDate}</Col>
                                     {
-                                        item.files.length > 0 && item.files.map(element => <a href={element.path} >{element.fileName}</a>)
+                                        val.day >= 0 ? <>
+                                            <Col span={3}>
+                                                剩余:
+                                            </Col>
+                                            <Col span={21}>
+                                                {val.day}天
+                                            </Col>
+                                        </> 
+                                        : 
+                                        <>
+                                            <Col span={3}>
+                                                逾期:
+                                            </Col>
+                                            <Col span={21}>
+                                                {Math.abs(val.day)}天
+                                            </Col>
+                                        </>
                                     }
-                                </Space>
-                            </Col> */}
 
-                        </Row>
+                                    <Col span={3}>批注:</Col>
+                                    <Col span={21}>{val.comment}</Col>
+                                    <Col span={3}>附件:</Col>
+                                    <Col span={21}>
+                                        <Space >
+                                            {
+                                                val.files.length > 0 && val.files.map(element => <a href={element.path} >{element.fileName}</a>)
+                                            }
+                                        </Space>
+                                    </Col>
+
+                                </Row>
+
+                            </>
+
+                            )
+                        }
+
                     </>
                 ))
             }

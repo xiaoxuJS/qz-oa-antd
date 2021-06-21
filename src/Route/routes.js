@@ -6,13 +6,24 @@ import Home from '../pages/Home'
 //营销管理
 //列表 --生产计划
 import Production from '../pages/Marketing/Production/Production';
-import ProductionOver from '../pages/Marketing/Production/ProductionOver'
+//已完成生产计划
+import ProductionOver from '../pages/Marketing/Production/ProductionOver';
+//全部生产计划浏览
+import ProductionAll from '../pages/Marketing/Production/ProductionAll'
 //列表 -- 已删除生产计划
 import ProductionDelete from '../pages/Marketing/Production/ProductionDelete'
 //详情操作
 import ProductionDetailsOperation from '../pages/Marketing/Production/ProductionDetailsOperation';
 //部门留言页面
-import ProductionLeaveWord from '../pages/Marketing/Production/ProductionLeaveWord'
+import ProductionLeaveWord from '../pages/Marketing/Production/ProductionLeaveWord';
+
+//生产终止页面
+//待处理停止页面
+import WaitingStopProduction from '../pages/Marketing/StopProduction/WaitingStopProduction';
+//已处理停止页面
+import WaitingStartProduction from '../pages/Marketing/StopProduction/WaitingStartProduction';
+//营销计划 其他
+import SendADuplicateTo from '../pages/Marketing/ElseList/SendADuplicateTo'
 
 //客户线索-我的线索-待处理
 import CluesCustomerAwait from "../pages/CluesCustomer/MyClue/CluesCustomerAwait";
@@ -149,6 +160,15 @@ const menuLeftProductionRouter = [
                 component: ProductionOver,
             },
             {
+                key: 'ProductionAll',
+                meta: {
+                    title: "全部计划",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/production/all",
+                component: ProductionAll,
+            },
+            {
                 key: 'productionDelete',
                 meta: {
                     title: "已删除",
@@ -156,6 +176,55 @@ const menuLeftProductionRouter = [
                 },
                 path: "/Production/delete",
                 component: ProductionDelete,
+            }
+        ],
+    },
+    {
+        key: 'stopProduction',
+        meta: {
+            title: "终止计划",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/waiting/stopProduction",
+        component: WaitingStopProduction,
+        page: [
+            {
+                key: 'waitingStopProduction',
+                meta: {
+                    title: "待审批",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/waiting/stopProduction",
+                component: WaitingStopProduction,
+            },
+            {
+                key: 'waitingStartProduction',
+                meta: {
+                    title: "已完成",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/waiting/startProduction",
+                component: WaitingStartProduction,
+            }
+        ],
+    },
+    {
+        key: 'elseList',
+        meta: {
+            title: "其他",
+            icon: <DatabaseOutlined />,
+        },
+        path: "/sendADuplicateTo",
+        component: SendADuplicateTo,
+        page: [
+            {
+                key: 'sendADuplicateTo',
+                meta: {
+                    title: "抄送",
+                    icon: <DatabaseOutlined />,
+                },
+                path: "/sendADuplicateTo",
+                component: SendADuplicateTo,
             }
         ],
     }

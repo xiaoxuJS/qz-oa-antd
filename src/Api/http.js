@@ -33,6 +33,7 @@ Axios.interceptors.response.use(
                 break;
             case 10019:
                 localStorage.removeItem('token');
+                window.open('/login', '_self');
                 break;
             default:
                 break;

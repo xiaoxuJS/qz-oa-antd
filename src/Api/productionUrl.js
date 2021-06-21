@@ -59,4 +59,29 @@ export function getSofPlanDeleteLeave(data) {
     const url = ip + '/sof-plan/delete/leave';
     return http(url, "get", data)
 }
+//终止生产计划
+export function postSofPlanSuOrAc(data) {
+    const url = ip + '/sof-plan/suOrAc';
+    return http(url, "post", data)
+}
+//终止生产计划List
+export function postSofPlanFindSuspend(data) {
+    const url = ip + '/sof-plan/find/suspend';
+    return http(url, "post", data)
+}
+//生产计划终止 - 审批
+export function postSofPlanExecuteApprove(data) {
+    const url = ip + '/sof-plan/executeApprove';
+    return http(url, "post", data)
+}
+//合同到账金额
+export function putSofPlanFundInsertFund(data) {
+    const url = ip + '/sof-plan-fund/insert/fund';
+    return http(url, "put", data)
+}
+//抄送财务List
+export function postSofPlanFindFinancial(data) {
+    const url = ip + '/sof-plan/find/financial';
+    return http(url, "post", data)
+}
 

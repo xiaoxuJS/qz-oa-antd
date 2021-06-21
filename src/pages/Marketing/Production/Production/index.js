@@ -7,7 +7,9 @@ import {
     getSofPlanDeletePlan
 } from '../../../../Api/productionUrl';
 import ProductionAdd from './components/ProductionAdd';
-import SelectProduction from './components/SelectProduction'
+import SelectProduction from './components/SelectProduction';
+import StopModal from './components/StopModal';
+import MoneyModal from './components/MoneyModal'
 import {
     ProductionAll
 } from './style';
@@ -21,6 +23,10 @@ const Production = () => {
     const [productionAddShow, setProductionAddShow] = useState(false);
     const [listData, setListData] = useState([]); //生产计划列表
     const [spinning, setSpinning] = useState(true);
+    const [stopModalShow, setStopModalShow] = useState(false); //终止modal
+    const [clickStopId, setClickStopId] = useState(null); //点击终止的id
+    const [moneyModalShow, setMoneyModalShow] = useState(false); //付款弹框
+    const [clickId, setClickId] = useState(null);
     const listFun = useCallback(
         (parames = {
             currentPage: 1,
@@ -71,7 +77,17 @@ const Production = () => {
     }
     //进入留言页面
     const handleLeaveWord = id => {
-        history.push({pathname: '/production/leaveWord', state:{planId: id}});
+        history.push({ pathname: '/production/leaveWord', state: { planId: id } });
+    }
+    //终止
+    const handleStop = id => {
+        setClickStopId(id);
+        setStopModalShow(true);
+    }
+    //付款
+    const handleMoney = id => {
+        setClickId(id);
+        setMoneyModalShow(true);
     }
     const columns = [
         {
@@ -108,16 +124,19 @@ const Production = () => {
             dataIndex: 'taskName'
         },
         {
+            title: '押金',
+            dataIndex: 'receipt'
+        },
+        {
             title: '操作',
             render: (text, record) => (
                 <Space size="middle">
                     <Button type='link' onClick={() => handleEnterDetails('operation', record.id, record.taskId, record.taskName)} >操作</Button>
-                    <Button type='link' danger onClick={() => handleDelete(record.id)}>终止</Button>
+                    <Button type='link' danger onClick={() => handleStop(record.id)}>终止</Button>
                     <Button type='link' onClick={() => handleLeaveWord(record.id)}>留言</Button>
                     <Button type='link' onClick={() => handleEnterDetails('details', record.id, record.taskId, record.taskName)}>查看</Button>
+                    <Button type='link' onClick={() => handleMoney(record.id)}>付款</Button>
                     <Button type='link' danger onClick={() => handleDelete(record.id)}>删除</Button>
-                    
-                    
                 </Space>
             ),
         },
@@ -143,12 +162,25 @@ const Production = () => {
         <SelectProduction />
         <Spin tip="Loading..." spinning={spinning}>
             <Table columns={columns} dataSource={listData} rowKey='id' />
-        </Spin>,
+        </Spin>
 
         <ProductionAdd
             productionAddShow={productionAddShow}
             productionAddFun={productionAddFun}
             listFun={listFun}
+        />
+
+        <StopModal
+            stopModalShow={stopModalShow}
+            setStopModalShow={setStopModalShow}
+            listFun={listFun}
+            clickStopId={clickStopId}
+        />
+        <MoneyModal
+            moneyModalShow={moneyModalShow}
+            setMoneyModalShow={setMoneyModalShow}
+            listFun={listFun}
+            clickId={clickId}
         />
     </ProductionAll>
 }
